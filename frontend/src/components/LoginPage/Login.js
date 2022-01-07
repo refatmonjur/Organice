@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../SignUpPage/firebase.js";
+import { auth } from "../../firebase.js";
 import {
   Grid,
   Paper,

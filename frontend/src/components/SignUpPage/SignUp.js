@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./firebase.js";
+import { auth } from "../../firebase.js";
 import {
   Grid,
   Paper,
