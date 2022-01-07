@@ -1,5 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "./firebase.js";
 import {
   Grid,
   Paper,
@@ -20,6 +22,24 @@ function SignUp() {
   const avatarStyle = { backgroundColor: "indigo" };
   const stylButn = { margin: "8px 0" };
   const stylField = { margin: "8px 0" };
+
+  const [registerFirstName, setRegisterFirstName] = useState("");
+  const [registerLastName, setRegisterLastName] = useState("");
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  const register = async () => {
+    try {
+      const user = await createUserWithEmailAndPassword(
+        auth,
+        registerEmail,
+        registerPassword
+      );
+      console.log(user);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div>
       <Grid className="login__container">
@@ -34,6 +54,9 @@ function SignUp() {
             fullWidth
             required
             style={stylField}
+            onChange={(event) => {
+              setRegisterFirstName(event.target.value);
+            }}
           />
           <TextField
             label="Last Name"
@@ -41,6 +64,9 @@ function SignUp() {
             fullWidth
             required
             style={stylField}
+            onChange={(event) => {
+              setRegisterLastName(event.target.value);
+            }}
           />
           <TextField
             label="Email"
@@ -48,6 +74,9 @@ function SignUp() {
             fullWidth
             required
             style={stylField}
+            onChange={(event) => {
+              setRegisterEmail(event.target.value);
+            }}
           />
           <TextField
             label="Password"
@@ -56,6 +85,9 @@ function SignUp() {
             fullWidth
             required
             style={stylField}
+            onChange={(event) => {
+              setRegisterPassword(event.target.value);
+            }}
           />
           <Button
             type="submit"
@@ -63,6 +95,7 @@ function SignUp() {
             variant="contained"
             halfWidth
             style={stylButn}
+            onClick={register}
           >
             Sign Up
           </Button>

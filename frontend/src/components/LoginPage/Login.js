@@ -1,4 +1,7 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../SignUpPage/firebase.js";
 import {
   Grid,
   Paper,
@@ -21,6 +24,22 @@ function Login() {
   const stylButn = { margin: "8px 0" };
   const stylField = { margin: "8px 0" };
 
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+
+  const login = async () => {
+    try {
+      const user = await signInWithEmailAndPassword(
+        auth,
+        loginEmail,
+        loginPassword
+      );
+      console.log(user);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div className="login">
       <div className="app__header"></div>
@@ -36,6 +55,9 @@ function Login() {
             fullWidth
             required
             style={stylField}
+            onChange={(event) => {
+              setLoginEmail(event.target.value);
+            }}
           />
           <TextField
             label="Password"
@@ -44,6 +66,9 @@ function Login() {
             fullWidth
             required
             style={stylField}
+            onChange={(event) => {
+              setLoginPassword(event.target.value);
+            }}
           />
           <Button
             type="submit"
@@ -51,6 +76,7 @@ function Login() {
             variant="contained"
             halfWidth
             style={stylButn}
+            onClick={login}
           >
             Sign in
           </Button>
