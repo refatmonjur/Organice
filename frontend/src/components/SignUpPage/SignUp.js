@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase.js";
+import Swal from "sweetalert2";
 import {
   Grid,
   Paper,
@@ -34,9 +35,9 @@ function SignUp() {
         registerEmail,
         registerPassword
       );
-      console.log(user);
+      Swal.fire({ icon: "success", title: "Registration Successful" });
     } catch (error) {
-      console.log(error.message);
+      Swal.fire({ icon: "error", title: error.message });
     }
   };
 
@@ -102,7 +103,7 @@ function SignUp() {
           <Typography>
             {" "}
             Already have an account?
-            <Link href="./" underline="hover">
+            <Link href="./login" underline="hover">
               {"Sign In"}
             </Link>
           </Typography>

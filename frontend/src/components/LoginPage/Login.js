@@ -2,6 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase.js";
+import Swal from "sweetalert2";
+import { useHistory } from "react-router-dom";
 import {
   Grid,
   Paper,
@@ -14,6 +16,7 @@ import {
 import "./Login.css";
 
 function Login() {
+  let history = useHistory();
   const paperStyle = {
     padding: 20,
     height: "50vh",
@@ -34,9 +37,10 @@ function Login() {
         loginEmail,
         loginPassword
       );
+      history.push("/");
       console.log(user);
     } catch (error) {
-      console.log(error.message);
+      Swal.fire({ icon: "error", title: error.message });
     }
   };
 
