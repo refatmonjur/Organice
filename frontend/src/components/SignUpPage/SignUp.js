@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase.js";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import Swal from "sweetalert2";
 import {
   Grid,
@@ -56,10 +56,7 @@ function SignUp() {
     }
   };
 
-  //   // )console.log(error);
 
-  //   // }
-  // };
 
   return (
     <div>

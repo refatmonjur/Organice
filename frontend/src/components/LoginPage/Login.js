@@ -4,6 +4,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase.js";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
+import { createUserWithEmailAndPassword , signInWithRedirect,signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import {
   Grid,
   Paper,
@@ -52,6 +53,21 @@ function Login() {
       }
     }
   };
+ 
+  const googleProvider = new GoogleAuthProvider();
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, googleProvider).then((res) => {
+      console.log(res.user)
+      // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(res);
+    const token = credential.accessToken;
+    // The signed-in user info.
+    const user = res.user;
+    }).catch((error) => {
+      console.log(error.message)
+    })
+  };
+ 
 
   return (
     <div className="login">
@@ -94,6 +110,16 @@ function Login() {
             Sign in
           </Button>
 
+          <Button
+            type="submit"
+            color="success"
+            variant="contained"
+            halfWidth
+            style={stylButn}
+            onClick={signInWithGoogle}
+          >
+            Sign in with Google
+          </Button>
           <Typography>
             {" "}
             Don't have an Account?
