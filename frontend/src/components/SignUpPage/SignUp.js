@@ -37,9 +37,29 @@ function SignUp() {
       );
       Swal.fire({ icon: "success", title: "Registration Successful" });
     } catch (error) {
-      Swal.fire({ icon: "error", title: error.message });
+      console.log(error.code);
+      switch (error.code) {
+        case "auth/email-already-in-use":
+          console.log(error.message);
+          return Swal.fire({ icon: "error", title: "Email already exists" });
+        case "auth/invalid-email":
+          return Swal.fire({ icon: "error", title: "Invalid email" });
+        case "auth/weak-password":
+          return Swal.fire({
+            icon: "error",
+            title: "Password should be at least 6 characters",
+          });
+
+        default:
+          return Swal.fire({ icon: "error", title: "Something went wrong" });
+      }
     }
   };
+
+  //   // )console.log(error);
+
+  //   // }
+  // };
 
   return (
     <div>

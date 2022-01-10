@@ -37,10 +37,19 @@ function Login() {
         loginEmail,
         loginPassword
       );
-      history.push("/");
+      history.push("/home");
       console.log(user);
     } catch (error) {
-      Swal.fire({ icon: "error", title: error.message });
+      console.log(error.code);
+      switch (error.code) {
+        case "auth/wrong-password":
+          console.log(error.message);
+          return Swal.fire({ icon: "error", title: "Email already exists" });
+        case "auth/invalid-email":
+          return Swal.fire({ icon: "error", title: "Invalid email" });
+        default:
+          return Swal.fire({ icon: "error", title: "Something went wrong" });
+      }
     }
   };
 
