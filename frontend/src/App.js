@@ -20,11 +20,20 @@ function App() {
             <Route path="/" exact component={Home} />
             <Route path="/login" exact component={Login} />
             <Route path="/signup" exact component={SignUp} />
-            <Route path="/flashcard" exact component={Flashcard} />
-            <Route path="/todo" exact component={ToDo} />
-            <Route path="/calendar" exact component={Calendar} />
+            {/* <Route path="/flashcard" exact component={Flashcard} /> */}
+            {/* <Route path="/todo" exact component={ToDo} />
+            <Route path="/calendar" exact component={Calendar} /> */}
             <ProtectedRoute path="/home">
               <NewHome />
+            </ProtectedRoute>
+            <ProtectedRoute path="/flashcard">
+              <Flashcard />
+            </ProtectedRoute>
+            <ProtectedRoute path="/todo">
+              <ToDo />
+            </ProtectedRoute>
+            <ProtectedRoute path="/calendar">
+              <Calendar />
             </ProtectedRoute>
           </Switch>
         </Router>

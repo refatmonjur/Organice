@@ -15,6 +15,8 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { makeStyles } from "@mui/styles";
 import "./Navbar.css";
+import { useUserAuth } from "../Context/UserAuthContext";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   header: {
@@ -48,7 +50,17 @@ function Navbar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const { logOut } = useUserAuth();
 
+  const history = useHistory();
+  const Logout = async () => {
+    try {
+      await logOut();
+      history.push("/");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <AppBar position="static" className={classes.header}>
       <Container maxWidth="xl">
@@ -183,11 +195,12 @@ function Navbar() {
                   Account
                 </Link>
               </MenuItem>
-              <MenuItem key="logout" onClick={handleCloseNavMenu}>
+              {/* <MenuItem key="logout" onClick={(Logout, handleCloseNavMenu)}>
                 <Link to="/" className="menuOptions" textAlign="center">
                   Logout
                 </Link>
-              </MenuItem>
+              </MenuItem> */}
+              <MenuItem onClick={Logout}>Log Out</MenuItem>
             </Menu>
           </Box>
         </Toolbar>
