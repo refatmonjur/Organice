@@ -6,6 +6,7 @@ import Home from "./components/HomePage/Home";
 import ToDo from "./components/TodoPage/todo";
 import Calendar from "./components/CalendarPage/Calendar";
 import Flashcard from "./components/FlashcardsPage/Flashcard";
+import NewUserTodo from "./components/TodoPage/NewUserTodo";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/flashcard" exact component={Flashcard} />
           <Route path="/todo" exact component={ToDo} />
           <Route path="/calendar" exact component={Calendar} />
+          <Route path="/newTodo" exact component={NewUserTodo} />
           {/* <Route path= "*" exact component={PageNotFound} />  */}
         </Switch>
       </Router>
