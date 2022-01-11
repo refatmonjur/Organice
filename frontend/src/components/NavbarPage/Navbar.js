@@ -15,6 +15,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { makeStyles } from "@mui/styles";
 import "./Navbar.css";
+import Logo from "./test_logo.png";
 
 const useStyles = makeStyles({
   header: {
@@ -53,13 +54,17 @@ function Navbar() {
     <AppBar position="static" className={classes.header}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          {/* <div>
+            <img src={Logo} width={80} />
+          </div> */}
           <Typography
             variant="h6"
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-            Organice
-          </Typography>{" "}
+            <img src={Logo} width="100" height="80" />
+          </Typography>
+          {""}
           {/* comment */}
           {/* When Browser is Smaller */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
