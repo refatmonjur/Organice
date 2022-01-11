@@ -5,10 +5,17 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import Swal from "sweetalert2";
 import { useUserAuth } from "../Context/UserAuthContext";
 // import { Link, useNavigate } from "react-router-dom";
-import {Grid,Paper,Avatar,TextField,Button,Typography, Link} from "@mui/material";
+import {
+  Grid,
+  Paper,
+  Avatar,
+  TextField,
+  Button,
+  Typography,
+  Link,
+} from "@mui/material";
 import "./SignUp.css";
 import { useHistory } from "react-router-dom";
-
 
 function SignUp() {
   const paperStyle = {
@@ -21,7 +28,6 @@ function SignUp() {
   const stylButn = { margin: "8px 0" };
   const stylField = { margin: "8px 0" };
 
-
   const [error, setError] = useState("");
   const [registerFirstName, setRegisterFirstName] = useState("");
   const [registerLastName, setRegisterLastName] = useState("");
@@ -29,21 +35,32 @@ function SignUp() {
   const [registerPassword, setRegisterPassword] = useState("");
   const { signUp } = useUserAuth();
 
-  
   let history = useHistory();
-// new sign up method:
-const register = async (e) => {
-  e.preventDefault();
-  setError("");
-  try {
-    await signUp(registerEmail, registerPassword);
-    history.push("/home");
-  } catch (err) {
-    setError(err.message);
-  }
-};
-
-
+  // new sign up method:
+  const register = async (e) => {
+    e.preventDefault();
+    setError("");
+    try {
+      await signUp(registerEmail, registerPassword);
+      history.push("/home");
+    } catch (error) {
+      // setError(err.message);
+      switch (error.code) {
+        case "auth/email-already-in-use":
+          // console.log(error.message);
+          return Swal.fire({ icon: "error", title: "Email already exists" });
+        case "auth/invalid-email":
+          return Swal.fire({ icon: "error", title: "Invalid email" });
+        case "auth/weak-password":
+          return Swal.fire({
+            icon: "error",
+            title: "Password should be at least 6 characters",
+          });
+        default:
+          return Swal.fire({ icon: "error", title: "Something went wrong" });
+      }
+    }
+  };
 
   // const register = async () => {
   //   try {
@@ -72,8 +89,6 @@ const register = async (e) => {
   //     }
   //   }
   // };
-
-
 
   return (
     <div>

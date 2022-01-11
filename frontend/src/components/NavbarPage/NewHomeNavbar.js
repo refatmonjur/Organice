@@ -18,7 +18,7 @@ import "./Navbar.css";
 
 const useStyles = makeStyles({
   header: {
-    backgroundColor: "blue",
+    // backgroundColor: "blue",
     color: "black",
     boxShadow: "0px 0px 0px 0px",
   },
