@@ -15,6 +15,10 @@ import {
   Link,
 } from "@mui/material";
 import "./Login.css";
+import GoogleButton from 'react-google-button'
+
+
+
 
 function Login() {
   let history = useHistory();
@@ -63,6 +67,7 @@ function Login() {
     const token = credential.accessToken;
     // The signed-in user info.
     const user = res.user;
+    history.push("/home");
     }).catch((error) => {
       console.log(error.message)
     })
@@ -109,8 +114,8 @@ function Login() {
           >
             Sign in
           </Button>
-
-          <Button
+          
+          {/* <GoogleButton
             type="submit"
             color="success"
             variant="contained"
@@ -119,7 +124,12 @@ function Login() {
             onClick={signInWithGoogle}
           >
             Sign in with Google
-          </Button>
+          </GoogleButton> */}
+
+          <GoogleButton
+  type="dark" // can be light or dark
+  onClick={signInWithGoogle}/>
+
           <Typography>
             {" "}
             Don't have an Account?
