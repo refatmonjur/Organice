@@ -1,0 +1,21 @@
+.newUserTodo {
+}
+.newUserTodo__middle {
+  background-color: rgb(19, 73, 173);
+  height: 100px;
+  margin-top: 30px;
+  margin-left: 200px;
+  margin-right: 200px;
+  border-radius: 20px;
+}
+.newUserTodo__button {
+
+}
+.newUserTodo__bottom {
+    height: 300px;
+    margin-top: 45px;
+    margin-left: 200px;
+    margin-right: 200px;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+}
