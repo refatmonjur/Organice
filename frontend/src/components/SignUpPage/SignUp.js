@@ -1,7 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase.js";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import Swal from "sweetalert2";
 import {
   Grid,
   Paper,
@@ -34,11 +35,28 @@ function SignUp() {
         registerEmail,
         registerPassword
       );
-      console.log(user);
+      Swal.fire({ icon: "success", title: "Registration Successful" });
     } catch (error) {
-      console.log(error.message);
+      console.log(error.code);
+      switch (error.code) {
+        case "auth/email-already-in-use":
+          console.log(error.message);
+          return Swal.fire({ icon: "error", title: "Email already exists" });
+        case "auth/invalid-email":
+          return Swal.fire({ icon: "error", title: "Invalid email" });
+        case "auth/weak-password":
+          return Swal.fire({
+            icon: "error",
+            title: "Password should be at least 6 characters",
+          });
+
+        default:
+          return Swal.fire({ icon: "error", title: "Something went wrong" });
+      }
     }
   };
+
+
 
   return (
     <div>
@@ -102,7 +120,7 @@ function SignUp() {
           <Typography>
             {" "}
             Already have an account?
-            <Link href="./" underline="hover">
+            <Link href="./login" underline="hover">
               {"Sign In"}
             </Link>
           </Typography>

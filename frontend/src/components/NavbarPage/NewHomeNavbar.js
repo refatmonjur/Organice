@@ -144,7 +144,7 @@ function Navbar() {
                 Calendar
               </Link>
             </Button>
-            <Button
+            {/* <Button
               key="Get Started"
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
@@ -153,7 +153,7 @@ function Navbar() {
               <Link to="/signup" className="nabBarOptions">
                 Get Started
               </Link>
-            </Button>
+            </Button> */}
           </Box>
           {/* User Account Options */}
           <Box sx={{ flexGrow: 0 }}>

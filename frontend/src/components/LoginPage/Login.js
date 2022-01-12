@@ -2,6 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase.js";
+import Swal from "sweetalert2";
+import { useHistory } from "react-router-dom";
+import { createUserWithEmailAndPassword , signInWithRedirect,signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import {
   Grid,
   Paper,
@@ -14,6 +17,7 @@ import {
 import "./Login.css";
 
 function Login() {
+  let history = useHistory();
   const paperStyle = {
     padding: 20,
     height: "50vh",
@@ -34,11 +38,36 @@ function Login() {
         loginEmail,
         loginPassword
       );
+      history.push("/home");
       console.log(user);
     } catch (error) {
-      console.log(error.message);
+      console.log(error.code);
+      switch (error.code) {
+        case "auth/wrong-password":
+          console.log(error.message);
+          return Swal.fire({ icon: "error", title: "Email already exists" });
+        case "auth/invalid-email":
+          return Swal.fire({ icon: "error", title: "Invalid email" });
+        default:
+          return Swal.fire({ icon: "error", title: "Something went wrong" });
+      }
     }
   };
+ 
+  const googleProvider = new GoogleAuthProvider();
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, googleProvider).then((res) => {
+      console.log(res.user)
+      // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(res);
+    const token = credential.accessToken;
+    // The signed-in user info.
+    const user = res.user;
+    }).catch((error) => {
+      console.log(error.message)
+    })
+  };
+ 
 
   return (
     <div className="login">
@@ -81,6 +110,16 @@ function Login() {
             Sign in
           </Button>
 
+          <Button
+            type="submit"
+            color="success"
+            variant="contained"
+            halfWidth
+            style={stylButn}
+            onClick={signInWithGoogle}
+          >
+            Sign in with Google
+          </Button>
           <Typography>
             {" "}
             Don't have an Account?
