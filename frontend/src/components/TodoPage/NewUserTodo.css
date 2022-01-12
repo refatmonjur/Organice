@@ -9,6 +9,9 @@
   border-radius: 20px;
 }
 
+.newUserTodo__button {
+margin-left: 1000px !important;
+}
 .newUserTodo__bottom {
     height: 300px;
     margin-top: 45px;
