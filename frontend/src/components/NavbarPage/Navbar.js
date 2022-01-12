@@ -15,7 +15,9 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { makeStyles } from "@mui/styles";
 import "./Navbar.css";
-
+import Logo from "./test_logo.png";
+import { useUserAuth } from "../Context/UserAuthContext";
+import { useHistory } from "react-router-dom";
 const useStyles = makeStyles({
   header: {
     backgroundColor: "blue",
@@ -48,18 +50,32 @@ function Navbar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const { logOut } = useUserAuth();
 
+  const history = useHistory();
+  const Logout = async () => {
+    try {
+      await logOut();
+      history.push("/");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <AppBar position="static" className={classes.header}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          {/* <div>
+            <img src={Logo} width={80} />
+          </div> */}
           <Typography
             variant="h6"
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-            Organice
-          </Typography>{" "}
+            <img src={Logo} width="100" height="80" />
+          </Typography>
+          {""}
           {/* comment */}
           {/* When Browser is Smaller */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -183,7 +199,7 @@ function Navbar() {
                   Account
                 </Link>
               </MenuItem>
-              <MenuItem key="logout" onClick={handleCloseNavMenu}>
+              <MenuItem key="logout" onClick={(Logout, handleCloseNavMenu)}>
                 <Link to="/" className="menuOptions" textAlign="center">
                   Logout
                 </Link>
