@@ -61,10 +61,11 @@ const ToDo = () => {
     }
   
     return (
-      <div id="todo-list">
-        <div>
+      <div>
           <Navbar />
-        </div>
+        
+      <div id="todo-list">
+        
         <h1>Todo List</h1>
         <form onSubmit={handleSubmit}>
           <input
@@ -103,6 +104,7 @@ const ToDo = () => {
             </div>
           </div>
         ))}
+      </div>
       </div>
     );
   };
