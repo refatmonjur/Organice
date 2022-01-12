@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../NavbarPage/Navbar";
 import "./NewUserTodo.css";
 import image from "./task.png";
+import { Button } from '@mui/material';
 
 
 function NewUserTodo() {
@@ -12,13 +13,22 @@ function NewUserTodo() {
       </div>
 
       <div className="newUserTodo__middle">
-        this is my middle
+        Welcome to the to-do list section.
+        Begin creating your list here:
+        {/* TEXT */}
+        <Button variant="contained" start making list>
+         Start making list
+      </Button>
+        {/* button */}
+      </div>
+      <div className="newUserTodo__button">
+      
         {/* TEXT */}
         {/* button */}
       </div>
 
       <div className="newUserTodo__bottom">
-      <img src = {image} height = "450" width= "600" />
+      <img src = {image} />
         {/* last section */}
         {/* IMAGE */}
       </div>
