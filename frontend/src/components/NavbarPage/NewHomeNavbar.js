@@ -140,9 +140,9 @@ function Navbar() {
               key="To-do List"
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
-              path="/signup"
+              path="/newTodo"
             >
-              <Link to="/todo" className="nabBarOptions">
+              <Link to="/newTodo" className="nabBarOptions">
                 To-do List
               </Link>
             </Button>
