@@ -19,6 +19,7 @@ function Home() {
                 <Header/>
             </div>
             <Information/>
+            <div/>
             <Meet/>
             <Footer/>
         </div>
