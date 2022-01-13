@@ -75,7 +75,6 @@ function Navbar() {
           >
             <img src={Logo} width="100" height="80" />
           </Typography>
-          {""}
           {/* comment */}
           {/* When Browser is Smaller */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>

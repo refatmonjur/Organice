@@ -17,6 +17,7 @@ import { makeStyles } from "@mui/styles";
 import "./Navbar.css";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { useHistory } from "react-router-dom";
+import Logo from "./test_logo.png";
 
 const useStyles = makeStyles({
   header: {
@@ -70,8 +71,8 @@ function Navbar() {
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-            Organice
-          </Typography>{" "}
+            <img src={Logo} width="100" height="80" />
+          </Typography>
           {/* comment */}
           {/* When Browser is Smaller */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>

@@ -1,12 +1,11 @@
 import React from "react";
-import Navbar from "../NavbarPage/Navbar";
+import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
 
 function Flashcard() {
   return (
     <div>
       <div>
-        {" "}
-        <Navbar />{" "}
+        <NewHomeNavbar />
       </div>
     </div>
   );

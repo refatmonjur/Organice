@@ -35,7 +35,10 @@ function App() {
             <ProtectedRoute path="/calendar">
               <Calendar />
             </ProtectedRoute>
-            <Route path="/newTodo" exact component={NewUserTodo} />
+            <ProtectedRoute path="/newTodo">
+              <NewUserTodo />
+            </ProtectedRoute>
+            {/* <Route path="/newTodo" exact component={NewUserTodo} /> */}
           </Switch>
         </Router>
       </UserAuthContextProvider>

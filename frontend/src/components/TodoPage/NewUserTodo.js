@@ -1,14 +1,13 @@
 import React from "react";
-import Navbar from "../NavbarPage/Navbar";
+import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
 import "./NewUserTodo.css";
 import image from "./task.png";
-
 
 function NewUserTodo() {
   return (
     <div className="newUserTodo">
       <div>
-        <Navbar />
+        <NewHomeNavbar />
       </div>
 
       <div className="newUserTodo__middle">
@@ -18,7 +17,7 @@ function NewUserTodo() {
       </div>
 
       <div className="newUserTodo__bottom">
-      <img src = {image} height = "450" width= "600" />
+        <img src={image} height="450" width="600" />
         {/* last section */}
         {/* IMAGE */}
       </div>
