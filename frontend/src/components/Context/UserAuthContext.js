@@ -18,7 +18,15 @@ export function UserAuthContextProvider({ children }) {
     return signInWithEmailAndPassword(auth, email, password);
   }
   function signUp(email, password) {
-    return createUserWithEmailAndPassword(auth, email, password);
+    const ret2 = createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      let ret1 = userCredential.user.uid
+      return ret1
+    })
+    .catch((error) => {
+      console.log(error.message)
+    });
+    return ret2
   }
   function logOut() {
     return signOut(auth);
