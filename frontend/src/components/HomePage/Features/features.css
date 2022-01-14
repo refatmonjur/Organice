@@ -33,6 +33,7 @@
 
 .organice__features-container_feature-text {
     flex: 2;
+    text-align: justify;
     max-width: 390px;
     display: flex;
 }

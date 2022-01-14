@@ -12,7 +12,6 @@ function Information() {
                 <h1 className='gradient__text'>
                     What Organice has to offer
                 </h1>
-
                 <p><Features/></p>
             </div>
 
