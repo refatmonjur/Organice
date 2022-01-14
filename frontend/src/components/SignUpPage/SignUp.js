@@ -1,8 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { auth } from "../../firebase.js";
+import { auth } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Swal from "sweetalert2";
+import { useUserAuth } from "../Context/UserAuthContext";
+// import { Link, useNavigate } from "react-router-dom";
 import {
   Grid,
   Paper,
@@ -13,6 +15,8 @@ import {
   Link,
 } from "@mui/material";
 import "./SignUp.css";
+import { useHistory } from "react-router-dom";
+
 function SignUp() {
   const paperStyle = {
     padding: 20,
@@ -24,23 +28,26 @@ function SignUp() {
   const stylButn = { margin: "8px 0" };
   const stylField = { margin: "8px 0" };
 
+  const [error, setError] = useState("");
   const [registerFirstName, setRegisterFirstName] = useState("");
   const [registerLastName, setRegisterLastName] = useState("");
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
-  const register = async () => {
+  const { signUp } = useUserAuth();
+
+  let history = useHistory();
+  // new sign up method:
+  const register = async (e) => {
+    e.preventDefault();
+    setError("");
     try {
-      const user = await createUserWithEmailAndPassword(
-        auth,
-        registerEmail,
-        registerPassword
-      );
-      Swal.fire({ icon: "success", title: "Registration Successful" });
+      await signUp(registerEmail, registerPassword);
+      history.push("/home");
     } catch (error) {
-      console.log(error.code);
+      // setError(err.message);
       switch (error.code) {
         case "auth/email-already-in-use":
-          console.log(error.message);
+          // console.log(error.message);
           return Swal.fire({ icon: "error", title: "Email already exists" });
         case "auth/invalid-email":
           return Swal.fire({ icon: "error", title: "Invalid email" });
@@ -49,14 +56,39 @@ function SignUp() {
             icon: "error",
             title: "Password should be at least 6 characters",
           });
-
         default:
           return Swal.fire({ icon: "error", title: "Something went wrong" });
       }
     }
   };
 
+  // const register = async () => {
+  //   try {
+  //     const user = await createUserWithEmailAndPassword(
+  //       auth,
+  //       registerEmail,
+  //       registerPassword
+  //     );
+  //     Swal.fire({ icon: "success", title: "Registration Successful" });
+  //   } catch (error) {
+  //     console.log(error.code);
+  //     switch (error.code) {
+  //       case "auth/email-already-in-use":
+  //         console.log(error.message);
+  //         return Swal.fire({ icon: "error", title: "Email already exists" });
+  //       case "auth/invalid-email":
+  //         return Swal.fire({ icon: "error", title: "Invalid email" });
+  //       case "auth/weak-password":
+  //         return Swal.fire({
+  //           icon: "error",
+  //           title: "Password should be at least 6 characters",
+  //         });
 
+  //       default:
+  //         return Swal.fire({ icon: "error", title: "Something went wrong" });
+  //     }
+  //   }
+  // };
 
   return (
     <div>
