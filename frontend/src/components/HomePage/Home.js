@@ -21,6 +21,7 @@ function Home() {
             <Information/>
             <div/>
             <Meet/>
+            <div style={{padding: 25}}/>
             <Footer/>
         </div>
     )

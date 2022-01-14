@@ -14,16 +14,14 @@ function Meet() {
       <div className='organice__mtt-heading'>
         <h1 className='gradient__text'>The Organice Team</h1>
       </div>
-      <div className='oraganice__team'>
+      <div className='organice__team'>
         {/* JUSTIN */}
         <div className='member'>
-          <img
-            className='reize'
-            src={imageJustin}
+          <img src={imageJustin}
             style={{
               width: 275,
               height: 275,
-              borderRadius: 30,
+              borderRadius: 200,
               border: '3px ridge '
             }} />
           <div className='member-content'>
@@ -38,7 +36,7 @@ function Meet() {
               style={{
                 width: 275,
                 height: 275,
-                borderRadius: 30,
+                borderRadius: 200,
                 border: '3px ridge '
               }}
             />
@@ -56,7 +54,7 @@ function Meet() {
               style={{
                 width: 275,
                 height: 275,
-                borderRadius: 30,
+                borderRadius: 200,
                 border: '3px ridge '
               }}
             />
@@ -73,7 +71,7 @@ function Meet() {
             style={{
               width: 275,
               height: 275,
-              borderRadius: 30,
+              borderRadius: 200,
               border: '3px ridge '
             }}
           />

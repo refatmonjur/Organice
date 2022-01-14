@@ -3,9 +3,9 @@ import './footer.css';
 
 function Footer() {
     return (
-        <div className="organice__footer section__padding">
+        <div className="organice__footer ">
             <div className="organice__footer-heading">
-                <h1 className="gradient__text">This is a project made for Senior Project 1 and 2</h1>
+                <h1 className="gradient__text">This website is created for Senior Project 1 and 2</h1>
             </div>
 
             <div className="organice__footer-links">
