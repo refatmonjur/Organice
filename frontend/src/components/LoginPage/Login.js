@@ -118,7 +118,7 @@ function Login() {
       const userid = await googleSignIn();
       console.log(userid);
       var data = {
-        firstName: userid[1],
+        firstName: userid[2],
         lastName: "",
       };
       await setDoc(doc(db, "user", userid[0]), data);

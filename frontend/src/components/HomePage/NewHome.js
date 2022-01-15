@@ -64,10 +64,10 @@ function NewHome() {
       <div className="p-4 box mt-3 text-center">
         Hello Welcome <br />
         {user && user.uid}
-        {todos.map((users) => {
+        {currentUser.map((users) => {
           return (
             <div>
-              <h1>firstName: {users.title}</h1>
+              <h1>firstName: {users.firstName}</h1>
               {/* <h1>lastName: {users.lastName}</h1> */}
             </div>
           );

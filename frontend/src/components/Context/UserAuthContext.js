@@ -43,10 +43,15 @@ export function UserAuthContextProvider({ children }) {
     const googleAuthProvider = new GoogleAuthProvider();
     const ret2 = signInWithPopup(auth, googleAuthProvider)
       .then((userCredential) => {
+        // let crede = googleAuthProvider.credentialFormResult(userCredential);
+        // console.log("crede");
+        // console.log(crede);
+        let user = userCredential.user.displayName;
+        console.log("user");
+        console.log(user);
         let ret1 = userCredential.user.uid;
         let ret5 = userCredential.user.email;
-      
-        return [ret1, ret5];
+        return [ret1, ret5, user];
       })
       .catch((error) => {
         console.log(error.message);
