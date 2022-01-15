@@ -15,25 +15,43 @@ export function UserAuthContextProvider({ children }) {
   const [user, setUser] = useState({});
 
   function logIn(email, password) {
-    return signInWithEmailAndPassword(auth, email, password);
+    const retuid = signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        let ret1 = userCredential.user.uid;
+        return ret1;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+    return retuid;
   }
   function signUp(email, password) {
     const ret2 = createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      let ret1 = userCredential.user.uid
-      return ret1
-    })
-    .catch((error) => {
-      console.log(error.message)
-    });
-    return ret2
+      .then((userCredential) => {
+        let ret1 = userCredential.user.uid;
+        return ret1;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+    return ret2;
   }
   function logOut() {
     return signOut(auth);
   }
   function googleSignIn() {
     const googleAuthProvider = new GoogleAuthProvider();
-    return signInWithPopup(auth, googleAuthProvider);
+    const ret2 = signInWithPopup(auth, googleAuthProvider)
+      .then((userCredential) => {
+        let ret1 = userCredential.user.uid;
+        let ret5 = userCredential.user.email;
+      
+        return [ret1, ret5];
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+    return ret2;
   }
 
   useEffect(() => {
