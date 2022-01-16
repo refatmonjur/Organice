@@ -11,33 +11,35 @@ function NewHome() {
   const useruiid = user.uid;
   // const userCollectionRef = doc(db, "user", "FxfgfcgsziWsOWCUxU2ZaA57lU02");
   const [currentUser, setCurrentUser] = useState([]);
-  const [todos, setTodos] = useState([]);
+  // const [todos, setTodos] = useState([]);
   // "FxfgfcgsziWsOWCUxU2ZaA57lU02"
-  const getUsers = async (db) => {
-    const userCollectionRef = doc(db, "user", user.uid);
-    const data = await getDoc(userCollectionRef);
+  async function getUsers(db) {
+    const userDocRef = doc(db, "user", user.uid);
+    const data = await getDoc(userDocRef);
+    console.log(data);
     const fields = [];
     fields.push(data.data());
+    console.log(fields);
     setCurrentUser(fields);
-  };
-  async function getStudentRecords(db) {
-    const recordCol = collection(db, "user", user.uid, "todos");
-    // setLoading(true);
-    onSnapshot(recordCol, (querySnapshot) => {
-      const record = [];
-      querySnapshot.forEach((doc) => {
-        record.push(doc.data());
-      });
-      console.log(record);
-      setTodos(record);
-      // setStudentRecord(record);
-    });
-    // setLoading(false);
   }
+  // async function getStudentRecords(db) {
+  //   const recordCol = collection(db, "user", user.uid, "todos");
+  //   // setLoading(true);
+  //   onSnapshot(recordCol, (querySnapshot) => {
+  //     const record = [];
+  //     querySnapshot.forEach((doc) => {
+  //       record.push(doc.data());
+  //     });
+  //     console.log(record);
+  //     setTodos(record);
+  //     // setStudentRecord(record);
+  //   });
+  //   // setLoading(false);
+  // }
 
   useEffect(() => {
     getUsers(db);
-    getStudentRecords(db);
+    // getStudentRecords(db);
   }, []);
 
   //  /// this is scrapwork

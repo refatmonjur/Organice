@@ -71,7 +71,12 @@ function Navbar() {
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-            <img src={Logo} width="100" height="80" />
+            <Link to="/home">
+              <img src={Logo} width="100" height="80" />
+            </Link>
+            {/* <img src={Logo} width="100" height="80" /> */}
+
+            {/* <img src={Logo} width="100" height="80" /> */}
           </Typography>
           {/* comment */}
           {/* When Browser is Smaller */}
@@ -141,9 +146,9 @@ function Navbar() {
               key="To-do List"
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
-              path="/newTodo"
+              path="/todo"
             >
-              <Link to="/newTodo" className="nabBarOptions">
+              <Link to="/todo" className="nabBarOptions">
                 To-do List
               </Link>
             </Button>
