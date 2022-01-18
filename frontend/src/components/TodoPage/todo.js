@@ -19,6 +19,7 @@ import { auth } from "../../firebase.js";
 import { Button } from "@mui/material";
 import AddTodo from "./AddTodo";
 import EachTodo from "./EachTodo";
+import "./Todo.css";
 
 export default function Todo() {
   const { user } = useUserAuth();
@@ -146,7 +147,7 @@ export default function Todo() {
     <div>
       <NewHomeNavbar />
       <div id="todo-list">
-        <h1>Todo List</h1>
+        <h1 className="gradient__text">Todo List</h1>
         <div>
           <AddTodo />
         </div>

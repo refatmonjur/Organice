@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 
 import "./Flashcard.css";
 
-function Flashcard() {
+function AddNewDeck() {
   return (
     <div>
       <div>
@@ -21,7 +21,7 @@ function Flashcard() {
         </Button>
 
         <div className="newUser-text center">
-          Oops! Looks like you don't have any flashcards. Press the [Create New Deck] Button to get started!
+          ----
         </div>
 
       </div>
@@ -32,4 +32,4 @@ function Flashcard() {
   );
 }
 
-export default Flashcard;
+export default AddNewDeck;

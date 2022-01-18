@@ -36,10 +36,14 @@ h1 {
   margin: 60px auto;
   color: white;
 }
+
 form, .todo {
   border: 1px solid grey;
+  background-color: #374151;
+  border-radius: 20px;
   padding: 10px 20px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  flex-grow: 1;
 }
 form {
   display: flex;

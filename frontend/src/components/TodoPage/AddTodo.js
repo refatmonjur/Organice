@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase.js";
 import { useUserAuth } from "../Context/UserAuthContext";
+import "./Todo.css";
 export default function AddTodo() {
   const [input, setInput] = useState("");
   const { user } = useUserAuth();
@@ -25,7 +26,8 @@ export default function AddTodo() {
       <div className="input_container">
         <input
           type="text"
-          placeholder="Enter todo..."
+          className="task-input"
+          placeholder="Enter new task"
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />

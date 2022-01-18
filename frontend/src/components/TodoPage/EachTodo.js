@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import "./Todo.css";
 
 export default function EachTodo({
   todo,
@@ -22,7 +23,7 @@ export default function EachTodo({
     }
   };
   return (
-    <div className="todo">
+    <div className="todo" style={{}}>
       <input
         style={{ textDecoration: todo.completed && "line-through" }}
         type="text"
@@ -30,7 +31,7 @@ export default function EachTodo({
         className="list"
         onChange={handleChange}
       />
-      <div>
+      <div className="todo-options">
         <button
           className="button-complete"
           onClick={() => toggleComplete(todo)}
