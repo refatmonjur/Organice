@@ -1,41 +1,37 @@
 import React from "react";
-import Navbar from "../NavbarPage/Navbar";
+import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
 import "./NewUserTodo.css";
 import image from "./task.png";
-import { Button, Grid } from '@mui/material';
-
+import { Button, Grid } from "@mui/material";
+import { Link } from "react-router-dom";
 function NewUserTodo() {
   return (
     <div className="newUserTodo">
       <div>
-        <Navbar />
+        <NewHomeNavbar />
       </div>
 
       <div className="newUserTodo__middle">
-        Welcome to the to-do list section.
-        Begin creating your list here:
+        Welcome to the to-do list section. Begin creating your list here:
         {/* TEXT */}
         <div className="newUserTodo__button">
-         <Button variant="contained" start making list>
-         Start making list
-        </Button>
-      </div>
-
-      {/* <Grid container justify="flex-end">
+          <Button variant="contained" start making list>
+          <Link to="/todo">Start making list</Link> 
+          </Button>
+        </div>
+        {/* <Grid container justify="flex-end">
       <Grid item>
       <Button variant="contained" start making list>
          Start making list
         </Button>
       </Grid>
         </Grid> */}
-       
-
-
         {/* button */}
       </div>
 
       <div className="newUserTodo__bottom">
-      <img src = {image} />
+        <img src={image} height="450" width="600" />
+        <img src={image} />
         {/* last section */}
         {/* IMAGE */}
       </div>

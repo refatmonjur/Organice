@@ -22,8 +22,14 @@ import {
 import "./Login.css";
 import GoogleButton from "react-google-button";
 import { useUserAuth } from "../Context/UserAuthContext";
+import { db } from "../../firebase";
+import { collection, doc, setDoc, getDoc } from "firebase/firestore";
+// import { useUserAuth } from "../Context/UserAuthContext";
+import { userData } from "../Context/UserData";
 
 function Login() {
+  const { user } = useUserAuth();
+  // const email = user.uid;
   let history = useHistory();
   const paperStyle = {
     padding: 20,
@@ -41,9 +47,15 @@ function Login() {
 
   const login = async (e) => {
     e.preventDefault();
-    // setError("");
     try {
-      await logIn(loginEmail, loginPassword);
+      const useruid = await logIn(loginEmail, loginPassword);
+      console.log(useruid);
+      const docRef = doc(db, "user", useruid); // admin
+      const docSnap = await getDoc(docRef); // admin
+      if (docSnap.exists()) {
+        userData.setFirstname(docSnap.data().firstName);
+        userData.setLastname(docSnap.data().lastName);
+      }
       history.push("/home");
     } catch (error) {
       // setError(err.message);
@@ -102,7 +114,15 @@ function Login() {
   const signInWithGoogle = async (e) => {
     e.preventDefault();
     try {
-      await googleSignIn();
+      console.log("i am herer");
+      const userid = await googleSignIn();
+      console.log(userid);
+      var data = {
+        firstName: userid[2],
+        lastName: "",
+      };
+      await setDoc(doc(db, "user", userid[0]), data);
+
       history.push("/home");
     } catch (error) {
       console.log(error.code);

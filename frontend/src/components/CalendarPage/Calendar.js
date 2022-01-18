@@ -1,16 +1,14 @@
-import React from 'react';
-import Navbar from '../NavbarPage/Navbar'
+import React from "react";
+import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
 
 function Calendar() {
-    return (
-        <div>
-           <div> <Navbar /> </div>
-        </div>
-
-       
-
-
-    )
+  return (
+    <div>
+      <div>
+        <NewHomeNavbar />
+      </div>
+    </div>
+  );
 }
 
 export default Calendar;

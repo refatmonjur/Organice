@@ -16,8 +16,11 @@ import {
 } from "@mui/material";
 import "./SignUp.css";
 import { useHistory } from "react-router-dom";
+import { db } from "../../firebase";
+import { collection, doc, setDoc } from "firebase/firestore";
 
 function SignUp() {
+  const { user } = useUserAuth();
   const paperStyle = {
     padding: 20,
     height: "65vh",
@@ -34,14 +37,22 @@ function SignUp() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const { signUp } = useUserAuth();
+  const newUser = auth.currentUser;
 
   let history = useHistory();
   // new sign up method:
   const register = async (e) => {
     e.preventDefault();
     setError("");
+
+    
     try {
-      await signUp(registerEmail, registerPassword);
+      const useruiid = await signUp(registerEmail, registerPassword);
+      var data = {
+        firstName: registerFirstName,
+        lastName: registerLastName,
+      };
+      await setDoc(doc(db, "user", useruiid), data);
       history.push("/home");
     } catch (error) {
       // setError(err.message);

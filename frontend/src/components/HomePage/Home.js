@@ -7,14 +7,14 @@ import Information from "./InformationPage/information";
 import Meet from "./MeetPage/meet";
 import { auth } from "../../firebase.js";
 import { useUserAuth } from "../Context/UserAuthContext";
-
+import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
 // import Image from '../HomePage/homelanding.png';
 
 function Home() {
   const { user } = useUserAuth();
   return (
     <div className="Homepage">
-      <Navbar />
+      {user ? <NewHomeNavbar /> : <Navbar />}
       <div className="gradient__bg">
         <Header />
       </div>

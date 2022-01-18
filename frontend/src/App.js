@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./components/LoginPage/Login";
 import SignUp from "./components/SignUpPage/SignUp";
 import Home from "./components/HomePage/Home";
-import ToDo from "./components/TodoPage/todo";
+import Todo from "./components/TodoPage/Todo";
 import Calendar from "./components/CalendarPage/Calendar";
 import Flashcard from "./components/FlashcardsPage/Flashcard";
 import NewUserTodo from "./components/TodoPage/NewUserTodo";
@@ -30,12 +30,15 @@ function App() {
               <Flashcard />
             </ProtectedRoute>
             <ProtectedRoute path="/todo">
-              <ToDo />
+              <Todo />
             </ProtectedRoute>
             <ProtectedRoute path="/calendar">
               <Calendar />
             </ProtectedRoute>
-            <Route path="/newTodo" exact component={NewUserTodo} />
+            <ProtectedRoute path="/newTodo">
+              <NewUserTodo />
+            </ProtectedRoute>
+            {/* <Route path="/newTodo" exact component={NewUserTodo} /> */}
           </Switch>
         </Router>
       </UserAuthContextProvider>

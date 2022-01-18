@@ -75,7 +75,6 @@ function Navbar() {
           >
             <img src={Logo} width="100" height="80" />
           </Typography>
-          {""}
           {/* comment */}
           {/* When Browser is Smaller */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -110,7 +109,7 @@ function Navbar() {
                 </Link>
               </MenuItem>
               <MenuItem key="To-do List" onClick={handleCloseNavMenu}>
-                <Link to="/todo" className="menuOptions">
+                <Link to="/newTodo" className="menuOptions">
                   To-do List
                 </Link>
               </MenuItem>
@@ -146,7 +145,7 @@ function Navbar() {
               sx={{ my: 2, color: "white", display: "block" }}
               path="/signup"
             >
-              <Link to="/todo" className="nabBarOptions">
+              <Link to="/newTodo" className="nabBarOptions">
                 To-do List
               </Link>
             </Button>
@@ -160,7 +159,7 @@ function Navbar() {
                 Calendar
               </Link>
             </Button>
-            <Button
+            {/* <Button
               key="Get Started"
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
@@ -169,7 +168,7 @@ function Navbar() {
               <Link to="/signup" className="nabBarOptions">
                 Get Started
               </Link>
-            </Button>
+            </Button> */}
           </Box>
           {/* User Account Options */}
           <Box sx={{ flexGrow: 0 }}>
@@ -194,14 +193,14 @@ function Navbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem key="account" onClick={handleCloseNavMenu}>
-                <Link to="/" className="menuOptions" textAlign="center">
-                  Account
+              <MenuItem key="sign in" onClick={handleCloseNavMenu}>
+                <Link to="/login" className="menuOptions" textAlign="center">
+                  Sign In
                 </Link>
               </MenuItem>
               <MenuItem key="logout" onClick={(Logout, handleCloseNavMenu)}>
-                <Link to="/" className="menuOptions" textAlign="center">
-                  Logout
+                <Link to="/signup" className="menuOptions" textAlign="center">
+                  Sign Up
                 </Link>
               </MenuItem>
             </Menu>
