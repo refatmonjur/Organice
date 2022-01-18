@@ -3,7 +3,7 @@ import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
 import "./NewUserTodo.css";
 import image from "./task.png";
 import { Button, Grid } from "@mui/material";
-
+import { Link } from "react-router-dom";
 function NewUserTodo() {
   return (
     <div className="newUserTodo">
@@ -16,7 +16,7 @@ function NewUserTodo() {
         {/* TEXT */}
         <div className="newUserTodo__button">
           <Button variant="contained" start making list>
-            Start making list
+          <Link to="/todo">Start making list</Link> 
           </Button>
         </div>
         {/* <Grid container justify="flex-end">

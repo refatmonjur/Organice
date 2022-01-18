@@ -18,6 +18,8 @@ import "./Navbar.css";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { useHistory } from "react-router-dom";
 import Logo from "./test_logo.png";
+import { doc, getDoc, collection, onSnapshot } from "firebase/firestore";
+import { db } from "../../firebase";
 
 const useStyles = makeStyles({
   header: {
@@ -30,7 +32,7 @@ const useStyles = makeStyles({
 function Navbar() {
   // style hook here
   const classes = useStyles();
-
+  const { user } = useUserAuth();
   const pages = ["Flashcards", "To-do List", "Calendar"];
   const settings = ["Account", "Logout"];
 
@@ -62,6 +64,38 @@ function Navbar() {
       console.log(error.message);
     }
   };
+
+
+  const handlenewUserTodo = async (e) => {
+
+      // const docRef = collection(db, "user", user.uid, "todos");
+      // const docSnap = await getDoc(docRef);
+      // if (docSnap.exists()) {
+      //  history.push("/todo")
+      // }
+      // else{
+      //   history.push("/newTodo")
+      // }
+
+
+      const recordCol = collection(db, "user", user.uid, "todos");
+        onSnapshot(recordCol, (querySnapshot) => {
+          // if record array length is 0 then this is a new user with no todo
+            const record = [];
+            // map all todos from collection to record array
+            querySnapshot.forEach((doc) => {
+                record.push(doc.data());
+            });
+            if(record.length === 0)
+            {
+              history.push("/newTodo");
+            }
+            else{
+              history.push("/todo");
+            }
+        });
+  };
+
   return (
     <AppBar position="static" className={classes.header}>
       <Container maxWidth="xl">
@@ -144,13 +178,13 @@ function Navbar() {
             </Button>
             <Button
               key="To-do List"
-              onClick={handleCloseNavMenu}
+              onClick={handlenewUserTodo}
               sx={{ my: 2, color: "white", display: "block" }}
-              path="/todo"
+              // path="/todo"
             >
-              <Link to="/todo" className="nabBarOptions">
+              {/* <Link to="/todo" className="nabBarOptions"> */}
                 To-do List
-              </Link>
+              {/* </Link> */}
             </Button>
             <Button
               key="Calendar"
