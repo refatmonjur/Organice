@@ -82,6 +82,14 @@ body > #root > div {
     margin: 0 auto;
 }
 
+.button_align {
+    display:flex;
+}
+
+.home_button {
+    
+}
+
 @media screen and (max-width: 667px) {
     .task_container {
       width: 90%;

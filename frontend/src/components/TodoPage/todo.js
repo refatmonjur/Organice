@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
-import { Typography } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import {
   collection,
   getDoc,
@@ -20,6 +20,7 @@ import { Button } from "@mui/material";
 import AddTodo from "./AddTodo";
 import EachTodo from "./EachTodo";
 import "./Todo.css";
+import HomeIcon from '@mui/icons-material/Home';
 
 export default function Todo() {
   const { user } = useUserAuth();
@@ -144,12 +145,29 @@ export default function Todo() {
   // }
 
   return (
+    
+
+
     <div>
       <NewHomeNavbar />
+      
+
       <div id="todo-list">
         <h1 className="gradient__text">Todo List</h1>
-        <div>
-          <AddTodo />
+        <div className="button_align">
+        <AddTodo />
+        <div id="home_button">
+        <Button
+                type="submit"
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                >
+                <HomeIcon color="secondary" fontSize="large" />
+                To-do Lists
+        </Button>
+        </div>
+        
+          
         </div>
         <div className="todo_container">
           {todos.map((todo) => (
@@ -162,6 +180,10 @@ export default function Todo() {
             />
           ))}
         </div>
+       
+
+
+                
 
         {/* {todos.map((todo) => (
           <div key={todo.id} className="todo">
