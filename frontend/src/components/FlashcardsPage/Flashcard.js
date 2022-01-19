@@ -1,7 +1,6 @@
 import React from "react";
 import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
 import { Button } from "@mui/material";
-
 import "./Flashcard.css";
 
 function Flashcard() {
@@ -13,7 +12,7 @@ function Flashcard() {
 
       {/* Transparent Background */}
       <div className="transparentBg">
-        <Button
+        <Button 
           className="create-new-deck-button center"
         // onClick={ }
         >
