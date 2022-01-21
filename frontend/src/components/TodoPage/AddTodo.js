@@ -21,11 +21,12 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
+
 export default function AddTodo() {
   const [input, setInput] = useState("");
   const { user } = useUserAuth();
   const [open, setOpen] = useState(false);
-  const [dateTime, setDateTime] = useState(new Date("2022-01-20T21:11:54"));
+  const [dateTime, setDateTime] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,6 +40,7 @@ export default function AddTodo() {
         dueDate: dateTime,
       });
       setInput("");
+      setDateTime("");
     }
   };
 

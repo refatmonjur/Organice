@@ -31,7 +31,17 @@ export default function EachTodo({
         className="list"
         onChange={handleChange}
       />
-      {/* <div>{todo.dueDate}</div> */}
+      {/* <textarea readonly>
+{todo.dueDate === "" ? "" : todo.dueDate.toDate()}
+</textarea> */}
+      {/* <div>
+      value={todo.dueDate === "" ? "" : todo.dueDate.toDate()}
+      </div> */}
+      <input
+        type="text"
+        readOnly value={todo.dueDate === "" ? "" : todo.dueDate.toDate()}
+        className="list"
+      />
       <div className="todo-options">
         <button
           className="button-complete"
