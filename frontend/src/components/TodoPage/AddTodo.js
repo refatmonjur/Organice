@@ -1,12 +1,31 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  Timestamp,
+} from "firebase/firestore";
 import { db } from "../../firebase.js";
 import { useUserAuth } from "../Context/UserAuthContext";
 import "./Todo.css";
+import DateRangeIcon from "@mui/icons-material/DateRange";
+import Button from "@mui/material/Button";
+import DateTimePicker from "@mui/lab/DateTimePicker";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+
 export default function AddTodo() {
   const [input, setInput] = useState("");
   const { user } = useUserAuth();
+  const [open, setOpen] = useState(false);
+  const [dateTime, setDateTime] = useState(new Date("2022-01-20T21:11:54"));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,9 +36,22 @@ export default function AddTodo() {
         title: input,
         completed: false,
         timeStamp: serverTimestamp(),
+        dueDate: dateTime,
       });
       setInput("");
     }
+  };
+
+  const handleChange = (newValue) => {
+    setDateTime(newValue);
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -34,6 +66,31 @@ export default function AddTodo() {
       </div>
       <div className="btn_container">
         <button>Add</button>
+      </div>
+      <div>
+        <div>
+          <Button variant="outlined" onClick={handleClickOpen}>
+            <DateRangeIcon color="secondary" fontSize="medium" />
+          </Button>
+
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>choose due date and time</DialogTitle>
+            <DialogContent>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DateTimePicker
+                  label="Date Time picker"
+                  value={dateTime}
+                  onChange={handleChange}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Cancel</Button>
+              <Button onClick={handleClose}>Submit</Button>
+            </DialogActions>
+          </Dialog>
+        </div>
       </div>
     </form>
   );

@@ -31,6 +31,7 @@ export default function EachTodo({
         className="list"
         onChange={handleChange}
       />
+      {/* <div>{todo.dueDate}</div> */}
       <div className="todo-options">
         <button
           className="button-complete"

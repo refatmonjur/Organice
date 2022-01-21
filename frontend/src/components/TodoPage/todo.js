@@ -20,6 +20,8 @@ import { Button } from "@mui/material";
 import AddTodo from "./AddTodo";
 import EachTodo from "./EachTodo";
 import "./Todo.css";
+import HomeIcon from "@mui/icons-material/Home";
+import Box from "@mui/material/Box";
 
 export default function Todo() {
   const { user } = useUserAuth();
@@ -146,6 +148,20 @@ export default function Todo() {
   return (
     <div>
       <NewHomeNavbar />
+
+      {/*icons goes here*/}
+      {/* <div>
+        <HomeIcon color="primary" fontSize="large" />
+        Todo List
+      </div> */}
+      <div>
+        <Button variant="contained">To do</Button>
+      </div>
+      {/* <Box>
+        <Button variant="contained" startIcon={HomeIcon}>
+          To do
+        </Button>
+      </Box> */}
       <div id="todo-list">
         <h1 className="gradient__text">Todo List</h1>
         <div>
