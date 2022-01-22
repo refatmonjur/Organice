@@ -4,12 +4,14 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "./Todo.css";
+import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 
 export default function EachTodo({
   todo,
   toggleComplete,
   handleDelete,
   handleEdit,
+  handleInfo
 }) {
   const [newInput, setNewInput] = useState(todo.title);
 
@@ -27,7 +29,7 @@ export default function EachTodo({
       <input
         style={{ textDecoration: todo.completed && "line-through" }}
         type="text"
-        value={todo.title === "" ? newInput : todo.title}
+        value={todo.title === "" ? newInput : "✅ "+todo.title}
         className="list"
         onChange={handleChange}
       />
@@ -39,10 +41,14 @@ export default function EachTodo({
       </div> */}
       <input
         type="text"
-        readOnly value={todo.dueDate === "" ? "" : todo.dueDate.toDate()}
+        readOnly value={todo.dueDate === "" ? "" : "⏰ "+todo.dueDate.toDate()}
         className="list"
       />
+
       <div className="todo-options">
+
+
+        {/* this is the checked button  */}
         <button
           className="button-complete"
           onClick={() => toggleComplete(todo)}
@@ -50,17 +56,27 @@ export default function EachTodo({
           <CheckCircleIcon id="i" />
         </button>
 
+      {/* this is the Edit button  */}
         <button
           className="button-edit"
           onClick={() => handleEdit(todo, newInput)}
         >
           <EditIcon />
         </button>
-
+    {/* this is the delete button  */}
         <button className="button-delete" onClick={() => handleDelete(todo.id)}>
           <DeleteIcon id="i" />
         </button>
+
+        {/* this is the more info button  */}
+
+        <button className="button-moreInfo" onClick={() => handleInfo(todo.id)}>
+          <MoreHorizOutlinedIcon id="i" />
+        </button>
+        
       </div>
     </div>
   );
 }
+
+

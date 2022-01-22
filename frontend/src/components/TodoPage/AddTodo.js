@@ -21,12 +21,13 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import OpenDialog from "./OpenDialog.js";
-
+import DescriptionDialog from "./DescriptionDialog";
 export default function AddTodo() {
   const [input, setInput] = useState("");
   const { user } = useUserAuth();
   // const [open, setOpen] = useState(false);
   const [dateTime, setDateTime] = useState("");
+  const [description, setDescription]= useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,12 +39,14 @@ export default function AddTodo() {
         completed: false,
         timeStamp: serverTimestamp(),
         dueDate: dateTime,
+        Description: description
       });
       setInput("");
       setDateTime("");
+      setDescription("");
     }
   };
-
+  
   // const handleChange = (newValue) => {
   //   setDateTime(newValue);
   // };
@@ -72,6 +75,9 @@ export default function AddTodo() {
       <div>
         <div>
           <OpenDialog dateTime={dateTime} setDateTime={setDateTime} />
+        </div>
+        <div>
+          <DescriptionDialog setDescription = {setDescription} />
         </div>
       </div>
     </form>
