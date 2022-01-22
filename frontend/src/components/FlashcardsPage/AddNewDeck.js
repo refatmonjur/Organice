@@ -84,7 +84,7 @@ class AddNewDeck extends React.Component {
             </div>
 
           </div>
-          {/* Choose Q/A/E Container Button */}
+          {/* Choose W/D/E Container Button */}
           <button
             className="add-deck"
           >
