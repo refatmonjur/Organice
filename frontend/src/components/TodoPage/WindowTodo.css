@@ -1,0 +1,25 @@
+.today_button{
+    background-color: yellow;
+    
+}
+.left_container{
+    background-color: green;
+    display: flex;
+    margin: 0;
+    justify-content: end;
+    align-items: start;
+    flex-direction: column;
+    padding: 100px;
+    
+}
+.right_container{
+    background-color: red;
+    margin: right;
+}
+.content_todo{
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    flex-direction: column;
+    
+}

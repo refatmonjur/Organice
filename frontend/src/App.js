@@ -10,6 +10,8 @@ import NewUserTodo from "./components/TodoPage/NewUserTodo";
 import NewHome from "./components/HomePage/NewHome";
 import { UserAuthContextProvider } from "./components/Context/UserAuthContext";
 import ProtectedRoute from "./components/Context/ProtectedRoutes";
+import WindowTodo from "./components/TodoPage/WindowTodo";
+
 
 function App() {
   return (
@@ -31,6 +33,9 @@ function App() {
             </ProtectedRoute>
             <ProtectedRoute path="/todo">
               <Todo />
+              </ProtectedRoute>
+            <ProtectedRoute path="/WindowTodo">
+              <WindowTodo />
             </ProtectedRoute>
             <ProtectedRoute path="/calendar">
               <Calendar />
