@@ -6,14 +6,14 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
-export default function OpenDialog() {
+export default function OpenDialog({ dateTime, setDateTime }) {
   const [open, setOpen] = useState(false);
-  const [dateTime, setDateTime] = useState(new Date("2022-01-20T21:11:54"));
+  // const [dateTime, setDateTime] = useState(new Date("2022-01-20T21:11:54"));
 
   const handleChange = (newValue) => {
     setDateTime(newValue);

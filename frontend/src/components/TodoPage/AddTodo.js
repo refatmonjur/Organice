@@ -20,12 +20,12 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-
+import OpenDialog from "./OpenDialog.js";
 
 export default function AddTodo() {
   const [input, setInput] = useState("");
   const { user } = useUserAuth();
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const [dateTime, setDateTime] = useState("");
 
   const handleSubmit = async (e) => {
@@ -44,17 +44,17 @@ export default function AddTodo() {
     }
   };
 
-  const handleChange = (newValue) => {
-    setDateTime(newValue);
-  };
+  // const handleChange = (newValue) => {
+  //   setDateTime(newValue);
+  // };
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
   return (
     <form onSubmit={handleSubmit}>
       <div className="input_container">
@@ -71,27 +71,7 @@ export default function AddTodo() {
       </div>
       <div>
         <div>
-          <Button variant="outlined" onClick={handleClickOpen}>
-            <DateRangeIcon color="secondary" fontSize="medium" />
-          </Button>
-
-          <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>choose due date and time</DialogTitle>
-            <DialogContent>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DateTimePicker
-                  label="Date Time picker"
-                  value={dateTime}
-                  onChange={handleChange}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose}>Cancel</Button>
-              <Button onClick={handleClose}>Submit</Button>
-            </DialogActions>
-          </Dialog>
+          <OpenDialog dateTime={dateTime} setDateTime={setDateTime} />
         </div>
       </div>
     </form>
