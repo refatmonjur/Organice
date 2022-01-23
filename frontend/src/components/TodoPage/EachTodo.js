@@ -53,6 +53,7 @@ export default function EachTodo({
 
       <div className="todo-options">
         {/* this is the checked button  */}
+        {/* <MoreOptions/> */}
         <button
           className="button-complete"
           onClick={() => toggleComplete(todo)}
@@ -81,12 +82,23 @@ export default function EachTodo({
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Description</DialogTitle>
             <DialogContent>
+              {/* show the due date */}
+              <input
+                type="text"
+                readOnly
+                value={todo.dueDate === "" ? "" : "⏰ " + todo.dueDate.toDate()}
+                className="list"
+              />
+                <br/>
+              {/* this is the description */}
               <input
                 type="text"
                 readOnly
                 value={todo.Description}
                 className="list"
               />
+
+              {/* show file that is added */}
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Close</Button>

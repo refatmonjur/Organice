@@ -20,8 +20,10 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import OpenDialog from "./OpenDialog.js";
-import DescriptionDialog from "./DescriptionDialog";
+import OpenDialog from "./Dialog/OpenDialog.js";
+import DescriptionDialog from "./Dialog/DescriptionDialog";
+import MoreProperties from "./Dialog/MoreProperties.js";
+
 export default function AddTodo() {
   const [input, setInput] = useState("");
   const { user } = useUserAuth();
@@ -69,16 +71,22 @@ export default function AddTodo() {
           onChange={(e) => setInput(e.target.value)}
         />
       </div>
+      <div>
+      </div>
+      <div>
+        {/* the dialog  */}
+        <MoreProperties dateTime={dateTime} setDateTime={setDateTime} setDescription = {setDescription} />
+      </div>
       <div className="btn_container">
         <button>Add</button>
       </div>
       <div>
-        <div>
+        {/* <div>
           <OpenDialog dateTime={dateTime} setDateTime={setDateTime} />
         </div>
         <div>
           <DescriptionDialog setDescription = {setDescription} />
-        </div>
+        </div> */}
       </div>
     </form>
   );
