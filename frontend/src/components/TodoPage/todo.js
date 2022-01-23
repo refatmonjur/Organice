@@ -27,7 +27,7 @@ export default function Todo() {
   const { user } = useUserAuth();
   const [todos, setTodos] = useState([]);
   const [Loading, setLoading] = useState(false);
-  
+
   useEffect(() => {
     setLoading(true);
     const TodoCollectionRef = collection(db, "user", user.uid, "todos");
@@ -58,13 +58,12 @@ export default function Todo() {
     await deleteDoc(docRef3);
   };
 
-  const handleInfo = async (id) => {
-    const docRef4 = doc(db, "user", user.uid, "todos", id);
-    const desc= await getDoc(docRef4);
-    console.log("i go the data")
-    console.log(desc.data);
-    <ShowDesc/>
-  };
+  // const handleInfo = async (id) => {
+  //   const docRef4 = doc(db, "user", user.uid, "todos", id);
+  //   const desc = await getDoc(docRef4);
+  //   console.log("i go the data");
+  //   console.log(desc.data());
+  // };
   return (
     <div>
       <NewHomeNavbar />
@@ -84,7 +83,7 @@ export default function Todo() {
               toggleComplete={toggleComplete}
               handleDelete={handleDelete}
               handleEdit={handleEdit}
-              handleInfo={handleInfo}
+              // handleInfo={handleInfo}
             />
           ))}
         </div>

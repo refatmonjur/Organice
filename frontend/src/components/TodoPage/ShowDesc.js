@@ -11,27 +11,32 @@ import DateRangeIcon from "@mui/icons-material/DateRange";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 
-function ShowDesc() {
-    const [open, setOpen] = useState(false);
-    const handleClose = () => {
-        setOpen(false);
-      };
+function ShowDesc(Todo) {
+  const [open, setOpen] = useState(false);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <div>
-      {/* <Button variant="outlined" onClick={handleClickOpen}>
-        <DateRangeIcon color="secondary" fontSize="medium" />
-      </Button> */}
+      <Button variant="outlined" onClick={handleClickOpen}>
+        <MoreHorizOutlinedIcon color="secondary" fontSize="medium" />
+      </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Description</DialogTitle>
         <DialogContent>
-        <input
-        type="text"
-        readOnly value="this is the descroption from database"
-        className="list"
-      />
+          <input
+            type="text"
+            readOnly
+            value={Todo.Description}
+            className="list"
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Close</Button>
