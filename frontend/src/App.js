@@ -8,6 +8,10 @@ import Calendar from "./components/CalendarPage/Calendar";
 import Flashcard from "./components/FlashcardsPage/Flashcard";
 import NewUserTodo from "./components/TodoPage/NewUserTodo";
 import NewHome from "./components/HomePage/NewHome";
+import AddNewDeck from "./components/FlashcardsPage/AddNewDeck";
+import AddQACard from "./components/FlashcardsPage/AddQACard";
+import AddDefinitionCard from "./components/FlashcardsPage/AddDefinitionCard";
+import AddImageCard from "./components/FlashcardsPage/AddImageCard";
 import { UserAuthContextProvider } from "./components/Context/UserAuthContext";
 import ProtectedRoute from "./components/Context/ProtectedRoutes";
 
@@ -26,18 +30,37 @@ function App() {
             <ProtectedRoute path="/home">
               <NewHome />
             </ProtectedRoute>
+
+            {/* Flashcard Routes */}
             <ProtectedRoute path="/flashcard">
               <Flashcard />
             </ProtectedRoute>
+            <ProtectedRoute path="/addNewDeck">
+              <AddNewDeck />
+            </ProtectedRoute>
+            <ProtectedRoute path="/addQACard">
+              <AddQACard />
+            </ProtectedRoute>
+            <ProtectedRoute path="/addDefinitionCard">
+              <AddDefinitionCard />
+            </ProtectedRoute>
+            <ProtectedRoute path="/addImageCard">
+              <AddImageCard />
+            </ProtectedRoute>
+
+            {/* ToDoList Routes */}
             <ProtectedRoute path="/todo">
               <Todo />
-            </ProtectedRoute>
-            <ProtectedRoute path="/calendar">
-              <Calendar />
             </ProtectedRoute>
             <ProtectedRoute path="/newTodo">
               <NewUserTodo />
             </ProtectedRoute>
+
+            {/* Calendar Routes */}
+            <ProtectedRoute path="/calendar">
+              <Calendar />
+            </ProtectedRoute>
+
             {/* <Route path="/newTodo" exact component={NewUserTodo} /> */}
           </Switch>
         </Router>
