@@ -76,8 +76,8 @@
 
 /* Centering */
 .center {
-    display: flex;
-    margin: 0 auto;
+    display: flex !important;
+    margin: 0 auto ;
     top: 40px;
 }
 
@@ -141,6 +141,7 @@
     font-size: 16px;
 }
 
+/* BUTTONS */
 .finish-deck-btn{
     background-color: #3261e28f !important;
     color: #ffffff !important;
@@ -148,7 +149,6 @@
     padding: 10px !important;
     font-size: 20px !important;
 }
-
 .add-card-btn{
     background-color: rgb(165, 231, 209) !important;
     color: #0e1a3a !important;
@@ -164,6 +164,11 @@
     margin-left: 200px;
     margin-right: 200px;
     padding-bottom: 10px;
+}
+
+/* Image Upload Buttons */
+.file-upload-button{
+    background-color: linear-gradient(89.97deg, #cea9f5 1.84%, #F49867 102.67%) !important;
 }
 
 
