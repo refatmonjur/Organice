@@ -13,13 +13,10 @@ import { Button, TextField, TextareaAutosize } from "@mui/material";
 //CSS
 import "./Flashcard.css";
 
-function AddImageCard() {
-  const avatarStyle = { backgroundColor: "indigo" };
-  const stylButn = { margin: "8px 0" };
-  const stylField = { margin: "8px 0" };
+// function AddImageCard() {
+
 
 const AddImageCard = () => {
-
     //Borrowed from Cloudinary Upload Image tutorial
     const [image, setImage] = useState("");
 
@@ -97,8 +94,8 @@ const AddImageCard = () => {
                         placeholder="Enter Purpose/Use"
                     />
 
-                    <div 
-                        className="whiteBg center" 
+                    <div
+                        className="whiteBg center"
                         id="flex-containerQA"
                         style={{
                             borderRadius: 10,
@@ -107,22 +104,22 @@ const AddImageCard = () => {
                         }}
                     >
                         <div id="flex-containerQA">
-                            <input 
-                                type="file" 
-                                className="file-upload-button" 
+                            <input
+                                type="file"
+                                className="file-upload-button"
                                 onChange={(e) => setImage(e.target.files[0])}
                                 style={{
                                     color: "blue",
                                     marginBottom: 30,
                                 }}
                             />
-                            <Button 
+                            <Button
                                 onClick={uploadImage}
                                 style={{
                                     backgroundImage: "linear-gradient(89.97deg, #cea9f5 1.84%, #F49867 102.67%)",
                                     color: "blue",
                                     fontWeight: 500
-                            }}
+                                }}
                             >
                                 Upload
                             </Button>
@@ -134,7 +131,7 @@ const AddImageCard = () => {
                                     marginTop: 15
                                 }}
                             >
-                                    Uploaded image will be displayed here
+                                Uploaded image will be displayed here
                             </h4>
                             <div>
                                 <img
@@ -175,6 +172,7 @@ const AddImageCard = () => {
 
         </div>
     );
+
 }
 
 export default AddImageCard;
