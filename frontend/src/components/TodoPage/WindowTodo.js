@@ -51,7 +51,7 @@ function WindowTodo() {
           </Button> */}
         </div>
         <div className="right_container">
-          <h1>Today</h1>
+        <h1 className="gradient__text">Today</h1>
           <div className="todo_container">
             <li>my first todo</li>
             <li>my second todo</li>

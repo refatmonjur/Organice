@@ -51,7 +51,7 @@ function WeeklyTodo() {
           </Button> */}
         </div>
         <div className="right_container">
-          <h1>Weekly</h1>
+        <h1 className="gradient__text">Weekly</h1>
           <div className="todo_container">
             <li>my first tododsfsdfdsfsd</li>
             <li>my second todo</li>

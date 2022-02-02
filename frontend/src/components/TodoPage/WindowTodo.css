@@ -24,7 +24,7 @@
   align-items: start;
   margin-right: 20px;
   margin-left: 20px;
-  margin-top: 200px;
+  margin-top: 100px;
   background-color: rgba(16, 16, 51, 0.747);
   height: 500px;
   /* flex-direction: column; */
@@ -32,7 +32,14 @@
 .todo_container {
   margin-top: auto;
   background-color: rgba(121, 121, 95, 0.178);
-  height: 450px;
+  height: 360px;
 }
-.left_container_button {
+
+.gradient__text {
+    background:var(--gradient-text);
+    background-clip: text;
+    -webkit-background-clop: text;        /* THIS ALLOWS FOR DIFFERENT BROWSERS*/
+    -webkit-text-fill-color: transparent; /* THIS ALLOWS FOR DIFFERENT BROWSERS*/
+    padding: 50px;
 }
+

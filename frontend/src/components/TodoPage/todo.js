@@ -13,6 +13,7 @@ import {
   deleteDoc,
   orderBy,
 } from "firebase/firestore";
+import { Link } from "react-router-dom";
 import { db } from "../../firebase.js";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { auth } from "../../firebase.js";
@@ -163,6 +164,7 @@ export default function Todo() {
                 sx={{ mt: 3, mb: 2 }}
                 >
                 <HomeIcon color="secondary" fontSize="large" />
+                <Link to="/WindowTodo"/>
                 To-do Lists
         </Button>
         </div>
