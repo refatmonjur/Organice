@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import "./Flashcard.css";
 import NoDeckPage from "./DeckConditionalRendering/NoDeckPage.js";
 import ShowDecksinPage from "./DeckConditionalRendering/ShowDecksinPage.js";
+import { Link } from "react-router-dom";
 
 class Flashcard extends React.Component {
   state = {
@@ -26,6 +27,8 @@ class Flashcard extends React.Component {
 
         {/* Transparent Background */}
         <div className="transparentBg">
+          
+          
           <Button
             className="create-new-deck-button center"
             style={{
@@ -34,7 +37,9 @@ class Flashcard extends React.Component {
             }}
           // onClick={ }
           >
+            <Link to="/addNewDeck">
             Create New Deck
+              </Link>
           </Button>
 
           {/* SHOW THIS DIV IF User has no decks in their data */}
