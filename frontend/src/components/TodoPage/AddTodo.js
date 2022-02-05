@@ -9,19 +9,6 @@ import {
 import { db } from "../../firebase.js";
 import { useUserAuth } from "../Context/UserAuthContext";
 import "./Todo.css";
-import DateRangeIcon from "@mui/icons-material/DateRange";
-import Button from "@mui/material/Button";
-import DateTimePicker from "@mui/lab/DateTimePicker";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import OpenDialog from "./Dialog/OpenDialog.js";
-import DescriptionDialog from "./Dialog/DescriptionDialog";
 import MoreProperties from "./Dialog/MoreProperties.js";
 
 export default function AddTodo() {
@@ -78,7 +65,7 @@ export default function AddTodo() {
         <MoreProperties dateTime={dateTime} setDateTime={setDateTime} setDescription = {setDescription} />
       </div>
       <div className="btn_container">
-        <button>Add</button>
+        <button> Add</button>
       </div>
       <div>
         {/* <div>
