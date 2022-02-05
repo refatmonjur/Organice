@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
-import { Typography } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import {
   collection,
   getDoc,
@@ -13,6 +13,7 @@ import {
   deleteDoc,
   orderBy,
 } from "firebase/firestore";
+import { Link } from "react-router-dom";
 import { db } from "../../firebase.js";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { auth } from "../../firebase.js";
@@ -20,9 +21,14 @@ import { Button } from "@mui/material";
 import AddTodo from "./AddTodo";
 import EachTodo from "./EachTodo";
 import "./Todo.css";
+<<<<<<< HEAD
 import HomeIcon from "@mui/icons-material/Home";
 import Box from "@mui/material/Box";
 import ShowDesc from "./ShowDesc";
+=======
+import HomeIcon from '@mui/icons-material/Home';
+
+>>>>>>> contodo
 export default function Todo() {
   const { user } = useUserAuth();
   const [todos, setTodos] = useState([]);
@@ -65,15 +71,36 @@ export default function Todo() {
   //   console.log(desc.data());
   // };
   return (
+    
+
+
     <div>
       <NewHomeNavbar />
+<<<<<<< HEAD
       <div>
         <Button variant="contained">To do</Button>
       </div>
+=======
+      
+
+>>>>>>> contodo
       <div id="todo-list">
         <h1 className="gradient__text">Todo List</h1>
-        <div>
-          <AddTodo />
+        <div className="button_align">
+        <AddTodo />
+        <div id="home_button">
+        <Button
+                type="submit"
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                >
+                <HomeIcon color="secondary" fontSize="large" />
+                <Link to="/WindowTodo"/>
+                To-do Lists
+        </Button>
+        </div>
+        
+          
         </div>
         <div className="todo_container">
           {todos.map((todo) => (
@@ -87,6 +114,45 @@ export default function Todo() {
             />
           ))}
         </div>
+<<<<<<< HEAD
+=======
+       
+
+
+                
+
+        {/* {todos.map((todo) => (
+          <div key={todo.id} className="todo">
+            <div className="todo-text">
+              <input
+                type="checkbox"
+                id="completed"
+                checked={todo.completed}
+                onChange={() => toggleComplete(todo.id)}
+              />
+              {todo.id === todoEditing ? (
+                <input
+                  type="text"
+                  onChange={(e) => setEditingText(e.target.value)}
+                />
+              ) : (
+                <div>{todo.text}</div>
+              )}
+            </div>
+            <div className="todo-actions">
+              {todo.id === todoEditing ? (
+                <button onClick={() => submitEdits(todo.id)}>
+                  Submit Edits
+                </button>
+              ) : (
+                <button onClick={() => setTodoEditing(todo.id)}>Edit</button>
+              )}
+
+              <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+            </div>
+          </div>
+        ))} */}
+>>>>>>> contodo
       </div>
     </div>
   );
