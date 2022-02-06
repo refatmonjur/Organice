@@ -24,7 +24,6 @@ import "./Todo.css";
 import HomeIcon from "@mui/icons-material/Home";
 import Box from "@mui/material/Box";
 import ShowDesc from "./ShowDesc";
-import HomeIcon from "@mui/icons-material/Home";
 
 export default function Todo() {
   const { user } = useUserAuth();
@@ -61,12 +60,6 @@ export default function Todo() {
     await deleteDoc(docRef3);
   };
 
-  // const handleInfo = async (id) => {
-  //   const docRef4 = doc(db, "user", user.uid, "todos", id);
-  //   const desc = await getDoc(docRef4);
-  //   console.log("i go the data");
-  //   console.log(desc.data());
-  // };
   return (
     <div>
       <NewHomeNavbar />
@@ -81,8 +74,7 @@ export default function Todo() {
           <div id="home_button">
             <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
               <HomeIcon color="secondary" fontSize="large" />
-              <Link to="/WindowTodo" />
-              To-do Lists
+              <Link to="/WindowTodo">To-do Lists</Link>
             </Button>
           </div>
         </div>
@@ -94,7 +86,6 @@ export default function Todo() {
               toggleComplete={toggleComplete}
               handleDelete={handleDelete}
               handleEdit={handleEdit}
-              // handleInfo={handleInfo}
             />
           ))}
         </div>

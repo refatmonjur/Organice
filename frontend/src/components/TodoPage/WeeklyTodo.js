@@ -7,6 +7,7 @@ import TodayIcon from "@mui/icons-material/Today";
 import DateRangeRoundedIcon from "@mui/icons-material/DateRangeRounded";
 import CalendarViewMonthRoundedIcon from "@mui/icons-material/CalendarViewMonthRounded";
 import "./WindowTodo.css";
+import { Link } from "react-router-dom";
 
 function WeeklyTodo() {
   return (
@@ -18,7 +19,7 @@ function WeeklyTodo() {
           <div className="left_container_button">
             <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
               <TodayIcon color="secondary" fontSize="large" />
-              Today
+              <Link to="/WindowTodo">Today</Link>
             </Button>
             {/* </div> */}
             {/* <div className="weekly_button"> */}
@@ -51,7 +52,7 @@ function WeeklyTodo() {
           </Button> */}
         </div>
         <div className="right_container">
-        <h1 className="gradient__text">Weekly</h1>
+          <h1 className="gradient__text">Weekly</h1>
           <div className="todo_container">
             <li>my first tododsfsdfdsfsd</li>
             <li>my second todo</li>
