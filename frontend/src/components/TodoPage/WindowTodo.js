@@ -2,20 +2,11 @@ import React from "react";
 import { useState, useEffect } from "react";
 import {
   collection,
-  getDoc,
-  doc,
   onSnapshot,
-  addDoc,
   query,
-  updateDoc,
-  deleteDoc,
-  orderBy,
-  where,
-  Timestamp,
+  where
 } from "firebase/firestore";
 import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
-import { IconButton, Typography } from "@mui/material";
-import HomeIcon from "@mui/icons-material/Home";
 import { Button } from "@mui/material";
 import TodayIcon from "@mui/icons-material/Today";
 import DateRangeRoundedIcon from "@mui/icons-material/DateRangeRounded";
@@ -28,26 +19,49 @@ import { db } from "../../firebase.js";
 function WindowTodo() {
   const { user } = useUserAuth();
   const [todos, setTodos] = useState([]);
+  const [todos1, setTodos1] = useState([]);
   useEffect(() => {
     // setLoading(true);
     // var today = new DateTime.now();
     // today = new DateTime(today.year, today.month, today.day);
     const TodoCollectionRef = collection(db, "user", user.uid, "todos");
+    var today = new Date();
     const todoQuery = query(
       TodoCollectionRef,
-      where("dueDate", "array-contains", Timestamp.now().toDate())
+      where("dueDate", "<=", today)
     );
-    const unsub = onSnapshot(todoQuery, (queryS) => {
+    const todoQuery1 = query(
+      TodoCollectionRef,
+      where("dueDate", "==", "")
+    );
+
+    
+    // Timestamp.now().toDate()
+    const unsub = onSnapshot(todoQuery,(queryS) => {
       const todosArray = [];
       queryS.forEach((doc) => {
         todosArray.push({ ...doc.data(), id: doc.id });
       });
-      console.log(Timestamp.now().toDate());
+
+
+      // console.log(Timestamp.now().toDate());
       console.log(todosArray);
       setTodos(todosArray);
     });
 
+    const unsub1 = onSnapshot(todoQuery1,(queryS) => {
+      const todosArray1 = [];
+      queryS.forEach((doc) => {
+        todosArray1.push({ ...doc.data(), id: doc.id });
+      });
+      // console.log(Timestamp.now().toDate());
+      console.log(todosArray1);
+      setTodos1(todosArray1);
+    });
+    
+
     return () => unsub();
+    return () => unsub1();
   }, []);
 
   return (
@@ -79,8 +93,12 @@ function WindowTodo() {
         <div className="right_container">
           <h1 className="gradient__text">Today</h1>
           <div className="todo_container">
-            <li>my first todo</li>
-            <li>my second todo</li>
+          {todos.map((todo) => (
+              <li>{todo.title}</li>
+          ))}
+          {todos1.map((todo) => (
+              <li>{todo.title}</li>
+          ))}
           </div>
         </div>
       </div>
