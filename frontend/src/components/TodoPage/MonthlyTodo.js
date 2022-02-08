@@ -1,11 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import {
-  collection,
-  onSnapshot,
-  query,
-  where
-} from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
 import { Button } from "@mui/material";
 import TodayIcon from "@mui/icons-material/Today";
@@ -31,26 +26,21 @@ function MonthlyTodo() {
       TodoCollectionRef,
       where("dueDate", "<", beginningDateObject)
     );
-    const todoQuery1 = query(
-      TodoCollectionRef,
-      where("dueDate", "==", "")
-    );
+    const todoQuery1 = query(TodoCollectionRef, where("dueDate", "==", ""));
 
-    
     // Timestamp.now().toDate()
-    const unsub = onSnapshot(todoQuery,(queryS) => {
+    const unsub = onSnapshot(todoQuery, (queryS) => {
       const todosArray = [];
       queryS.forEach((doc) => {
         todosArray.push({ ...doc.data(), id: doc.id });
       });
-
 
       // console.log(Timestamp.now().toDate());
       console.log(todosArray);
       setTodos(todosArray);
     });
 
-    const unsub1 = onSnapshot(todoQuery1,(queryS) => {
+    const unsub1 = onSnapshot(todoQuery1, (queryS) => {
       const todosArray1 = [];
       queryS.forEach((doc) => {
         todosArray1.push({ ...doc.data(), id: doc.id });
@@ -59,7 +49,6 @@ function MonthlyTodo() {
       console.log(todosArray1);
       setTodos1(todosArray1);
     });
-    
 
     return () => unsub();
     return () => unsub1();
@@ -72,15 +61,19 @@ function MonthlyTodo() {
         <div className="left_container">
           {/* <div className="today_button"> */}
           <div className="left_container_button">
-            <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-              <TodayIcon color="secondary" fontSize="large" />
-              <Link to="/WindowTodo">Today</Link>
-            </Button>
+            <Link to="/WindowTodo">
+              <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+                <TodayIcon color="secondary" fontSize="large" />
+                Today
+              </Button>
+            </Link>
 
-            <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-              <DateRangeRoundedIcon color="secondary" fontSize="large" />
-              <Link to="/WeeklyTodo">Weekly</Link>
-            </Button>
+            <Link to="/WeeklyTodo">
+              <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+                <DateRangeRoundedIcon color="secondary" fontSize="large" />
+                Weekly
+              </Button>
+            </Link>
 
             <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
               <CalendarViewMonthRoundedIcon
@@ -94,12 +87,12 @@ function MonthlyTodo() {
         <div className="right_container">
           <h1 className="gradient__text">Monthly</h1>
           <div className="todo_container">
-          {todos.map((todo) => (
+            {todos.map((todo) => (
               <li>{todo.title}</li>
-          ))}
-          {todos1.map((todo) => (
+            ))}
+            {todos1.map((todo) => (
               <li>{todo.title}</li>
-          ))}
+            ))}
           </div>
         </div>
       </div>
