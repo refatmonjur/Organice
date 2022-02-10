@@ -63,9 +63,9 @@ export default function Todo() {
   return (
     <div>
       <NewHomeNavbar />
-      <div>
+      {/* <div>
         <Button variant="contained">To do</Button>
-      </div>
+      </div> */}
 
       <div id="todo-list">
         <h1 className="gradient__text">Todo List</h1>
