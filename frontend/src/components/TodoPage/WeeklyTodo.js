@@ -21,12 +21,19 @@ function WeeklyTodo() {
     // today = new DateTime(today.year, today.month, today.day);
     const TodoCollectionRef = collection(db, "user", user.uid, "todos");
     var sevenday = Date.now() + 604800000;
+    // console.log(Date.now());
+    // console.log(sevenday);
     var beginningDateObject = new Date(sevenday);
     const todoQuery = query(
       TodoCollectionRef,
-      where("dueDate", "<", beginningDateObject)
+      where("dueDate", "<", beginningDateObject),
+      where("completed", "==", false)
     );
-    const todoQuery1 = query(TodoCollectionRef, where("dueDate", "==", ""));
+    const todoQuery1 = query(
+      TodoCollectionRef,
+      where("dueDate", "==", ""),
+      where("completed", "==", false)
+    );
 
     // Timestamp.now().toDate()
     const unsub = onSnapshot(todoQuery, (queryS) => {

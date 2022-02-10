@@ -24,9 +24,14 @@ function MonthlyTodo() {
     var beginningDateObject = new Date(sevenday);
     const todoQuery = query(
       TodoCollectionRef,
-      where("dueDate", "<", beginningDateObject)
+      where("dueDate", "<", beginningDateObject),
+      where("completed", "==", false)
     );
-    const todoQuery1 = query(TodoCollectionRef, where("dueDate", "==", ""));
+    const todoQuery1 = query(
+      TodoCollectionRef,
+      where("dueDate", "==", ""),
+      where("completed", "==", false)
+    );
 
     // Timestamp.now().toDate()
     const unsub = onSnapshot(todoQuery, (queryS) => {

@@ -20,9 +20,21 @@ function WindowTodo() {
     // var today = new DateTime.now();
     // today = new DateTime(today.year, today.month, today.day);
     const TodoCollectionRef = collection(db, "user", user.uid, "todos");
-    var today = new Date();
-    const todoQuery = query(TodoCollectionRef, where("dueDate", "<=", today));
-    const todoQuery1 = query(TodoCollectionRef, where("dueDate", "==", ""));
+    var today = Date.now() + 86400000;
+    console.log(today);
+    var beginningDateObject = new Date(today);
+    // console.log(today);
+    // console.log(today1);
+    const todoQuery = query(
+      TodoCollectionRef,
+      where("dueDate", "<=", beginningDateObject),
+      where("completed", "==", false)
+    );
+    const todoQuery1 = query(
+      TodoCollectionRef,
+      where("dueDate", "==", ""),
+      where("completed", "==", false)
+    );
 
     // Timestamp.now().toDate()
     const unsub = onSnapshot(todoQuery, (queryS) => {
