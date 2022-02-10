@@ -14,6 +14,10 @@ import AddDefinitionCard from "./components/FlashcardsPage/AddDefinitionCard";
 import AddImageCard from "./components/FlashcardsPage/AddImageCard";
 import { UserAuthContextProvider } from "./components/Context/UserAuthContext";
 import ProtectedRoute from "./components/Context/ProtectedRoutes";
+import WindowTodo from "./components/TodoPage/WindowTodo";
+import WeeklyTodo from "./components/TodoPage/WeeklyTodo";
+import MonthlyTodo from "./components/TodoPage/MonthlyTodo";
+
 
 function App() {
   return (
@@ -51,6 +55,15 @@ function App() {
             {/* ToDoList Routes */}
             <ProtectedRoute path="/todo">
               <Todo />
+              </ProtectedRoute>
+            <ProtectedRoute path="/WindowTodo">
+              <WindowTodo />
+              </ProtectedRoute>
+            <ProtectedRoute path="/WeeklyTodo">
+              <WeeklyTodo />
+              </ProtectedRoute>
+            <ProtectedRoute path="/MonthlyTodo">
+              <MonthlyTodo />
             </ProtectedRoute>
             <ProtectedRoute path="/newTodo">
               <NewUserTodo />
