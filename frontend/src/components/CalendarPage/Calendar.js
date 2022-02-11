@@ -1,14 +1,18 @@
 import React from "react";
 import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid' 
 
-function Calendar() {
-  return (
-    <div>
+export default function Calendar() {
+    return (
+      <div>
       <div>
         <NewHomeNavbar />
       </div>
-    </div>
-  );
-}
-
-export default Calendar;
+      <FullCalendar
+        plugins={[ dayGridPlugin ]}
+        initialView="dayGridMonth"
+      />
+      </div>
+    )
+  }
