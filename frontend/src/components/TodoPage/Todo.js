@@ -74,6 +74,7 @@ export default function Todo() {
           <div id="home_button">
             <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
               <HomeIcon color="secondary" fontSize="large" />
+
               <Link to="/WindowTodo">To-do Lists</Link>
             </Button>
           </div>

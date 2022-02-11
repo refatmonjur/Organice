@@ -2,7 +2,12 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 // Backend
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import {
+  collection,
+  setDoc,
+  addDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 import { db } from "../../firebase.js";
 import { useUserAuth } from "../Context/UserAuthContext";
 
@@ -13,11 +18,25 @@ import { Button, TextField, TextareaAutosize } from "@mui/material";
 //CSS
 import "./Flashcard.css";
 
+// creating a collection of flashcards
+// added decktitle to the flashcard
 function AddQACard() {
   const avatarStyle = { backgroundColor: "indigo" };
   const stylButn = { margin: "8px 0" };
   const stylField = { margin: "8px 0" };
+  const { user } = useUserAuth();
 
+  const [deckName, setDeckName] = useState("");
+  const crateDeck = async (e) => {
+    e.preventDefault();
+    var data = {
+      deckTitle: deckName,
+    };
+    if (deckName !== "") {
+      await addDoc(collection(db, "user", user.uid, "flashcard"), data);
+      console.log("check firebase");
+    }
+  };
   return (
     <div>
       <div>
@@ -36,7 +55,7 @@ function AddQACard() {
             fullWidth
             required
             style={stylField}
-            //onChange={}
+            onChange={(e) => setDeckName(e.target.value)}
           />
         </div>
       </div>
@@ -60,7 +79,11 @@ function AddQACard() {
           Add Card
         </Button>
 
-        <Button className="finish-deck-btn" style={{ marginTop: 20 }}>
+        <Button
+          className="finish-deck-btn"
+          style={{ marginTop: 20 }}
+          onClick={crateDeck}
+        >
           Finish & Save
         </Button>
       </div>
