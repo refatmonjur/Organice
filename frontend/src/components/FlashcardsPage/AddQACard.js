@@ -6,7 +6,11 @@ import {
   collection,
   setDoc,
   addDoc,
+  doc,
   serverTimestamp,
+  DocumentReference,
+  query,
+  where,
 } from "firebase/firestore";
 import { db } from "../../firebase.js";
 import { useUserAuth } from "../Context/UserAuthContext";
@@ -27,16 +31,38 @@ function AddQACard() {
   const { user } = useUserAuth();
 
   const [deckName, setDeckName] = useState("");
-  const crateDeck = async (e) => {
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
+
+  // const FlashCardRefs = collection(db, "user", user.uid, "flashcard");
+  const createDeck = async (e) => {
     e.preventDefault();
+    const FlashCardRefs = doc(db, "user", user.uid, "flashcard", deckName);
     var data = {
       deckTitle: deckName,
     };
+
     if (deckName !== "") {
-      await addDoc(collection(db, "user", user.uid, "flashcard"), data);
+      await setDoc(FlashCardRefs, data);
       console.log("check firebase");
     }
+    var data1 = {
+      question: question,
+      answer: answer,
+    };
+
+    const decksrefs = collection(
+      db,
+      "user",
+      user.uid,
+      "flashcard",
+      deckName,
+      "deck"
+    );
+    await addDoc(decksrefs, data1);
+    console.log("check firebase");
   };
+
   return (
     <div>
       <div>
@@ -67,10 +93,12 @@ function AddQACard() {
           <TextareaAutosize
             className="textfield-White fields-spacing "
             placeholder="Enter Question"
+            onChange={(e) => setQuestion(e.target.value)}
           />
           <TextareaAutosize
             className="textfield-White fields-spacing "
             placeholder="Enter Answer"
+            onChange={(e) => setAnswer(e.target.value)}
           />
         </div>
       </div>
@@ -82,7 +110,7 @@ function AddQACard() {
         <Button
           className="finish-deck-btn"
           style={{ marginTop: 20 }}
-          onClick={crateDeck}
+          onClick={createDeck}
         >
           Finish & Save
         </Button>
