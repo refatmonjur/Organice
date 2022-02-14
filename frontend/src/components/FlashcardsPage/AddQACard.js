@@ -50,7 +50,7 @@ function AddQACard() {
       question: question,
       answer: answer,
     };
-
+    
     const decksrefs = collection(
       db,
       "user",

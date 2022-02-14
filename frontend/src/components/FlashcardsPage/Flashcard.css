@@ -170,5 +170,7 @@
 .file-upload-button{
     background-color: linear-gradient(89.97deg, #cea9f5 1.84%, #F49867 102.67%) !important;
 }
-
+ .error{
+    color: black; 
+ }
 

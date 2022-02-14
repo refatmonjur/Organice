@@ -2,7 +2,16 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 // Backend
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import {
+  collection,
+  setDoc,
+  addDoc,
+  doc,
+  serverTimestamp,
+  DocumentReference,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "../../firebase.js";
 import { useUserAuth } from "../Context/UserAuthContext";
 
@@ -17,6 +26,42 @@ function AddDefinitionCard() {
   const avatarStyle = { backgroundColor: "indigo" };
   const stylButn = { margin: "8px 0" };
   const stylField = { margin: "8px 0" };
+  const { user } = useUserAuth();
+  const [deckName, setDeckName] = useState("");
+  const [word, setWord] = useState("");
+  const [definition, setDefinition] = useState("");
+  const [example, setExample] = useState("");
+  
+
+  const createDeck = async (e) => {
+    e.preventDefault();
+      // const FlashCardRefs = collection(db, "user", user.uid, "flashcard");
+    const FlashCardRefs = doc(db, "user", user.uid, "flashcard", deckName);
+    var data = {
+      deckTitle: deckName,
+    };
+
+    if (deckName !== "") {
+      await setDoc(FlashCardRefs, data);
+      console.log("check firebase");
+    }
+    var data1 = {
+      word: word, 
+      definition: definition,
+      example: example,
+    };
+    
+    const decksrefs = collection(
+      db,
+      "user",
+      user.uid,
+      "flashcard",
+      deckName,
+      "deck"
+    );
+    await addDoc(decksrefs, data1);
+    console.log("check firebase");
+  };
 
   return (
     <div>
@@ -36,7 +81,7 @@ function AddDefinitionCard() {
             fullWidth
             required
             style={stylField}
-            //onChange={}
+            onChange={(e) => setDeckName(e.target.value)}
           />
         </div>
       </div>
@@ -48,15 +93,18 @@ function AddDefinitionCard() {
           <TextareaAutosize
             className="textfield-White fields-spacing "
             placeholder="Enter Word"
+            onChange={(e) => setWord(e.target.value)}
           />
           <TextareaAutosize
             className="textfield-White fields-spacing "
             placeholder="Enter Definition"
+            onChange={(e) => setDefinition(e.target.value)}
           />
 
           <TextareaAutosize
             className="textfield-White fields-spacing "
             placeholder="Enter Example"
+            onChange={(e) => setExample(e.target.value)}
           />
         </div>
       </div>
@@ -65,7 +113,7 @@ function AddDefinitionCard() {
           Add Card
         </Button>
 
-        <Button className="finish-deck-btn" style={{ marginTop: 20 }}>
+        <Button className="finish-deck-btn" style={{ marginTop: 20 }} onClick= {createDeck}>
           Finish & Save
         </Button>
       </div>
