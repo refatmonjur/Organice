@@ -17,8 +17,9 @@ import { useUserAuth } from "../Context/UserAuthContext";
 
 // Front end
 import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
-import { Button, TextField, TextareaAutosize } from "@mui/material";
-
+import { Button, TextField, TextareaAutosize, IconButton, Icon } from "@mui/material";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import AddIcon from '@mui/icons-material/Add';
 //CSS
 import "./Flashcard.css";
 
@@ -31,7 +32,9 @@ function AddDefinitionCard() {
   const [word, setWord] = useState("");
   const [definition, setDefinition] = useState("");
   const [example, setExample] = useState("");
-  
+  const [inputFields, setInputField] = useState([
+    { word: '', definition: '', example: ''},
+  ]);
 
   const createDeck = async (e) => {
     e.preventDefault();
@@ -45,11 +48,11 @@ function AddDefinitionCard() {
       await setDoc(FlashCardRefs, data);
       console.log("check firebase");
     }
-    var data1 = {
-      word: word, 
-      definition: definition,
-      example: example,
-    };
+    // var data1 = {
+    //   word: word, 
+    //   definition: definition,
+    //   example: example,
+    // };
     
     const decksrefs = collection(
       db,
@@ -59,9 +62,35 @@ function AddDefinitionCard() {
       deckName,
       "deck"
     );
-    await addDoc(decksrefs, data1);
-    console.log("check firebase");
+    for(let i=0; i<inputFields.length; i++){
+      await addDoc(decksrefs, inputFields[i]);
+      console.log("check firebase");
+    }
+
+    
   };
+
+const handleChangeInput = (index, event) => {
+ const values = [...inputFields];
+ values[index][event.target.name] = event.target.value;
+ setInputField(values);
+};
+
+const handleSubmit= (e) => {
+  e.preventDefault();
+
+  console.log("InputFields", inputFields);
+};
+
+const handleAddFields = (index) => {
+  setInputField([...inputFields, { word: '', definition: '', example: ''}])
+};
+
+const handleRemoveFields= (index) => {
+const values = [...inputFields];
+values.splice(index, 1);
+setInputField(values);
+};
 
   return (
     <div>
@@ -87,38 +116,64 @@ function AddDefinitionCard() {
       </div>
 
       {/* Question Answer Add Cards Div */}
-      <div className="addnewdeck-header center-text">
+      <form onSubmit={handleSubmit}>
+        {inputFields.map((inputField, index) => 
+        (
+          <div key= {index}>
+            <div className="addnewdeck-header center-text">
         <div id="flex-containerQA">
           <div>Fill in your Word, Definition and Example</div>
           <TextareaAutosize
             className="textfield-White fields-spacing "
+            name= "word"
             placeholder="Enter Word"
-            onChange={(e) => setWord(e.target.value)}
+            value= {inputField.word}
+            // onChange={(e) => setWord(e.target.value)}
+            onChange={event => handleChangeInput(index, event)}
           />
           <TextareaAutosize
             className="textfield-White fields-spacing "
+            name= "definition"
             placeholder="Enter Definition"
-            onChange={(e) => setDefinition(e.target.value)}
+            value= {inputField.definition}
+            // onChange={(e) => setDefinition(e.target.value)}
+            onChange={event => handleChangeInput(index, event)}
           />
 
           <TextareaAutosize
             className="textfield-White fields-spacing "
+            name= "example"
             placeholder="Enter Example"
-            onChange={(e) => setExample(e.target.value)}
+            value= {inputField.example}
+            onChange={event => handleChangeInput(index, event)}
+            // onChange={(e) => setExample(e.target.value)}
           />
         </div>
       </div>
+      <IconButton
+        onClick={() => handleRemoveFields(index)}
+      >
+        <DeleteOutlineIcon/>
+      </IconButton>
+      <IconButton
+      onClick={() => handleAddFields(index)} 
+      >
+        <AddIcon />
+      </IconButton>
+          </div>
+        ))}
+      </form>
       <div id="flex-containerbtns">
-        <Button className="add-card-btn" style={{ marginTop: 20 }}>
+        {/* <Button className="add-card-btn" style={{ marginTop: 20 }}>
           Add Card
-        </Button>
+        </Button> */}
 
-        <Button className="finish-deck-btn" style={{ marginTop: 20 }} onClick= {createDeck}>
+         <Button className="finish-deck-btn" style={{ marginTop: 20 }} onClick= {createDeck}>
           Finish & Save
         </Button>
       </div>
     </div>
   );
 }
-
+//  onClick= {createDeck}
 export default AddDefinitionCard;

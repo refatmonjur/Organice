@@ -17,7 +17,9 @@ import { useUserAuth } from "../Context/UserAuthContext";
 
 // Front end
 import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
-import { Button, TextField, TextareaAutosize } from "@mui/material";
+import { Button, TextField, TextareaAutosize,  IconButton, Icon } from "@mui/material";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import AddIcon from '@mui/icons-material/Add';
 
 //CSS
 import "./Flashcard.css";
@@ -33,6 +35,9 @@ function AddQACard() {
   const [deckName, setDeckName] = useState("");
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
+  const [inputFields, setInputField] = useState([
+    { question: '', answer: ''},
+  ]);
 
   // const FlashCardRefs = collection(db, "user", user.uid, "flashcard");
   const createDeck = async (e) => {
@@ -46,10 +51,10 @@ function AddQACard() {
       await setDoc(FlashCardRefs, data);
       console.log("check firebase");
     }
-    var data1 = {
-      question: question,
-      answer: answer,
-    };
+    // var data1 = {
+    //   question: question,
+    //   answer: answer,
+    // };
     
     const decksrefs = collection(
       db,
@@ -59,9 +64,34 @@ function AddQACard() {
       deckName,
       "deck"
     );
-    await addDoc(decksrefs, data1);
-    console.log("check firebase");
+    for(let i=0; i<inputFields.length; i++){
+      await addDoc(decksrefs, inputFields[i]);
+      console.log("check firebase");
+    }
   };
+
+  
+const handleChangeInput = (index, event) => {
+  const values = [...inputFields];
+  values[index][event.target.name] = event.target.value;
+  setInputField(values);
+ };
+ 
+ const handleSubmit= (e) => {
+   e.preventDefault();
+ 
+   console.log("InputFields", inputFields);
+ };
+ 
+ const handleAddFields = (index) => {
+   setInputField([...inputFields, { question: '', answer: ''}])
+ };
+ 
+ const handleRemoveFields= (index) => {
+ const values = [...inputFields];
+ values.splice(index, 1);
+ setInputField(values);
+ };
 
   return (
     <div>
@@ -87,25 +117,48 @@ function AddQACard() {
       </div>
 
       {/* Question Answer Add Cards Div */}
+      <form onSubmit={handleSubmit}>
+      {inputFields.map((inputField, index) => 
+        (
+          <div key= {index}>
       <div className="addnewdeck-header center-text">
         <div id="flex-containerQA">
           <div>Fill in your Question and Answer</div>
           <TextareaAutosize
             className="textfield-White fields-spacing "
             placeholder="Enter Question"
-            onChange={(e) => setQuestion(e.target.value)}
+            name= "question"
+            value= {inputField.question}
+            // onChange={(e) => setQuestion(e.target.value)}
+            onChange={event => handleChangeInput(index, event)}
           />
           <TextareaAutosize
             className="textfield-White fields-spacing "
             placeholder="Enter Answer"
-            onChange={(e) => setAnswer(e.target.value)}
+            name= "answer"
+            value= {inputField.answer}
+            // onChange={(e) => setAnswer(e.target.value)}
+            onChange={event => handleChangeInput(index, event)}
           />
         </div>
       </div>
+      <IconButton
+        onClick={() => handleRemoveFields(index)}
+      >
+        <DeleteOutlineIcon/>
+      </IconButton>
+      <IconButton
+      onClick={() => handleAddFields(index)} 
+      >
+        <AddIcon />
+      </IconButton>
+          </div>
+        ))}
+      </form>
       <div id="flex-containerbtns">
-        <Button className="add-card-btn" style={{ marginTop: 20 }}>
+        {/* <Button className="add-card-btn" style={{ marginTop: 20 }}>
           Add Card
-        </Button>
+        </Button> */}
 
         <Button
           className="finish-deck-btn"
