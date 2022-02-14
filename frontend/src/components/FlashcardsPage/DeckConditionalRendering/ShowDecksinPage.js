@@ -4,51 +4,51 @@ import "../Flashcard.css";
 
 function ShowDecksinPage() {
 
-    // code HERE to render Decks!
+  // code HERE to render Decks!
 
-    var decks = [];
+  var decks = [];
 
-    //      -> pulls from user's database to show decks, 
-    //      with buttons to link to the viewing page of the cards 
-    //      -> to let users test themselves as per Organice's goal
-    decks.push("Deck 1"); //sample data
-    decks.push("Deck 2"); //sample data
-    const deckList = decks.map((i) =>
-        <div 
-            className="newUser-text center"
+  //      -> pulls from user's database to show decks, 
+  //      with buttons to link to the viewing page of the cards 
+  //      -> to let users test themselves as per Organice's goal
+  decks.push("Deck 1"); //sample data
+  decks.push("Deck 2"); //sample data
+  const deckList = decks.map((i) =>
+    <div
+      className="newUser-text center"
+    >
+      {i}
+      <div>
+        <Button
+          style={{
+
+          }}
         >
-            {i}
-            <div>
-                <Button
-                    style={{
-
-                    }}
-                >
-                    Edit
+          Edit
                 </Button>
-                <Button
-                    style={{
+        <Button
+          style={{
 
-                    }}
-                >
-                    Study
+          }}
+        >
+          Study
                 </Button>
-                <Button
-                    style={{
+        <Button
+          style={{
 
-                    }}
-                >
-                    Delete
+          }}
+        >
+          Delete
                 </Button>
-            </div>
-        </div>
-    );
+      </div>
+    </div>
+  );
 
 
-    return (
-        <div>
-            {deckList}
-        </div>
-    );
+  return (
+    <div>
+      {deckList}
+    </div>
+  );
 }
 export default ShowDecksinPage;

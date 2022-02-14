@@ -68,12 +68,18 @@ function WeeklyTodo() {
         <div className="left_container">
           {/* <div className="today_button"> */}
           <div className="left_container_button">
+          <Link to="/todo">
+              <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+                <TodayIcon color="secondary" fontSize="large" />
+                To Do List
+              </Button>
+            </Link> 
             <Link to="/WindowTodo">
               <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
                 <TodayIcon color="secondary" fontSize="large" />
                 Today
               </Button>
-            </Link>
+            </Link> 
 
             <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
               <DateRangeRoundedIcon color="secondary" fontSize="large" />

@@ -24,6 +24,9 @@ import "./Todo.css";
 import HomeIcon from "@mui/icons-material/Home";
 import Box from "@mui/material/Box";
 import ShowDesc from "./ShowDesc";
+import TodayIcon from "@mui/icons-material/Today";
+import DateRangeRoundedIcon from "@mui/icons-material/DateRangeRounded";
+import CalendarViewMonthRoundedIcon from "@mui/icons-material/CalendarViewMonthRounded";
 
 export default function Todo() {
   const { user } = useUserAuth();
@@ -63,11 +66,82 @@ export default function Todo() {
   return (
     <div>
       <NewHomeNavbar />
-      <div>
+      {/* <div>
         <Button variant="contained">To do</Button>
+      </div> */}
+      <div className="left_container">
+        {/* <div className="today_button"> */}
+        <div className="left_container_button">
+        <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+              <TodayIcon color="secondary" fontSize="large" />
+              To Do List
+            </Button>
+          <Link to="/WindowTodo">
+            <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+              <TodayIcon color="secondary" fontSize="large" />
+                Today
+              </Button>
+          </Link>
+          <Link to="/WeeklyTodo">
+          <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+            <DateRangeRoundedIcon color="secondary" fontSize="large" />
+              Weekly
+            </Button>
+            </Link>
+          <Link to="/MonthlyTodo">
+            <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+              <CalendarViewMonthRoundedIcon
+                color="secondary"
+                fontSize="large"
+              />
+                Monthly
+              </Button>
+          </Link>
+        </div>
+        {/* <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+            <TodayIcon color="secondary" fontSize="large" />
+            Today
+          </Button>
+        
+          <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+            <DateRangeRoundedIcon color="secondary" fontSize="large" />
+            Weekly
+          </Button>
+          <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+            <CalendarViewMonthRoundedIcon color="secondary" fontSize="large" />
+            monthly
+          </Button> */}
+      </div>
+      <div className="right_container">
+        <h1 className="gradient__text">Todo List</h1>
+        <div className="todo_container">
+          <div id="todo-list">
+            {/* <h1 className="gradient__text">Todo List</h1> */}
+            <div className="button_align">
+              <AddTodo />
+              <div id="home_button">
+                <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+                  <HomeIcon color="secondary" fontSize="large" />
+                  <Link to="/WindowTodo">To-do Lists</Link>
+                </Button>
+              </div>
+            </div>
+            <div className="todo_container">
+              {todos.map((todo) => (
+                <EachTodo
+                  key={todo.id}
+                  todo={todo}
+                  toggleComplete={toggleComplete}
+                  handleDelete={handleDelete}
+                  handleEdit={handleEdit}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div id="todo-list">
+      {/* <div id="todo-list">
         <h1 className="gradient__text">Todo List</h1>
         <div className="button_align">
           <AddTodo />
@@ -89,7 +163,7 @@ export default function Todo() {
             />
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
