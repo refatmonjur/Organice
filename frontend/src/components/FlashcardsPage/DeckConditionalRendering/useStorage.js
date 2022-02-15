@@ -1,4 +1,3 @@
-import { SAMLAuthProvider } from 'firebase/auth';
 import React from 'react';
 import {useEffect, useState} from 'react';
 import { storage } from '../../../firebase';
@@ -38,8 +37,10 @@ function useStorage(file) {
         setError(err);
       },
       async () => {
-        const url = getDownloadURL(uploadTask.snapshot.ref)
+        const url = getDownloadURL(uploadTask.snapshot.ref);
+        // uploadTask.snapshot.ref
         setUrl(url);
+        console.log(url);
       })
     }, [file]);
 
