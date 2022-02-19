@@ -13,6 +13,7 @@ import ProtectedRoute from "./components/Context/ProtectedRoutes";
 import WindowTodo from "./components/TodoPage/WindowTodo";
 import WeeklyTodo from "./components/TodoPage/WeeklyTodo";
 import MonthlyTodo from "./components/TodoPage/MonthlyTodo";
+import AddEventModal from "./components/CalendarPage/AddEventModal";
 
 
 function App() {
