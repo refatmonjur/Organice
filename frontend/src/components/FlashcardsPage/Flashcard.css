@@ -174,3 +174,13 @@
     color: black; 
  }
 
+.progress-bar{
+    height: 5px !important;
+    background: var(--primary) !important;
+    margin-top: 20px !important;
+}
+
+.output{
+    height: 60px !important;
+    font-size: 0.8rem !important;
+}

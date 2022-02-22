@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 
 // Backend
@@ -24,7 +24,7 @@ import AddIcon from '@mui/icons-material/Add';
 import "./Flashcard.css";
 import ProgressBar from "./DeckConditionalRendering/ProgressBar.js";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-
+import useStorage from "./DeckConditionalRendering/useStorage.js";
 // function AddImageCard() {
 
 const AddImageCard = () => {
@@ -62,11 +62,12 @@ const AddImageCard = () => {
   const types = ['application/pdf', 'image/png', 'image/jpeg'];
   const [error, setError] = useState(null);
   const [inputFields, setInputField] = useState([
-    { word: '', definition: '', purpose: '', file: '' },
-    { word: '', definition: '', purpose: '', file: '' },
+    { word: '', definition: '', purpose: '', url: '' },
+    { word: '', definition: '', purpose: '', url: '' },
 
   ]);
   // const [progress, setProgress] = useState(0);
+
 
   const changeUpload = (e) => {
       console.log("changed")
@@ -81,6 +82,7 @@ const AddImageCard = () => {
       }
       console.log(selected)
   }
+
 
   // const uploadFiles = (file) => {
   //   if (!file) return;
@@ -106,7 +108,7 @@ const AddImageCard = () => {
     // const FlashCardRefs = collection(db, "user", user.uid, "flashcard");
     // const url= await storageRef.getDownloadURL();
     // setURL(url);
-
+    // changeUpload(file);
     const FlashCardRefs = doc(db, "user", user.uid, "flashcard", deckName);
     var data = {
       deckTitle: deckName,
@@ -149,7 +151,7 @@ const AddImageCard = () => {
   };
 
   const handleAddFields = (index) => {
-    setInputField([...inputFields, { word: '', definition: '', purpose: '', file: '' }])
+    setInputField([...inputFields, { word: '', definition: '', purpose: '', url: '' }])
   };
 
   const handleRemoveFields = (index) => {
@@ -229,12 +231,16 @@ const AddImageCard = () => {
                     <input
                       type="file"
                       className="file-upload-button"
-                      onChange={changeUpload}
+                      // onChange={changeUpload}
                       style={{
                         color: "blue",
                         marginBottom: 30,
                       }}
                     />
+                    {url}
+                    {/* <button> 
+                      Upload
+                    </button> */}
                     <div className="output" style={{
                         fontWeight: "normal",
                         marginTop: 15,
@@ -245,8 +251,9 @@ const AddImageCard = () => {
                       {file && <ProgressBar file={file} setFile={setFile} />}
 
                     </div>
-                    {/* <Button
+                    <Button
                 // onClick={uploadFiles(file)}
+                     onClick= {changeUpload}
                 style={{
                   backgroundImage:
                     "linear-gradient(89.97deg, #cea9f5 1.84%, #F49867 102.67%)",
@@ -255,7 +262,7 @@ const AddImageCard = () => {
                 }}
               >
                 Upload
-              </Button> */}
+              </Button>
                   </div>
                   <div>
                     <h4
@@ -266,11 +273,9 @@ const AddImageCard = () => {
                       }}
                     >
                       {/* {progress}% */}
-                     {url}
                     </h4>
-                    <div>
+                    {/* <div>
                       <img
-                        src={url}
                         style={{
                           backgroundRepeat: "no-repeat",
                           backgroundSize: "cover",
@@ -278,7 +283,7 @@ const AddImageCard = () => {
                           maxHeight: 400,
                         }}
                       />
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
