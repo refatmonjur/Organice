@@ -11,14 +11,15 @@ a {
   text-decoration: none;
 }
 
-body > #root > div {
-  height: 100vh;
+#root > div {
+  min-height: 100vh;
   background: radial-gradient(
     circle at 3% 25%,
     rgba(0, 40, 83, 1) 0%,
     rgba(4, 12, 24, 1) 100%
   );
 }
+
 
 .gradient__text {
   background: var(--gradient-text);
@@ -30,7 +31,7 @@ body > #root > div {
 
 .task-input {
   flex: 1 1 0%;
-  background-color: #1f2937;
+  background-color: rgb(31, 41, 55);
   color: #eee;
   padding: 1rem;
   border-radius: 1rem;
@@ -51,13 +52,18 @@ body > #root > div {
   background-color: green;
 }
 
+
+.todo_page{
+  height: 100%;
+}
+
 .todo {
   margin-top: 20px;
   padding: 10px 30px;
   border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
+  
 }
 
 .todo input {
@@ -81,13 +87,17 @@ body > #root > div {
   border-radius: 50%;
 }
 
-/* .todo_container {
-  width: 100%;
-  margin: 0 auto;
-  width: 100%;
-  height: 50px;
-  margin: 0 auto;
-} */
+#todo-list {
+  max-width: 600px;
+  margin: 2rem auto;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+section.list {
+  flex: 1;
+}
 
 .button_align {
   display: flex;
@@ -103,4 +113,60 @@ body > #root > div {
   .task {
     margin-right: 0px;
   }
+}
+
+.content_todo {
+  display: flex;
+  justify-content: space-around;
+  align-items: start;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-top: 40px;
+  height: 100vh;
+}
+
+
+/* title */
+.title_todolist{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+}
+
+
+
+/* Menu bar left side*/
+.nav_menu{
+  margin-top: 2rem;
+  margin-left: 2rem;
+  margin-right: 1rem;
+  font-size: 2rem;
+  background-color: #060b26;
+}
+
+.menu_btn{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 8px 0px 8px 16px;
+  list-style: none;
+  height: 100px;
+}
+
+.menu_btn a{
+  text-decoration: none;
+  color: #f5f5f5;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 4px;
+}
+
+/* currently not working */
+.nav-text a:hover {
+  background-color: #0084ff;
 }

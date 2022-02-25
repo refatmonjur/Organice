@@ -40,7 +40,7 @@ export default function EachTodo({
       <input
         style={{ textDecoration: todo.completed && "line-through" }}
         type="text"
-        value={todo.title === "" ? newInput : "✅ " + todo.title}
+        value={todo.title === "" ? newInput : todo.title}
         className="list"
         onChange={handleChange}
       />

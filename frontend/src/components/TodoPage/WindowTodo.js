@@ -11,6 +11,12 @@ import { Link } from "react-router-dom";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { db } from "../../firebase.js";
 
+//react icons
+import * as BsIcons from "react-icons/bs";
+import { IconContext } from 'react-icons';
+
+
+
 function WindowTodo() {
   const { user } = useUserAuth();
   const [todos, setTodos] = useState([]);
@@ -65,37 +71,55 @@ function WindowTodo() {
   return (
     <div>
       <NewHomeNavbar />
+      <div className="title_todolist">
+        To-Do List
+      </div>
       <div className="content_todo">
-        <div className="left_container">
-          {/* <div className="today_button"> */}
-          <div className="left_container_button">
-          <Link to="/todo">
-          <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-              <TodayIcon color="secondary" fontSize="large" />
-              To Do List
-            </Button>
-            </Link>
-            <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-              <TodayIcon color="secondary" fontSize="large" />
-              Today
-            </Button>
-            <Link to="/WeeklyTodo">
-              <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-                <DateRangeRoundedIcon color="secondary" fontSize="large" />
-                Weekly
-              </Button>
-            </Link>
-            <Link to="/MonthlyTodo">
-              <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-                <CalendarViewMonthRoundedIcon
-                  color="secondary"
-                  fontSize="large"
-                />
-                Monthly
-              </Button>
-            </Link>
+          {/* LEFT SIDE BAR */}
+          <div className="nav_menu">
+            <IconContext.Provider value={{ color: '#fff' }}>
+
+              <li className="menu_btn">
+                <Link to="todo">
+                  <BsIcons.BsCalendarCheck />
+                  <a>
+                    Listing
+                  </a>
+                </Link>
+              </li>
+
+              <li className="menu_btn">
+                <Link to="/WindowTodo">
+                  <BsIcons.BsCalendarEvent />
+                  <a>
+                    Today
+                  </a>
+
+                </Link>
+              </li>
+
+              <li className="menu_btn">
+                <Link to="/WeeklyTodo">
+                  <BsIcons.BsCalendarRange />
+                  <a>
+                    Weekly
+                  </a>
+                </Link>
+              </li>
+
+              <li className="menu_btn">
+                <Link to="/MonthlyTodo">
+                  <BsIcons.BsCalendar3 />
+                  <a>
+                    Monthly
+                  </a>
+                </Link>
+              </li>
+            </IconContext.Provider>
           </div>
-        </div>
+
+
+
         <div className="right_container">
           <h1 className="gradient__text">Today</h1>
           <div className="todo_container">
