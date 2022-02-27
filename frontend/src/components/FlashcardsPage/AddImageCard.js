@@ -68,7 +68,6 @@ const AddImageCard = () => {
   ]);
   // const [progress, setProgress] = useState(0);
 
-
   const changeUpload = (e) => {
       console.log("changed")
       let selected = e.target.files[0];
@@ -80,7 +79,10 @@ const AddImageCard = () => {
           setFile(null);
           setError("Please select an image file or pdf file (png,jepg,pdf)");
       }
+      
       console.log(selected)
+      
+      
   }
 
 
@@ -159,6 +161,7 @@ const AddImageCard = () => {
     values.splice(index, 1);
     setInputField(values);
   };
+  console.log(url)
 
   return (
     <div>
@@ -231,13 +234,15 @@ const AddImageCard = () => {
                     <input
                       type="file"
                       className="file-upload-button"
-                      // onChange={changeUpload}
+                      onChange={changeUpload}
+                      // value={inputField.url}
                       style={{
                         color: "blue",
                         marginBottom: 30,
                       }}
                     />
-                    {url}
+                    {/* <h1> {inputField.url}</h1> */}
+                    
                     {/* <button> 
                       Upload
                     </button> */}
@@ -248,12 +253,12 @@ const AddImageCard = () => {
                       }}>
                       {error && <div className="error"> {error}</div>}
                       {file && <div> {file.name}</div>}
-                      {file && <ProgressBar file={file} setFile={setFile} />}
-
+                      {file && <ProgressBar file={file} setFile={setFile} setUrl={setUrl}/>}
+                    
                     </div>
                     <Button
                 // onClick={uploadFiles(file)}
-                     onClick= {changeUpload}
+                     onClick= {event => handleChangeInput(index, event)}
                 style={{
                   backgroundImage:
                     "linear-gradient(89.97deg, #cea9f5 1.84%, #F49867 102.67%)",

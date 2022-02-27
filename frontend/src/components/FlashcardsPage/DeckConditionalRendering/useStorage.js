@@ -28,6 +28,7 @@ function useStorage(file, inputFields) {
         const url = getDownloadURL(uploadTask.snapshot.ref);
         // uploadTask.snapshot.ref
         setUrl(url);
+        // url= inputFields.url;
         
       })
     }, [file]);
