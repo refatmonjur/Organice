@@ -33,7 +33,7 @@ h1 {
 }
 
 form, .todo {
-  border: 1px solid rgb(255, 255, 255);
+  border: 1px solid rgb(255, 255, 255, 50%);
   background-color: rgb(26, 34, 46);
   border-radius: 20px;
   padding: 10px 20px;
@@ -74,7 +74,7 @@ button:focus {
   outline: 0;
 }
 
-input[type='text'] { font-size: 20px; font-family: monospace; }
+input[type='text'] { font-size: 20px; font-family: monospace;}
 .todo input[type="checkbox"] {
   transform: scale(1.8) translateY(1px);
   margin: 0 16px 0 0;
@@ -94,6 +94,7 @@ input[type='text'] { font-size: 20px; font-family: monospace; }
 .todo-completed {
   display: flex;
   margin: 10px 0;
+  
 }
 .todo-actions {
   display: flex;

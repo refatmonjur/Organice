@@ -56,6 +56,10 @@ export default function EachTodo({
         {/* <MoreOptions/> */}
         <button
           className="button-complete"
+          style={{
+            height: 10,
+            width: 10
+          }}
           onClick={() => toggleComplete(todo)}
         >
           <CheckCircleIcon id="i" />
@@ -64,12 +68,23 @@ export default function EachTodo({
         {/* this is the Edit button  */}
         <button
           className="button-edit"
+          style={{
+            height: 10,
+            width: 10
+          }}
           onClick={() => handleEdit(todo, newInput)}
         >
           <EditIcon />
         </button>
         {/* this is the delete button  */}
-        <button className="button-delete" onClick={() => handleDelete(todo.id)}>
+        <button 
+          className="button-delete"
+          style={{
+            height: 10,
+            width: 10
+          }}
+          onClick={() => handleDelete(todo.id)}
+        >
           <DeleteIcon id="i" />
         </button>
 

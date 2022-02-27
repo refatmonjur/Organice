@@ -8,6 +8,12 @@
     border-radius: 40px;
 }
 
+.transparentBgFlashcard {
+    background-color: hsla(221, 40%, 63%, 0.445);
+    margin: 40px;
+    border-radius: 40px;
+}
+
 .add-card-bg {
     background-color: rgba(0, 0, 0, 0);
     border: none;
@@ -33,6 +39,11 @@
 #flex-container {
     display: flex;
     flex-direction: row;
+}
+
+#flex-container-column {
+    display: "flex";
+    flex-direction: "column",
 }
 
 #flex-container div{
@@ -170,5 +181,52 @@
 .file-upload-button{
     background-color: linear-gradient(89.97deg, #cea9f5 1.84%, #F49867 102.67%) !important;
 }
+ .error{
+    color: black; 
+ }
 
+/* Remaining Flash card Deck Cards and Flash card Rendering CSS */
+.max-height-flashcard-section {
+    display: flex;
+    max-height: fit-content
+}
 
+.background-opacity {
+    background-color:hsla(221, 62%, 55%, 0);
+}
+
+.flashcard-item-size {
+    max-height: 500px;
+}
+
+.flashcard-deck-title {
+    font-size: 20px;
+    text-align: center;
+    min-width: none;
+    max-width: 1000px;
+    flex-grow: 1;
+}
+
+/* EachFlashCards CSS */
+.flashcard-container {
+    background-color: white;
+    display: flex;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.flashcard-prompt {
+    padding: 20px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: hsla(221, 62%, 55%, 0) rgb(0, 43, 136) hsla(221, 62%, 55%, 0) hsla(221, 62%, 55%, 0);
+    min-width: 300px;
+    max-width: 300px;
+}
+
+.flashcard-answer {
+    padding: 20px;
+    margin: 0 auto;
+}
+
+/* Flippy Card Designs */

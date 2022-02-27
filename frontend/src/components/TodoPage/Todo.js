@@ -34,24 +34,21 @@ import CalendarViewMonthRoundedIcon from "@mui/icons-material/CalendarViewMonthR
 import * as BsIcons from "react-icons/bs";
 import { IconContext } from 'react-icons';
 
-// Imported Tiny Slider to slide the ToDo components
-import TinySlider from "tiny-slider-react";
-import 'tiny-slider/dist/tiny-slider.css';
+//Imported ScrollBars for the scrolling of the total ToDolist items
+import ScrollBars from 'react-scrollbar';
+
+
 
 export default function Todo() {
   const { user } = useUserAuth();
   const [todos, setTodos] = useState([]);
   const [Loading, setLoading] = useState(false);
 
-  const settings = {
-    lazyload: true,
-    nav: true,
-    mouseDrag: true,
-    loop: true,
-    items: 1,
-    gutter: 5
+  const scrollBarStyle = {
+    height: '600px',
   };
 
+  const todoArray = [];
 
   useEffect(() => {
     setLoading(true);
@@ -81,6 +78,19 @@ export default function Todo() {
   const handleDelete = async (id) => {
     const docRef3 = doc(db, "user", user.uid, "todos", id);
     await deleteDoc(docRef3);
+  };
+
+  
+  for (let i = 0; i < todos.length; i++) {
+    todoArray.push(
+      <EachTodo
+        key={todos[i].id}
+        todo={todos[i]}
+        toggleComplete={toggleComplete}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+      />
+    )
   };
 
   return (
@@ -135,9 +145,6 @@ export default function Todo() {
           </IconContext.Provider>
         </div>
 
-
-
-
         {/* RIGHT SIDE BAR */}
         <div className="right_container">
           <div className="todo_container">
@@ -146,17 +153,22 @@ export default function Todo() {
               <div className="button_align">
                 <AddTodo />
               </div>
-              <TinySlider settings={settings}>
-                {todos.map((todo) => (
-                  <EachTodo
-                    key={todo.id}
-                    todo={todo}
-                    toggleComplete={toggleComplete}
-                    handleDelete={handleDelete}
-                    handleEdit={handleEdit}
-                  />
-                ))}
-              </TinySlider>
+
+              {/* Will implement a scroll bar instead of tiny-slider */}
+              {/* <TinySlider settings={settings} onClick={clickEvent}>
+                  {todos.map((todo) => (
+                    <EachTodo
+                      key={todo.id}
+                      todo={todo}
+                      toggleComplete={toggleComplete}
+                      handleDelete={handleDelete}
+                      handleEdit={handleEdit}
+                    />
+                  ))}
+                </TinySlider> */}
+              <ScrollBars horizontal autoHide={false} style={scrollBarStyle}>
+                {todoArray}
+              </ScrollBars>
             </div>
           </div>
         </div>

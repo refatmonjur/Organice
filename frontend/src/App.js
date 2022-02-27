@@ -17,7 +17,7 @@ import ProtectedRoute from "./components/Context/ProtectedRoutes";
 import WindowTodo from "./components/TodoPage/WindowTodo";
 import WeeklyTodo from "./components/TodoPage/WeeklyTodo";
 import MonthlyTodo from "./components/TodoPage/MonthlyTodo";
-
+import StudyFlashCards from "./components/FlashcardsPage/StudyFlashCards"
 
 function App() {
   return (
@@ -72,6 +72,9 @@ function App() {
             {/* Calendar Routes */}
             <ProtectedRoute path="/calendar">
               <Calendar />
+            </ProtectedRoute>
+            <ProtectedRoute path="/studyFlashCards">
+              <StudyFlashCards />
             </ProtectedRoute>
 
             {/* <Route path="/newTodo" exact component={NewUserTodo} /> */}
