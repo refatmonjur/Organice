@@ -57,7 +57,7 @@ const AddImageCard = () => {
   const [word, setWord] = useState("");
   const [definition, setDefinition] = useState("");
   const [purpose, setPurpose] = useState("");
-  const [ url, setUrl] = useState(null);
+  const [ url, setUrl] = useState([]);
   const [file, setFile] = useState(null);
   const types = ['application/pdf', 'image/png', 'image/jpeg'];
   const [error, setError] = useState(null);
@@ -254,7 +254,6 @@ const AddImageCard = () => {
                       {error && <div className="error"> {error}</div>}
                       {file && <div> {file.name}</div>}
                       {file && <ProgressBar file={file} setFile={setFile} setUrl={setUrl}/>}
-                    
                     </div>
                     <Button
                 // onClick={uploadFiles(file)}

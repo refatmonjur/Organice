@@ -25,9 +25,9 @@ function useStorage(file, inputFields) {
         setError(err);
       },
       async () => {
-        const url = getDownloadURL(uploadTask.snapshot.ref);
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => setUrl(url));
         // uploadTask.snapshot.ref
-        setUrl(url);
+        // setUrl(url);
         // url= inputFields.url;
         
       })
