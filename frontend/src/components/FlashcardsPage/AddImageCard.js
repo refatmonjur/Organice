@@ -17,9 +17,15 @@ import { useUserAuth } from "../Context/UserAuthContext";
 
 // Front end
 import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
-import { Button, TextField, TextareaAutosize, IconButton, Icon } from "@mui/material";
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import AddIcon from '@mui/icons-material/Add';
+import {
+  Button,
+  TextField,
+  TextareaAutosize,
+  IconButton,
+  Icon,
+} from "@mui/material";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import AddIcon from "@mui/icons-material/Add";
 //CSS
 import "./Flashcard.css";
 import ProgressBar from "./DeckConditionalRendering/ProgressBar.js";
@@ -57,40 +63,46 @@ const AddImageCard = () => {
   const [word, setWord] = useState("");
   const [definition, setDefinition] = useState("");
   const [purpose, setPurpose] = useState("");
-  const [ url, setUrl] = useState([]);
+  const [url, setUrl] = useState("");
   const [file, setFile] = useState(null);
-  const types = ['application/pdf', 'image/png', 'image/jpeg'];
+  const types = ["application/pdf", "image/png", "image/jpeg"];
   const [error, setError] = useState(null);
   const [inputFields, setInputField] = useState([
-    { word: '', definition: '', purpose: '', url: '' },
-    { word: '', definition: '', purpose: '', url: '' },
-
+    { word: "", definition: "", purpose: "", url: "" },
+    { word: "", definition: "", purpose: "", url: "" },
   ]);
   // const [progress, setProgress] = useState(0);
 
   const changeUpload = (e) => {
-      console.log("changed")
-      let selected = e.target.files[0];
-      if(selected && types.includes(selected.type)){
-        setFile(selected);
-        setError("");
+    console.log("changed");
+    let selected = e.target.files[0];
+    console.log(selected);
+    if (selected && types.includes(selected.type)) {
+      // const handleChangeInput = (index, e) => {
+      //   const values = [...inputFields];
+      //   values[index][e.target.url] = e.target.value;
+      //   setInputField(values);
+      //   console.log(values);
+      // };
+      setFile(selected);
+      for (let i = 0; i < inputFields.length; i++) {
+        inputFields[i].url = url;
       }
-      else{
-          setFile(null);
-          setError("Please select an image file or pdf file (png,jepg,pdf)");
-      }
-      
-      console.log(selected)
-      
-      
-  }
+      setError("");
+      console.log(inputFields);
+      // handleChangeInput(index, e);
+    } else {
+      setFile(null);
+      setError("Please select an image file or pdf file (png,jepg,pdf)");
+    }
 
+    console.log(selected);
+  };
 
   // const uploadFiles = (file) => {
   //   if (!file) return;
   //   const storageRef = ref(storage, `/files/${file.name}`);
   //   const uploadTask = uploadBytesResumable(storageRef, file);
-
 
   //   uploadTask.on("state_changed", (snapshot) => {
   //     const prog = Math.round((snapshot.byteTransferred / snapshot.totalBytes) * 100);
@@ -124,7 +136,7 @@ const AddImageCard = () => {
     //   word: word,
     //   definition: definition,
     //   purpose: purpose,
-    // //   url: url  
+    // //   url: url
     // };
 
     const decksrefs = collection(
@@ -153,7 +165,10 @@ const AddImageCard = () => {
   };
 
   const handleAddFields = (index) => {
-    setInputField([...inputFields, { word: '', definition: '', purpose: '', url: '' }])
+    setInputField([
+      ...inputFields,
+      { word: "", definition: "", purpose: "", url: "" },
+    ]);
   };
 
   const handleRemoveFields = (index) => {
@@ -161,7 +176,7 @@ const AddImageCard = () => {
     values.splice(index, 1);
     setInputField(values);
   };
-  console.log(url)
+  console.log(url);
 
   return (
     <div>
@@ -188,8 +203,7 @@ const AddImageCard = () => {
 
       {/* Question Answer Add Cards Div */}
       <form onSubmit={handleSubmit}>
-        {inputFields.map((inputField, index) =>
-        (
+        {inputFields.map((inputField, index) => (
           <div key={index}>
             <div className="addnewdeck-header center-text">
               <div id="flex-containerQA">
@@ -200,17 +214,17 @@ const AddImageCard = () => {
                   name="word"
                   value={inputField.word}
                   // onChange={(e) => setWord(e.target.value)}
-                  onChange={event => handleChangeInput(index, event)}
+                  onChange={(event) => handleChangeInput(index, event)}
                 />
 
-           <TextareaAutosize
-            className="textfield-White fields-spacing "
-            placeholder="Enter Definition"
-            name="definition"
-            value= {inputField.definition}
-            // onChange={(e) => setDefinition(e.target.value)}
-            onChange={event => handleChangeInput(index, event)}
-          />
+                <TextareaAutosize
+                  className="textfield-White fields-spacing "
+                  placeholder="Enter Definition"
+                  name="definition"
+                  value={inputField.definition}
+                  // onChange={(e) => setDefinition(e.target.value)}
+                  onChange={(event) => handleChangeInput(index, event)}
+                />
 
                 <TextareaAutosize
                   className="textfield-White fields-spacing "
@@ -218,7 +232,7 @@ const AddImageCard = () => {
                   name="purpose"
                   value={inputField.purpose}
                   // onChange={(e) => setPurpose(e.target.value)}
-                  onChange={event => handleChangeInput(index, event)}
+                  onChange={(event) => handleChangeInput(index, event)}
                 />
 
                 <div
@@ -234,39 +248,47 @@ const AddImageCard = () => {
                     <input
                       type="file"
                       className="file-upload-button"
-                      onChange={changeUpload}
-                      // value={inputField.url}
+                      onChange={(e) => changeUpload(e)}
                       style={{
                         color: "blue",
                         marginBottom: 30,
                       }}
                     />
                     {/* <h1> {inputField.url}</h1> */}
-                    
+
                     {/* <button> 
                       Upload
                     </button> */}
-                    <div className="output" style={{
+                    <div
+                      className="output"
+                      style={{
                         fontWeight: "normal",
                         marginTop: 15,
                         color: "black",
-                      }}>
+                      }}
+                    >
                       {error && <div className="error"> {error}</div>}
                       {file && <div> {file.name}</div>}
-                      {file && <ProgressBar file={file} setFile={setFile} setUrl={setUrl}/>}
+                      {file && (
+                        <ProgressBar
+                          file={file}
+                          setFile={setFile}
+                          setUrl={setUrl}
+                        />
+                      )}
                     </div>
                     <Button
-                // onClick={uploadFiles(file)}
-                     onClick= {event => handleChangeInput(index, event)}
-                style={{
-                  backgroundImage:
-                    "linear-gradient(89.97deg, #cea9f5 1.84%, #F49867 102.67%)",
-                  color: "blue",
-                  fontWeight: 500,
-                }}
-              >
-                Upload
-              </Button>
+                      // onClick={uploadFiles(file)}
+                      onClick={(event) => handleChangeInput(index, event)}
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(89.97deg, #cea9f5 1.84%, #F49867 102.67%)",
+                        color: "blue",
+                        fontWeight: 500,
+                      }}
+                    >
+                      Upload
+                    </Button>
                   </div>
                   <div>
                     <h4
@@ -292,14 +314,10 @@ const AddImageCard = () => {
                 </div>
               </div>
             </div>
-            <IconButton
-              onClick={() => handleRemoveFields(index)}
-            >
+            <IconButton onClick={() => handleRemoveFields(index)}>
               <DeleteOutlineIcon />
             </IconButton>
-            <IconButton
-              onClick={() => handleAddFields(index)}
-            >
+            <IconButton onClick={() => handleAddFields(index)}>
               <AddIcon />
             </IconButton>
           </div>
