@@ -5,6 +5,7 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid' 
 import AddEventModal from "./AddEventModal";
 import { useRef } from "react";
+import "./Calendar.css"
 
 export default function Calendar() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -13,6 +14,7 @@ export default function Calendar() {
   const onEventAdded = event => {
     let calendarApi = this.calendarRef.current.getApi()
     calendarApi.addEvent(event)
+
   }
 
     return (
@@ -21,6 +23,8 @@ export default function Calendar() {
         <NewHomeNavbar />
       </div>
 
+      <div className="size">
+
       <div style={{position: "relative", zIndex: 0}}>
 
       <div className="eventbutton">
@@ -28,13 +32,23 @@ export default function Calendar() {
       </div>
 
       <div className="thecalendar">
-      <FullCalendar ref={calendarRef} plugins={[ dayGridPlugin ]} initialView="dayGridMonth"/>
+      <FullCalendar ref={calendarRef} 
+      plugins={[ dayGridPlugin ]} 
+      initialView="dayGridMonth"
+      weekends={false}
+  events={[
+    { title: 'Senior Design Today: 11:30am', date: '2022-02-14' },
+    { title: 'Senior Design Today: 11:30am', date: '2022-02-28' }
+  ]}
+      />
+      aspectRatio:  3;
       </div>
 
       </div>
 
       <AddEventModal isOpen={modalOpen} onClose={() => setModalOpen(false)} 
       onEventAdded={event => onEventAdded(event)} />
+      </div>
       </div>
     )
   }

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import Datetime from 'react-datetime';
 //import "react-datetime/css/react-datetime.css";
+import "./AddEventModal.css"
 
 export default function AddEventModal ({isOpen, onClose, onEventAdded}) {
     const [title, setTitle] = useState("");
