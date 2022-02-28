@@ -22,15 +22,19 @@ export default function Calendar() {
       </div>
 
       <div style={{position: "relative", zIndex: 0}}>
+
+      <div className="eventbutton">
       <button onClick={() => setModalOpen(true)}>Add Event</button>
-      <FullCalendar
-        ref={calendarRef}
-        plugins={[ dayGridPlugin ]}
-        initialView="dayGridMonth"
-      />
       </div>
 
-      <AddEventModal isOpen={modalOpen} onClose={() => setModalOpen(false)} onEventAdded={event => onEventAdded(event)} />
+      <div className="thecalendar">
+      <FullCalendar ref={calendarRef} plugins={[ dayGridPlugin ]} initialView="dayGridMonth"/>
+      </div>
+
+      </div>
+
+      <AddEventModal isOpen={modalOpen} onClose={() => setModalOpen(false)} 
+      onEventAdded={event => onEventAdded(event)} />
       </div>
     )
   }

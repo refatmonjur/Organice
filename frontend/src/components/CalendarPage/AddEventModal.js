@@ -21,7 +21,9 @@ export default function AddEventModal ({isOpen, onClose, onEventAdded}) {
     return (
         <Modal isOpen={isOpen} onRequestClose={onClose}>
             <form onSubmit={onSubmit}>
+                <div className="title">
                 <input placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} />
+                </div>
                 <div>
                 <label>Start Date</label>    
                 <Datetime value={start} onChange={date => setStart(date)} />
