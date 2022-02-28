@@ -1,39 +1,41 @@
-import React from 'react';
-import {useEffect, useState} from 'react';
-import { storage } from '../../../firebase';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { async } from '@firebase/util';
-
+import React from "react";
+import { useEffect, useState } from "react";
+import { storage } from "../../../firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { userData } from "../../Context/UserData";
 
 function useStorage(file, inputFields) {
-    const [progress, setProgress] = useState(0);
-    const [ error, setError] = useState(null);
-    const [url, setUrl] = useState(null);
-    
-    useEffect(() =>{
+  const [progress, setProgress] = useState(0);
+  const [error, setError] = useState(null);
+  const [url, setUrl] = useState(null);
+
+  useEffect(() => {
     const storageRef = ref(storage, file.name);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
-    uploadTask.on("state_changed",(snapshot) => {
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
         const prog = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
         setProgress(prog);
       },
-      (err) =>
-      {
+      (err) => {
         setError(err);
       },
       async () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((url) => setUrl(url));
+        getDownloadURL(uploadTask.snapshot.ref).then((url) =>
+          userData.setUrl(url)
+        );
         // uploadTask.snapshot.ref
         // setUrl(url);
         // url= inputFields.url;
-        
-      })
-    }, [file]);
+      }
+    );
+  }, [file]);
 
-    return {progress, url , error}
+  return { progress, url, error };
 }
 
 export default useStorage;

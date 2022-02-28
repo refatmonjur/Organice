@@ -23,6 +23,7 @@ import {
   TextareaAutosize,
   IconButton,
   Icon,
+  inputAdornmentClasses,
 } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import AddIcon from "@mui/icons-material/Add";
@@ -31,6 +32,7 @@ import "./Flashcard.css";
 import ProgressBar from "./DeckConditionalRendering/ProgressBar.js";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import useStorage from "./DeckConditionalRendering/useStorage.js";
+import { userData } from "../Context/UserData.js";
 // function AddImageCard() {
 
 const AddImageCard = () => {
@@ -63,7 +65,7 @@ const AddImageCard = () => {
   const [word, setWord] = useState("");
   const [definition, setDefinition] = useState("");
   const [purpose, setPurpose] = useState("");
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(null);
   const [file, setFile] = useState(null);
   const types = ["application/pdf", "image/png", "image/jpeg"];
   const [error, setError] = useState(null);
@@ -72,32 +74,41 @@ const AddImageCard = () => {
     { word: "", definition: "", purpose: "", url: "" },
   ]);
   // const [progress, setProgress] = useState(0);
-
-  const changeUpload = (e) => {
+  console.log(url);
+  async function changeUpload(index, e) {
     console.log("changed");
     let selected = e.target.files[0];
     console.log(selected);
+
     if (selected && types.includes(selected.type)) {
-      // const handleChangeInput = (index, e) => {
-      //   const values = [...inputFields];
-      //   values[index][e.target.url] = e.target.value;
-      //   setInputField(values);
-      //   console.log(values);
-      // };
       setFile(selected);
-      for (let i = 0; i < inputFields.length; i++) {
-        inputFields[i].url = url;
-      }
       setError("");
-      console.log(inputFields);
-      // handleChangeInput(index, e);
+      // let lol = useStorage(file, inputFields);
+      // console.log(lol);
+      // const handleChangeInput1 = (index, e) => {
+      //   const values = [...inputFields];
+      //   console.log(url);
+      //   values[index][e.target.name] = userData.getUrl();
+      //   setInputField(values);
+      // };
+      // handleChangeInput1(index, e);
+      console.log(selected);
     } else {
       setFile(null);
       setError("Please select an image file or pdf file (png,jepg,pdf)");
     }
-
+    const handleChangeInput1 = (index, e) => {
+      console.log("i am here");
+      const values = [...inputFields];
+      console.log(userData.getUrl());
+      console.log(url);
+      values[index][e.target.name] = userData.getUrl();
+      setInputField(values);
+    };
+    handleChangeInput1(index, e);
+    console.log(inputFields);
     console.log(selected);
-  };
+  }
 
   // const uploadFiles = (file) => {
   //   if (!file) return;
@@ -156,6 +167,12 @@ const AddImageCard = () => {
     const values = [...inputFields];
     values[index][event.target.name] = event.target.value;
     setInputField(values);
+  };
+  const handleChangeInput2 = (index, event) => {
+    const values = [...inputFields];
+    values[index][event.target.name] = url;
+    setInputField(values);
+    console.log(inputFields);
   };
 
   const handleSubmit = (e) => {
@@ -234,6 +251,24 @@ const AddImageCard = () => {
                   // onChange={(e) => setPurpose(e.target.value)}
                   onChange={(event) => handleChangeInput(index, event)}
                 />
+                <div
+                  className="output"
+                  style={{
+                    fontWeight: "normal",
+                    marginTop: 15,
+                    color: "black",
+                  }}
+                >
+                  {error && <div className="error"> {error}</div>}
+                  {file && <div> {file.name}</div>}
+                  {file && (
+                    <ProgressBar
+                      file={file}
+                      setFile={setFile}
+                      setUrl={setUrl}
+                    />
+                  )}
+                </div>
 
                 <div
                   className="whiteBg center"
@@ -248,7 +283,8 @@ const AddImageCard = () => {
                     <input
                       type="file"
                       className="file-upload-button"
-                      onChange={(e) => changeUpload(e)}
+                      name="url"
+                      onChange={(e) => changeUpload(index, e)}
                       style={{
                         color: "blue",
                         marginBottom: 30,
@@ -259,27 +295,10 @@ const AddImageCard = () => {
                     {/* <button> 
                       Upload
                     </button> */}
-                    <div
-                      className="output"
-                      style={{
-                        fontWeight: "normal",
-                        marginTop: 15,
-                        color: "black",
-                      }}
-                    >
-                      {error && <div className="error"> {error}</div>}
-                      {file && <div> {file.name}</div>}
-                      {file && (
-                        <ProgressBar
-                          file={file}
-                          setFile={setFile}
-                          setUrl={setUrl}
-                        />
-                      )}
-                    </div>
+
                     <Button
                       // onClick={uploadFiles(file)}
-                      onClick={(event) => handleChangeInput(index, event)}
+                      onClick={(event) => handleChangeInput2(index, event)}
                       style={{
                         backgroundImage:
                           "linear-gradient(89.97deg, #cea9f5 1.84%, #F49867 102.67%)",
