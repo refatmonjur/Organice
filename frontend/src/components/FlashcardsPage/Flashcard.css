@@ -8,6 +8,13 @@
     border-radius: 40px;
 }
 
+.transparentBg2 {
+    background-color: hsla(221, 40%, 63%, 0.445);
+    margin: 40px;
+    height: 7vh;
+    border-radius: 40px;
+}
+
 .transparentBgFlashcard {
     background-color: hsla(221, 40%, 63%, 0.445);
     margin: 40px;

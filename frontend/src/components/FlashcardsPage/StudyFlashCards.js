@@ -6,8 +6,8 @@ import { useUserAuth } from "../Context/UserAuthContext";
 import Modal from "react-modal";
 import EachFlashCards from "./EachFlashCards.js";
 import StudyEachCard from "./StudyEachCard.js";
-
-export default function StudyFlashCard({ deckName, isOpen, onClose }) {
+import EachFlashCardsWDE from "./EachFlashCardsWDE.js";
+export default function StudyFlashCards({ deckName, isOpen, onClose }) {
   const [decks1, setDecks1] = useState([]);
   const [flashcard, setFlashcard] = useState([]);
   const { user } = useUserAuth();
@@ -53,8 +53,24 @@ export default function StudyFlashCard({ deckName, isOpen, onClose }) {
   // now decks has all the
   // console.log(decks1.length);
   // console.log(flashcard);
-  console.log(deckName);
+
+
+  // console.log(decks1[0]);
+  // console.log(Object.keys(decks1[0]).length)
+
+
   console.log(isOpen);
+  const handleDelete = async (id) => {
+    const docRef3 = doc(db, "user", user.uid, "flashcard", deckName, "deck", id);
+    await deleteDoc(docRef3);
+  };
+  const handleAdd = (flash) => {
+    // if (the length is 3):
+    // go to this component
+    // else if:
+    // go to this
+  };
+
   // console.log(Object.keys(decks1[0]).length); // this is how we get length of the object
   return (
     <div>
@@ -66,38 +82,32 @@ export default function StudyFlashCard({ deckName, isOpen, onClose }) {
       >
         <div>
           {/* here have the study Flashcard component which will flip onClick */}
-          <StudyEachCard />
+          <StudyEachCard deckName={deckName}/>
         </div>
-        <h1>CARDS ON {deckName}: </h1>
+        {/* <h1>CARDS ON {deckName}: </h1> */}
+        <div className=" flashcard-deck-title gradient__text">
+        CARDS ON {deckName}:
+        </div>
         <div>
           {decks1.map((flash) => (
             <div>
               {Object.keys(flash).length == 3 && (
-                <EachFlashCards flash={flash} />
+                <EachFlashCards flash={flash} handleDelete={handleDelete}/>
               )}
               {Object.keys(flash).length == 4 && (
-                <div>
-                  <h1>Word: {flash.word}</h1>
-                  <h1>Definition: {flash.Defition}</h1>
-                  <h1>Example: {flash.example}</h1>
-                </div>
+                
+                <EachFlashCardsWDE flash={flash} handleDelete={handleDelete}/>
+            
               )}
             </div>
             // {/* // here call another component for each flashcards  */}
           ))}
         </div>
-        {/* // create a button
-
-                // on the button condition onClick 
-                if(decks1[0].length ==2){
-                  go to this component
-                }
-                else if(){ go to the add card with three fields}
-                else{
-                  go to the other one
-                }
-                
-                */}
+        <div>
+          {/* <button onClick={handleAdd}>
+            ADD NEW CARDS
+          </button> */}
+        </div>
       </Modal>
     </div>
   );
