@@ -17,7 +17,8 @@ import ProtectedRoute from "./components/Context/ProtectedRoutes";
 import WindowTodo from "./components/TodoPage/WindowTodo";
 import WeeklyTodo from "./components/TodoPage/WeeklyTodo";
 import MonthlyTodo from "./components/TodoPage/MonthlyTodo";
-import StudyFlashCards from "./components/FlashcardsPage/StudyFlashCards"
+import StudyFlashCards from "./components/FlashcardsPage/StudyFlashCards";
+import AddMoreCardQA from "./components/FlashcardsPage/AddMoreCardQA";
 
 function App() {
   return (
@@ -51,17 +52,20 @@ function App() {
             <ProtectedRoute path="/addImageCard">
               <AddImageCard />
             </ProtectedRoute>
+            <ProtectedRoute path="/addMoreCardQA">
+              <AddMoreCardQA />
+            </ProtectedRoute>
 
             {/* ToDoList Routes */}
             <ProtectedRoute path="/todo">
               <Todo />
-              </ProtectedRoute>
+            </ProtectedRoute>
             <ProtectedRoute path="/WindowTodo">
               <WindowTodo />
-              </ProtectedRoute>
+            </ProtectedRoute>
             <ProtectedRoute path="/WeeklyTodo">
               <WeeklyTodo />
-              </ProtectedRoute>
+            </ProtectedRoute>
             <ProtectedRoute path="/MonthlyTodo">
               <MonthlyTodo />
             </ProtectedRoute>

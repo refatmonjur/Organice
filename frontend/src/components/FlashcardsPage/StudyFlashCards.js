@@ -7,10 +7,14 @@ import Modal from "react-modal";
 import EachFlashCards from "./EachFlashCards.js";
 import StudyEachCard from "./StudyEachCard.js";
 import EachFlashCardsWDE from "./EachFlashCardsWDE.js";
+import { useHistory } from "react-router-dom";
+import AddMoreCardQA from "./AddMoreCardQA.js";
+
 export default function StudyFlashCards({ deckName, isOpen, onClose }) {
   const [decks1, setDecks1] = useState([]);
   const [flashcard, setFlashcard] = useState([]);
   const { user } = useUserAuth();
+  let history = useHistory();
   const customStyles = {
     content: {
       top: "50%",
@@ -54,21 +58,34 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
   // console.log(decks1.length);
   // console.log(flashcard);
 
-
   // console.log(decks1[0]);
   // console.log(Object.keys(decks1[0]).length)
 
-
   console.log(isOpen);
   const handleDelete = async (id) => {
-    const docRef3 = doc(db, "user", user.uid, "flashcard", deckName, "deck", id);
+    const docRef3 = doc(
+      db,
+      "user",
+      user.uid,
+      "flashcard",
+      deckName,
+      "deck",
+      id
+    );
     await deleteDoc(docRef3);
   };
-  const handleAdd = (flash) => {
-    // if (the length is 3):
-    // go to this component
-    // else if:
-    // go to this
+  const handleAdd = () => {
+    if (Object.keys(decks1[0]).length == 3) {
+      // push it to the page with word and definition
+      history.push({
+        pathname: "/addMoreCardQA",
+        state: { decksName: deckName },
+      });
+    } else if (Object.keys(decks1[0]).length == 4) {
+      // push it to the page with word and definition
+    } else {
+      //push it to the page that takes the word, definition, purpose and image
+    }
   };
 
   // console.log(Object.keys(decks1[0]).length); // this is how we get length of the object
@@ -82,33 +99,31 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
       >
         <div>
           {/* here have the study Flashcard component which will flip onClick */}
-          <StudyEachCard deckName={deckName}/>
+          <StudyEachCard deckName={deckName} />
         </div>
         {/* <h1>CARDS ON {deckName}: </h1> */}
         <div className=" flashcard-deck-title gradient__text">
-        CARDS ON {deckName}:
+          CARDS ON {deckName}:
         </div>
         <div>
           {decks1.map((flash) => (
             <div>
               {Object.keys(flash).length == 3 && (
-                <EachFlashCards flash={flash} handleDelete={handleDelete}/>
+                <EachFlashCards flash={flash} handleDelete={handleDelete} />
               )}
               {Object.keys(flash).length == 4 && (
-                
-                <EachFlashCardsWDE flash={flash} handleDelete={handleDelete}/>
-            
+                <EachFlashCardsWDE flash={flash} handleDelete={handleDelete} />
               )}
             </div>
             // {/* // here call another component for each flashcards  */}
           ))}
         </div>
         <div>
-          {/* <button onClick={handleAdd}>
-            ADD NEW CARDS
-          </button> */}
+          <button onClick={handleAdd}>ADD NEW CARDS</button>
         </div>
       </Modal>
+
+      <div></div>
     </div>
   );
 }
