@@ -17,7 +17,8 @@ import ProtectedRoute from "./components/Context/ProtectedRoutes";
 import WindowTodo from "./components/TodoPage/WindowTodo";
 import WeeklyTodo from "./components/TodoPage/WeeklyTodo";
 import MonthlyTodo from "./components/TodoPage/MonthlyTodo";
-
+import AddEventModal from "./components/CalendarPage/AddEventModal";
+import Error from "./PageNotFound/Error";
 
 function App() {
   return (
@@ -55,15 +56,21 @@ function App() {
             {/* ToDoList Routes */}
             <ProtectedRoute path="/todo">
               <Todo />
-              </ProtectedRoute>
+            </ProtectedRoute>
             <ProtectedRoute path="/WindowTodo">
               <WindowTodo />
-              </ProtectedRoute>
+            </ProtectedRoute>
             <ProtectedRoute path="/WeeklyTodo">
               <WeeklyTodo />
-              </ProtectedRoute>
+            </ProtectedRoute>
             <ProtectedRoute path="/MonthlyTodo">
               <MonthlyTodo />
+            </ProtectedRoute>
+            <ProtectedRoute path="/Error">
+              <Error />
+            </ProtectedRoute>
+            <ProtectedRoute path="/calendar">
+              <Calendar />
             </ProtectedRoute>
             <ProtectedRoute path="/newTodo">
               <NewUserTodo />

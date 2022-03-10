@@ -1,0 +1,23 @@
+.image {
+    text-align: center;
+    
+
+}
+.text1 {
+    text-align: center;
+    font-size: 50px;
+    background:var(--gradient-text);
+    background-clip: text;
+    -webkit-background-clop: text;        /* THIS ALLOWS FOR DIFFERENT BROWSERS*/
+    -webkit-text-fill-color: transparent; /* THIS ALLOWS FOR DIFFERENT BROWSERS*/
+    padding: 50px;
+  }
+.text2 {
+    text-align: center;
+    font-size: 50px;
+    background:var(--gradient-text);
+    background-clip: text;
+    -webkit-background-clop: text;        /* THIS ALLOWS FOR DIFFERENT BROWSERS*/
+    -webkit-text-fill-color: transparent; /* THIS ALLOWS FOR DIFFERENT BROWSERS*/
+    padding: 20px;
+}
