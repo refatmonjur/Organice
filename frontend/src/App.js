@@ -29,9 +29,6 @@ function App() {
             <Route path="/" exact component={Home} />
             <Route path="/login" exact component={Login} />
             <Route path="/signup" exact component={SignUp} />
-            {/* <Route path="/flashcard" exact component={Flashcard} /> */}
-            {/* <Route path="/todo" exact component={ToDo} />
-            <Route path="/calendar" exact component={Calendar} /> */}
             <ProtectedRoute path="/home">
               <NewHome />
             </ProtectedRoute>
@@ -66,22 +63,13 @@ function App() {
             <ProtectedRoute path="/MonthlyTodo">
               <MonthlyTodo />
             </ProtectedRoute>
-            <ProtectedRoute path="/Error">
-              <Error />
-            </ProtectedRoute>
             <ProtectedRoute path="/calendar">
               <Calendar />
             </ProtectedRoute>
             <ProtectedRoute path="/newTodo">
               <NewUserTodo />
             </ProtectedRoute>
-
-            {/* Calendar Routes */}
-            <ProtectedRoute path="/calendar">
-              <Calendar />
-            </ProtectedRoute>
-
-            {/* <Route path="/newTodo" exact component={NewUserTodo} /> */}
+            <Route component={Error} />
           </Switch>
         </Router>
       </UserAuthContextProvider>
