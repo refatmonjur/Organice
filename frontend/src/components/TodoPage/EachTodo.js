@@ -92,7 +92,7 @@ export default function EachTodo({
         <div>
           {/* <ShowDesc Todo={todo} /> */}
           <Button variant="outlined" onClick={handleClickOpen}>
-            <MoreHorizOutlinedIcon color="secondary" fontSize="medium" />
+            <MoreHorizOutlinedIcon color="primary" fontSize="medium" />
           </Button>
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Description</DialogTitle>

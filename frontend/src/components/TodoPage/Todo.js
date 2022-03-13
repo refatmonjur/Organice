@@ -30,9 +30,10 @@ import DateRangeRoundedIcon from "@mui/icons-material/DateRangeRounded";
 import CalendarViewMonthRoundedIcon from "@mui/icons-material/CalendarViewMonthRounded";
 
 
-//react icons
+//react icons and Sidebar
 import * as BsIcons from "react-icons/bs";
 import { IconContext } from 'react-icons';
+import SidebarToDo from './Sidebar/SidebarTodo';
 
 //Imported ScrollBars for the scrolling of the total ToDolist items
 import ScrollBars from 'react-scrollbar';
@@ -96,54 +97,10 @@ export default function Todo() {
   return (
     <div className="todo_page">
       <NewHomeNavbar />
-      <div className="title_todolist">
-        To-Do List
-      </div>
+
       <div className="content_todo">
-
-
         {/* LEFT SIDE BAR */}
-        <div className="nav_menu">
-          <IconContext.Provider value={{ color: '#fff' }}>
-
-            <li className="menu_btn">
-              <Link to="todo">
-                <BsIcons.BsCalendarCheck />
-                <a>
-                  Listing
-                </a>
-              </Link>
-            </li>
-
-            <li className="menu_btn">
-              <Link to="/WindowTodo">
-                <BsIcons.BsCalendarEvent />
-                <a>
-                  Today
-                </a>
-
-              </Link>
-            </li>
-
-            <li className="menu_btn">
-              <Link to="/WeeklyTodo">
-                <BsIcons.BsCalendarRange />
-                <a>
-                  Weekly
-                </a>
-              </Link>
-            </li>
-
-            <li className="menu_btn">
-              <Link to="/MonthlyTodo">
-                <BsIcons.BsCalendar3 />
-                <a>
-                  Monthly
-                </a>
-              </Link>
-            </li>
-          </IconContext.Provider>
-        </div>
+        <SidebarToDo />
 
         {/* RIGHT SIDE BAR */}
         <div className="right_container">

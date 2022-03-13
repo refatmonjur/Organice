@@ -1,14 +1,12 @@
 .right_container {
   min-height: 100vh;
-  background-color: hsla(203, 80%, 67%, 0.637);
   flex-grow: 3;
   height: auto;
-  margin-left: 40px;
-  border-radius: 20px;
+  margin-left: 50px;
   width: 80%;
-  /* margin-top: 80px; */
+  background-color: rgba(255, 255, 255, .15);  
+  backdrop-filter: blur(5px);
 }
-
 .gradient__text {
     background:var(--gradient-text);
     background-clip: text;
@@ -17,3 +15,21 @@
     padding: 50px;
 }
 
+.listing-spacing {
+  margin-left: 220px;
+  margin-right: 50px;
+  color: black;
+}
+
+.listing-bullets {
+  padding: 40px;
+  font-size: 20px;
+}
+
+.card-spacing {
+  margin-top: 20px;
+}
+
+.italicize {
+  font-style: italic;
+}

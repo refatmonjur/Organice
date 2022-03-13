@@ -17,7 +17,9 @@ import ProtectedRoute from "./components/Context/ProtectedRoutes";
 import WindowTodo from "./components/TodoPage/WindowTodo";
 import WeeklyTodo from "./components/TodoPage/WeeklyTodo";
 import MonthlyTodo from "./components/TodoPage/MonthlyTodo";
-import StudyFlashCards from "./components/FlashcardsPage/StudyFlashCards"
+import StudyFlashCards from "./components/FlashcardsPage/StudyFlashCards";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 function App() {
   return (
