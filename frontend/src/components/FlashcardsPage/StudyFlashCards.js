@@ -83,6 +83,11 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
       });
     } else if (Object.keys(decks1[0]).length == 4) {
       // push it to the page with word and definition
+      history.push({
+        pathname: "/addMoreCardWDE",
+        state: { decksName: deckName },
+      });
+      
     } else {
       //push it to the page that takes the word, definition, purpose and image
     }

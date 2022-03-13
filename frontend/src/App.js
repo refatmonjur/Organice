@@ -19,7 +19,7 @@ import WeeklyTodo from "./components/TodoPage/WeeklyTodo";
 import MonthlyTodo from "./components/TodoPage/MonthlyTodo";
 import StudyFlashCards from "./components/FlashcardsPage/StudyFlashCards";
 import AddMoreCardQA from "./components/FlashcardsPage/AddMoreCardQA";
-
+import AddMoreCardWDE from "./components/FlashcardsPage/AddMoreCardWDE";
 function App() {
   return (
     <div className="app">
@@ -54,6 +54,9 @@ function App() {
             </ProtectedRoute>
             <ProtectedRoute path="/addMoreCardQA">
               <AddMoreCardQA />
+            </ProtectedRoute>
+            <ProtectedRoute path= "/addMoreCardWDE">
+              <AddMoreCardWDE/>
             </ProtectedRoute>
 
             {/* ToDoList Routes */}

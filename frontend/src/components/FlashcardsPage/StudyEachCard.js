@@ -39,7 +39,6 @@ function StudyEachCard({ deckName }) {
       console.log(FlashCardsArray);
       setFlashCards(FlashCardsArray);
     });
-
     return () => unsub();
   }, []);
 
@@ -68,10 +67,13 @@ function StudyEachCard({ deckName }) {
             style={{ backgroundColor: "#41669d", textAlign: "center" }}
           >
             {flashCards.length > 0 && <p>{flashCards[currentCard].question}</p>}
+            {flashCards.length > 0 && <p>{flashCards[currentCard].word}</p>}
           </FrontSide>
 
           <BackSide style={{ backgroundColor: "#FFFFFF", textAlign: "center" }}>
             {flashCards.length > 0 && <p>{flashCards[currentCard].answer}</p>}
+            {flashCards.length > 0 && <p>{flashCards[currentCard].definition}</p>}
+            {flashCards.length > 0 && <p>{flashCards[currentCard].example}</p>}
             {/* <p>{flashCards[currentCard].answer}</p> */}
           </BackSide>
         </Flippy>
