@@ -41,7 +41,6 @@ export default function Calendar() {
     { title: 'Senior Design Today: 11:30am', date: '2022-02-28' }
   ]}
       />
-      aspectRatio:  3;
       </div>
 
       </div>

@@ -15,6 +15,7 @@ import WeeklyTodo from "./components/TodoPage/WeeklyTodo";
 import MonthlyTodo from "./components/TodoPage/MonthlyTodo";
 import AddEventModal from "./components/CalendarPage/AddEventModal";
 import Error from "./PageNotFound/Error";
+import Profile from "./components/Profile/Profile";
 
 
 function App() {
@@ -55,6 +56,9 @@ function App() {
             </ProtectedRoute>
             <ProtectedRoute path="/newTodo">
               <NewUserTodo />
+            </ProtectedRoute>
+            <ProtectedRoute path="/Profile">
+              <Profile />
             </ProtectedRoute>
             {/* <Route path="/newTodo" exact component={NewUserTodo} /> */}
           </Switch>

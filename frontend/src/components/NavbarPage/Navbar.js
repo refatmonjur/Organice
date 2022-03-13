@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -18,6 +17,8 @@ import "./Navbar.css";
 import Logo from "./test_logo.png";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { useHistory } from "react-router-dom";
+import Flashcard from "../FlashcardsPage/Flashcard";
+
 const useStyles = makeStyles({
   header: {
     backgroundColor: "blue",
