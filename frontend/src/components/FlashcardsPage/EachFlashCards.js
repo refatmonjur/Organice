@@ -6,11 +6,7 @@ import { useState } from "react";
 //  feel free to get rid of it since it is not needed and is extra
 //    prompt was meant to imitate flash.question
 //    answer imitates the flash.answer
-<<<<<<< HEAD
 function EachFlashCards({ flash, handleDelete, handleEdit2 }) {
-=======
-function EachFlashCards({ flash, handleDelete, handleEdit }) {
->>>>>>> a011e16bb94ee38de1cf98df99270e917f4d6558
   const [newQuestion, setNewQuestion] = useState(flash.question);
   const [newAnswer, setNewAnswer] = useState(flash.answer);
 
@@ -55,11 +51,7 @@ function EachFlashCards({ flash, handleDelete, handleEdit }) {
           />
         </div>
         <div>
-<<<<<<< HEAD
           <button onClick={() => handleEdit2(flash, newQuestion, newAnswer)}>
-=======
-          <button onClick={() => handleEdit(flash, newQuestion, newAnswer)}>
->>>>>>> a011e16bb94ee38de1cf98df99270e917f4d6558
             <EditIcon />
           </button>
         </div>
