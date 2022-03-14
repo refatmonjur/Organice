@@ -1,7 +1,17 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { db } from "../../firebase.js";
+<<<<<<< HEAD
 import { collection, onSnapshot, doc, deleteDoc,updateDoc } from "firebase/firestore";
+=======
+import {
+  collection,
+  onSnapshot,
+  doc,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
+>>>>>>> a011e16bb94ee38de1cf98df99270e917f4d6558
 import { useUserAuth } from "../Context/UserAuthContext";
 import Modal from "react-modal";
 import EachFlashCards from "./EachFlashCards.js";
@@ -121,10 +131,22 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
         pathname: "/addMoreCardWDE",
         state: { decksName: deckName },
       });
-      
     } else {
       //push it to the page that takes the word, definition, purpose and image
     }
+  };
+
+  const handleEdit = async (flash, newQuestion, newAnswer) => {
+    const docRef = doc(
+      db,
+      "user",
+      user.uid,
+      "flashcard",
+      deckName,
+      "deck",
+      flash.id
+    );
+    await updateDoc(docRef, { question: newQuestion, answer: newAnswer });
   };
 
   // console.log(Object.keys(decks1[0]).length); // this is how we get length of the object
@@ -148,7 +170,15 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
           {decks1.map((flash) => (
             <div>
               {Object.keys(flash).length == 3 && (
+<<<<<<< HEAD
                 <EachFlashCards flash={flash} handleDelete={handleDelete} handleEdit2 = {handleEdit2} />
+=======
+                <EachFlashCards
+                  flash={flash}
+                  handleDelete={handleDelete}
+                  handleEdit={handleEdit}
+                />
+>>>>>>> a011e16bb94ee38de1cf98df99270e917f4d6558
               )}
               {Object.keys(flash).length == 4 && (
                 <EachFlashCardsWDE  flash={flash} handleDelete={handleDelete} handleEdit = {handleEdit}  />
