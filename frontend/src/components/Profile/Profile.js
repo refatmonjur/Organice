@@ -11,9 +11,33 @@ import TextField from '@mui/material/TextField';
 import "./Profile.css";
 import { Paper } from '@mui/material';
 import { Button } from '@mui/material';
+import { Dialog } from '@mui/material';
+import { DialogActions } from '@mui/material';
+import { DialogTitle } from '@mui/material';
+import { DialogContent } from '@mui/material';
+import { useState } from 'react';
+import imageavatar from './avatar.png'
 
 
 function Profile() {
+  const [open, setOpen] = useState(false);
+  const [openPass, setOpenPass] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClosePass = () => {
+    setOpenPass(false);
+  };
+
+  const handleClickOpenPass = () => {
+    setOpenPass(true);
+  };
   return (
     <div>
       <NewHomeNavbar />
@@ -28,21 +52,31 @@ function Profile() {
 
         {/* image container */}
         <div className='avatar--container'>
-         type in something
+        
+          <img src={imageavatar}
+            style={{
+              width: 200,
+              height: 200,
+              borderRadius: 200,
+              border: '3px ridge '
+            }} />
+            
         </div>
         {/* name field */}
         <div className='namefield-container'>
-        <TextField id="outlined-basic" label="Your Name" variant="outlined" size="small" />
+        <TextField id="outlined-basic" label="Name:" defaultValue="Refat Monjur" variant="standard" size="small" InputProps={{
+            readOnly: true,
+          }}/>
         </div>
 
         {/* update user info */}
         <div className='userinfo-container'>
-        <button style={{height: "40px", width: "280px"}}>Update User Info</button>
+        <button style={{height: "40px", width: "280px"}} onClick={handleClickOpen}>Update User Info</button>
         </div>
 
         {/* update password */}
         <div className='password-container'>
-        <button style={{height: "40px", width: "280px"}}>Update Password</button>
+        <button style={{height: "40px", width: "280px"}} onClick={handleClickOpenPass}>Update Password</button>
         </div>
 
 
@@ -53,7 +87,38 @@ function Profile() {
           <TextField id="outlined-basic" label="Change Passwordç" variant="outlined" />
         </div> */}
       </div>
-     
+      <div>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Update User Info</DialogTitle>
+        <DialogContent>
+
+      <div className='userwindow'>
+        <TextField id="outlined-basic" label=" Enter New First Name" variant="outlined" size="small" />
+        <TextField id="outlined-basic" label=" Enter New Last Name" variant="outlined" size="small" />
+        </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Update Info</Button>
+        </DialogActions>
+      </Dialog>
+      </div>
+      <div>
+      <Dialog open={openPass} onClose={handleClosePass}>
+        <DialogTitle>Update Password</DialogTitle>
+        <DialogContent>
+
+        <TextField id="outlined-basic" label=" Enter New Password" variant="outlined" size="small" />
+          
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClosePass}>Cancel</Button>
+          <Button onClick={handleClosePass}>Update Password</Button>
+        </DialogActions>
+      </Dialog>
+      </div>
+        
+
      </div>
 // {/*      
 //       <div className='button'>

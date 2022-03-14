@@ -17,9 +17,9 @@
 .container{
     display: flex;
     border-radius: 25px;
-    margin-right: 500px;
-    margin-left: 500px;
-    background-color: darkslateblue;
+    margin-right: 20%;
+    margin-left: 20%;
+    background-color: #3fb0ac;
     align-items: center;
     flex-direction: column;
     gap: 40px
@@ -37,6 +37,11 @@
     size: 30px;
 
    
+}
+.userwindow{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 .password-container{
     margin-bottom: 30px;
