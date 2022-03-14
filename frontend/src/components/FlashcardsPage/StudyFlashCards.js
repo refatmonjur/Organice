@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { db } from "../../firebase.js";
-import { collection, onSnapshot, doc, deleteDoc } from "firebase/firestore";
+import { collection, onSnapshot, doc, deleteDoc,updateDoc } from "firebase/firestore";
 import { useUserAuth } from "../Context/UserAuthContext";
 import Modal from "react-modal";
 import EachFlashCards from "./EachFlashCards.js";
@@ -74,6 +74,40 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
     );
     await deleteDoc(docRef3);
   };
+  const handleEdit = async (flash, newWord, newDefinition, newExample ) => {
+    const docRef4 = doc(db, "user",
+    user.uid,
+    "flashcard",
+    deckName,
+    "deck",
+    flash.id);
+    await updateDoc(docRef4, {definition: newDefinition, example: newExample, word: newWord});
+  };
+
+  const handleEdit2 = async (flash, newQuestion, newAnswer) => {
+    const docRef = doc(
+      db,
+      "user",
+      user.uid,
+      "flashcard",
+      deckName,
+      "deck",
+      flash.id
+    );
+    await updateDoc(docRef, { question: newQuestion, answer: newAnswer });
+  };
+
+
+  // const toggleComplete = async (flash) => {
+  //   const docRef5 = doc(db, "user",
+  //   user.uid,
+  //   "flashcard",
+  //   deckName,
+  //   "deck",
+  //   flash.id);
+  //   await updateDoc(docRef5, { completed: !flash.completed });
+  // };
+
   const handleAdd = () => {
     if (Object.keys(decks1[0]).length == 3) {
       // push it to the page with word and definition
@@ -114,10 +148,10 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
           {decks1.map((flash) => (
             <div>
               {Object.keys(flash).length == 3 && (
-                <EachFlashCards flash={flash} handleDelete={handleDelete} />
+                <EachFlashCards flash={flash} handleDelete={handleDelete} handleEdit2 = {handleEdit2} />
               )}
               {Object.keys(flash).length == 4 && (
-                <EachFlashCardsWDE flash={flash} handleDelete={handleDelete} />
+                <EachFlashCardsWDE  flash={flash} handleDelete={handleDelete} handleEdit = {handleEdit}  />
               )}
             </div>
             // {/* // here call another component for each flashcards  */}
