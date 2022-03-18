@@ -9,7 +9,6 @@ import { auth } from "../../firebase.js";
 import { useUserAuth } from "../Context/UserAuthContext";
 import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
 // import Image from '../HomePage/homelanding.png';
-
 function Home() {
   const { user } = useUserAuth();
   return (

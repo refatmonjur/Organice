@@ -5,7 +5,13 @@ import { auth } from "../../firebase.js";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { db } from "../../firebase.js";
 import { collection, getDoc, doc, onSnapshot } from "firebase/firestore";
+import "./NewHome.css"
+import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
+
+
 function NewHome() {
+  
   const { user } = useUserAuth();
   // const useruiid = await signUp(registerEmail, registerPassword);
   const useruiid = user.uid;
@@ -68,21 +74,58 @@ function NewHome() {
       <div>
         <NewHomeNavbar />
       </div>
-      <h1>User is logged in</h1>
       <div className="p-4 box mt-3 text-center">
-        {user.emailVerified == true && user.photoURL}
+        {/* {user.emailVerified == true && user.photoURL}
         <br />
         {user && user.uid}
-        {user && user.email}
+        {user && user.email} */}
 
         {currentUser.map((users) => {
           return (
             <div>
-              <h1>firstName: {users.firstName}</h1>
+              <br/>
+              <h1>Welcome back,{users.firstName}</h1>
               {/* <h1>lastName: {users.lastName}</h1> */}
             </div>
           );
         })}
+      </div>
+      <div>
+
+        
+      <div className="box_container">
+          <h1 className="gradient__text">Todo</h1>
+          <div className="todo_container">
+         
+      </div>
+      <Button className="finish-deck-btn"
+          style={{ marginTop: 220, marginLeft: 1000 }}>
+          <Link to="/todo"> Go to Todo List</Link>
+        </Button>
+      </div>
+      
+        <br/>
+      <div className="box_container">
+          <h1 className="gradient__text">Flashcards</h1>
+          <div className="todo_container">
+      </div>
+      <Button className="finish-deck-btn"
+          style={{ marginTop: 220, marginLeft: 560 }}>
+          <Link to="/flashcard"> Go to Flashcards</Link>
+        </Button>
+      </div>
+        <br/>
+
+      <div className="box_container">
+          <h1 className="gradient__text">Events</h1>
+          <div className="todo_container">
+      </div>
+      <Button className="finish-deck-btn"
+          style={{ marginTop: 220, marginLeft: 600 }}>
+          <Link to="/calendar"> Go to Calendar</Link>
+        </Button>
+      </div>
+
       </div>
     </div>
   );

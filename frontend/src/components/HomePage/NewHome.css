@@ -1,0 +1,10 @@
+.box_container {
+    min-height: 40vh;
+    background-color: hsla(203, 80%, 67%, 0.637);
+    flex-grow: 3;
+    height: auto;
+    margin-left: 140px;
+    border-radius: 20px;
+    width: 80%;
+    /* margin-top: 80px; */
+  }
