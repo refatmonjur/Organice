@@ -16,6 +16,7 @@ import { textAlign } from "@mui/system";
 
 //For Flipping Flashcard
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
+import { red } from "@mui/material/colors";
 
 
 function Flashcard() {
@@ -120,7 +121,14 @@ function Flashcard() {
             }}
           // onClick={ }
           >
-            <Link to="/addNewDeck">Create New Deck</Link>
+            <Link 
+              to="/addNewDeck"
+              style={{ 
+                textDecoration: "none",
+              }}
+            > 
+              Create New Deck
+            </Link>
           </Button>
           <div>
             {decks.map((deck) => (
@@ -139,69 +147,6 @@ function Flashcard() {
             {/* <ShowDecksinPage key={deck.id} deck={deck} deleting={deleting}/> */}
             {/* {hasDeck ? <ShowDecksinPage /> : <NoDeckPage />} */}
           </div>
-        </div>
-
-        {/* 2nd Transparent Background that shows the selected Deck and Cards component*/}
-        <div id="flex-container-column">
-          {/* This div below holds the slideshow for cards in selected deck */}
-          <div className="transparentBg background-opacity flashcard-item-size">
-            <div className=" flashcard-deck-title gradient__text">
-              Selected Deck's Title will be here
-            </div>
-
-            {/* Put the flashcard slider here */}
-              {/* slider library here */}
-              {/* map each one from an array and then into a slide show */}
-              {/* each card will then be mapped singularly into a Flippy Card */}
-              <Flippy
-                flipOnClick={true} // default false 
-                flipDirection="vertical"
-                ref={ref} 
-                style={{ minWidth: '200px', height: '200px' }} /// these are optional style, it is not necessary
-              >
-                <FrontSide style={{backgroundColor: '#41669d', textAlign: "center"}}> 
-                  <p>Prompt</p>
-                </FrontSide>
-
-                <BackSide style={{ backgroundColor: '#FFFFFF', textAlign: "center"}}>
-                  Answer
-                </BackSide>
-
-              </Flippy>
-
-
-
-
-          </div>
-
-          {/* This div below holds the total number of cards list inside the selected deck */}
-          <div className="transparentBg">
-            <div className=" flashcard-deck-title gradient__text">
-              List of Flashcards in Following Deck
-            </div>
-
-            {/* SHOW THIS DIV IF User has no decks in their data */}
-
-            <div>
-
-              {/* Flashcard is empty and still in testing */}
-              {/* {flashcard.map((flash) => (
-                  <div>
-                    <EachFlashCards flash={flash} />
-                  </div>
-                ))} */}
-              {/* Instead we use this as a tester for the component parameter passing */}
-              {/* <EachFlashCards
-                prompt="What does torture mean?"
-                answer="pain and suffering"
-              />
-              <EachFlashCards
-                prompt="What does happy meannnnnnnnnnn?"
-                answer="good good and great thoughts and positive things "
-              /> */}
-            </div>
-          </div>
-
         </div>
       </div>
     </div>

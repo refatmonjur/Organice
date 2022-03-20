@@ -34,7 +34,7 @@ import "./Flashcard.css";
 function AddQACard() {
   const avatarStyle = { backgroundColor: "indigo" };
   const stylButn = { margin: "8px 0" };
-  const stylField = { margin: "8px 0" };
+  const stylField = { margin: "8px 0"};
   const { user } = useUserAuth();
 
   const [deckName, setDeckName] = useState("");
@@ -102,13 +102,15 @@ function AddQACard() {
 
       <div className="addnewdeck-header center-text">
         <div id="flex-containerQA">
-          <div style={{ marginBottom: 20 }}>
+          <div 
+            className="gradient__text"
+            style={{ marginTop: -40, fontWeight: "bold"}}
+          >
             Please give your Q/A Deck a name
           </div>
           <TextField
-            label="Name of Deck"
+            label="Please enter the name of the Deck"
             className="textfield-White"
-            placeholder="Please enter the name of the Deck"
             fullWidth
             required
             style={stylField}
@@ -118,7 +120,10 @@ function AddQACard() {
       </div>
 
       {/* Question Answer Add Cards Div */}
-      <form onSubmit={handleSubmit}>
+      <form 
+        onSubmit={handleSubmit}
+        style={{backgroundColor: "#0e1a3a90"}}
+      >
         {inputFields.map((inputField, index) => (
           <div key={index}>
             <div className="addnewdeck-header center-text">
@@ -126,7 +131,8 @@ function AddQACard() {
                 <div>Fill in your Question and Answer</div>
                 <TextareaAutosize
                   className="textfield-White fields-spacing "
-                  placeholder="Enter Question"
+                  style={{borderRadius: 0}}
+                  placeholder=" Enter Question"
                   name="question"
                   value={inputField.question}
                   // onChange={(e) => setQuestion(e.target.value)}
@@ -134,7 +140,8 @@ function AddQACard() {
                 />
                 <TextareaAutosize
                   className="textfield-White fields-spacing "
-                  placeholder="Enter Answer"
+                  style={{borderRadius: 0}}
+                  placeholder=" Enter Answer"
                   name="answer"
                   value={inputField.answer}
                   // onChange={(e) => setAnswer(e.target.value)}
@@ -142,12 +149,14 @@ function AddQACard() {
                 />
               </div>
             </div>
-            <IconButton onClick={() => handleRemoveFields(index)}>
-              <DeleteOutlineIcon />
-            </IconButton>
-            <IconButton onClick={() => handleAddFields(index)}>
-              <AddIcon />
-            </IconButton>
+            <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', width: 400, justifyContent: "center" }}>
+              <IconButton onClick={() => handleRemoveFields(index)}>
+                <DeleteOutlineIcon style={{ color: "white" }} />
+              </IconButton>
+              <IconButton onClick={() => handleAddFields(index)}>
+                <AddIcon style={{ color: "white" }} />
+              </IconButton>
+            </div>
           </div>
         ))}
       </form>

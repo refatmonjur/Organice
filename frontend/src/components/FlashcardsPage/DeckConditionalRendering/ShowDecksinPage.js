@@ -13,28 +13,20 @@ export default function ShowDecksinPage({ deck, deleting }) {
   let history = useHistory();
   const [clicked, setClicked] = useState(false);
   console.log(deck);
- 
+
   console.log(deck.deckTitle);
   console.log(deck.id);
   // onClick={history.push("/addQACard")
 
   return (
     <div>
-      <div className="newUser-text center">
+      <div
+        className="newUser-text center"
+        style={{ marginBottom: 50 }}
+      >
+        <div className="deck-title"> {deck.deckTitle} </div>
         <div>
-          <Button
-            onClick={() => {
-              // history.push("/studyFlashCards");
-              setClicked(true);
-            }}
-          >
-            {deck.deckTitle}
-          </Button>
-        </div>
-        {/* <div className="testing">{deck.deckTitle}</div> */}
-        <div>
-          <Button style={{}}>Edit</Button>
-          <Button style={{}}>Study</Button>
+          <Button onClick={() => { setClicked(true); }}> Study </Button>
           <Button onClick={() => deleting(deck.id)}>Delete</Button>
         </div>
       </div>
