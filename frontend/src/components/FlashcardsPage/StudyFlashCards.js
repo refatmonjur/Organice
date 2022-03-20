@@ -1,16 +1,20 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { db } from "../../firebase.js";
-import { collection, onSnapshot, doc, deleteDoc } from "firebase/firestore";
+import { collection, onSnapshot, doc, deleteDoc,updateDoc } from "firebase/firestore";
 import { useUserAuth } from "../Context/UserAuthContext";
 import Modal from "react-modal";
 import EachFlashCards from "./EachFlashCards.js";
 import StudyEachCard from "./StudyEachCard.js";
+import EachFlashCardsWDE from "./EachFlashCardsWDE.js";
+import { useHistory } from "react-router-dom";
+import AddMoreCardQA from "./AddMoreCardQA.js";
 
-export default function StudyFlashCard({ deckName, isOpen, onClose }) {
+export default function StudyFlashCards({ deckName, isOpen, onClose }) {
   const [decks1, setDecks1] = useState([]);
   const [flashcard, setFlashcard] = useState([]);
   const { user } = useUserAuth();
+  let history = useHistory();
   const customStyles = {
     content: {
       top: "50%",
@@ -53,8 +57,75 @@ export default function StudyFlashCard({ deckName, isOpen, onClose }) {
   // now decks has all the
   // console.log(decks1.length);
   // console.log(flashcard);
-  console.log(deckName);
+
+  // console.log(decks1[0]);
+  // console.log(Object.keys(decks1[0]).length)
+
   console.log(isOpen);
+  const handleDelete = async (id) => {
+    const docRef3 = doc(
+      db,
+      "user",
+      user.uid,
+      "flashcard",
+      deckName,
+      "deck",
+      id
+    );
+    await deleteDoc(docRef3);
+  };
+  const handleEdit = async (flash, newWord, newDefinition, newExample ) => {
+    const docRef4 = doc(db, "user",
+    user.uid,
+    "flashcard",
+    deckName,
+    "deck",
+    flash.id);
+    await updateDoc(docRef4, {definition: newDefinition, example: newExample, word: newWord});
+  };
+
+  const handleEdit2 = async (flash, newQuestion, newAnswer) => {
+    const docRef = doc(
+      db,
+      "user",
+      user.uid,
+      "flashcard",
+      deckName,
+      "deck",
+      flash.id
+    );
+    await updateDoc(docRef, { question: newQuestion, answer: newAnswer });
+  };
+
+
+  // const toggleComplete = async (flash) => {
+  //   const docRef5 = doc(db, "user",
+  //   user.uid,
+  //   "flashcard",
+  //   deckName,
+  //   "deck",
+  //   flash.id);
+  //   await updateDoc(docRef5, { completed: !flash.completed });
+  // };
+
+  const handleAdd = () => {
+    if (Object.keys(decks1[0]).length == 3) {
+      // push it to the page with word and definition
+      history.push({
+        pathname: "/addMoreCardQA",
+        state: { decksName: deckName },
+      });
+    } else if (Object.keys(decks1[0]).length == 4) {
+      // push it to the page with word and definition
+      history.push({
+        pathname: "/addMoreCardWDE",
+        state: { decksName: deckName },
+      });
+    } else {
+      //push it to the page that takes the word, definition, purpose and image
+    }
+  };
+  
   // console.log(Object.keys(decks1[0]).length); // this is how we get length of the object
   return (
     <div>
@@ -66,39 +137,31 @@ export default function StudyFlashCard({ deckName, isOpen, onClose }) {
       >
         <div>
           {/* here have the study Flashcard component which will flip onClick */}
-          <StudyEachCard />
+          <StudyEachCard deckName={deckName} />
         </div>
-        <h1>CARDS ON {deckName}: </h1>
+        {/* <h1>CARDS ON {deckName}: </h1> */}
+        <div className=" flashcard-deck-title gradient__text">
+          CARDS ON {deckName}:
+        </div>
         <div>
           {decks1.map((flash) => (
             <div>
               {Object.keys(flash).length == 3 && (
-                <EachFlashCards flash={flash} />
+                <EachFlashCards flash={flash} handleDelete={handleDelete} handleEdit2 = {handleEdit2} />
               )}
               {Object.keys(flash).length == 4 && (
-                <div>
-                  <h1>Word: {flash.word}</h1>
-                  <h1>Definition: {flash.Defition}</h1>
-                  <h1>Example: {flash.example}</h1>
-                </div>
+                <EachFlashCardsWDE  flash={flash} handleDelete={handleDelete} handleEdit = {handleEdit}  />
               )}
             </div>
             // {/* // here call another component for each flashcards  */}
           ))}
         </div>
-        {/* // create a button
-
-                // on the button condition onClick 
-                if(decks1[0].length ==2){
-                  go to this component
-                }
-                else if(){ go to the add card with three fields}
-                else{
-                  go to the other one
-                }
-                
-                */}
+        <div>
+          <button onClick={handleAdd}>ADD NEW CARDS</button>
+        </div>
       </Modal>
+
+      <div></div>
     </div>
   );
 }

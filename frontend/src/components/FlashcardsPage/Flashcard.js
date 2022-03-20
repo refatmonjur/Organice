@@ -191,14 +191,14 @@ function Flashcard() {
                   </div>
                 ))} */}
               {/* Instead we use this as a tester for the component parameter passing */}
-              <EachFlashCards
+              {/* <EachFlashCards
                 prompt="What does torture mean?"
                 answer="pain and suffering"
               />
               <EachFlashCards
                 prompt="What does happy meannnnnnnnnnn?"
                 answer="good good and great thoughts and positive things "
-              />
+              /> */}
             </div>
           </div>
 

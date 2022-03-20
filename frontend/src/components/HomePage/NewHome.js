@@ -56,6 +56,12 @@ function NewHome() {
   //   });
   //   // setLoading(false);
   // }
+  // var userImage = "";
+  // if (user) {
+  //   if (user.emailVerified == true) {
+  //     userImage = user.photoURL;
+  //   }
+  // }
 
   return (
     <div>
@@ -64,8 +70,11 @@ function NewHome() {
       </div>
       <h1>User is logged in</h1>
       <div className="p-4 box mt-3 text-center">
-        Hello Welcome <br />
+        {user.emailVerified == true && user.photoURL}
+        <br />
         {user && user.uid}
+        {user && user.email}
+
         {currentUser.map((users) => {
           return (
             <div>

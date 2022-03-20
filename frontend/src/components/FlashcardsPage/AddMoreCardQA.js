@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 // Backend
 import {
@@ -29,11 +30,11 @@ import AddIcon from "@mui/icons-material/Add";
 //CSS
 import "./Flashcard.css";
 
-// creating a collection of flashcards
-// added decktitle to the flashcard
-function AddQACard() {
-  const avatarStyle = { backgroundColor: "indigo" };
-  const stylButn = { margin: "8px 0" };
+function AddMoreCardQA() {
+  const location = useLocation();
+  console.log(location.state.decksName);
+  const prevDeckName = location.state.decksName; // this is the deck that is selected
+
   const stylField = { margin: "8px 0" };
   const { user } = useUserAuth();
 
@@ -42,36 +43,7 @@ function AddQACard() {
   const [answer, setAnswer] = useState("");
   const [inputFields, setInputField] = useState([{ question: "", answer: "" }]);
 
-  // const FlashCardRefs = collection(db, "user", user.uid, "flashcard");
-  const createDeck = async (e) => {
-    e.preventDefault();
-    const FlashCardRefs = doc(db, "user", user.uid, "flashcard", deckName);
-    var data = {
-      deckTitle: deckName,
-    };
-
-    if (deckName !== "") {
-      await setDoc(FlashCardRefs, data);
-      console.log("check firebase");
-    }
-    // var data1 = {
-    //   question: question,
-    //   answer: answer,
-    // };
-
-    const decksrefs = collection(
-      db,
-      "user",
-      user.uid,
-      "flashcard",
-      deckName,
-      "deck"
-    );
-    for (let i = 0; i < inputFields.length; i++) {
-      await addDoc(decksrefs, inputFields[i]);
-      console.log("check firebase");
-    }
-  };
+  // call firebase to add flashcard to deck with the deckName as prevDeckName
 
   const handleChangeInput = (index, event) => {
     const values = [...inputFields];
@@ -94,6 +66,22 @@ function AddQACard() {
     setInputField(values);
   };
 
+  const createDeck = async (e) => {
+    e.preventDefault();
+    const decksrefs = collection(
+      db,
+      "user",
+      user.uid,
+      "flashcard",
+      prevDeckName,
+      "deck"
+    );
+    for (let i = 0; i < inputFields.length; i++) {
+      await addDoc(decksrefs, inputFields[i]);
+      console.log("check firebase");
+    }
+  };
+
   return (
     <div>
       <div>
@@ -102,17 +90,15 @@ function AddQACard() {
 
       <div className="addnewdeck-header center-text">
         <div id="flex-containerQA">
-          <div style={{ marginBottom: 20 }}>
-            Please give your Q/A Deck a name
-          </div>
+          <div style={{ marginBottom: 20 }}>Title: {prevDeckName}</div>
           <TextField
-            label="Name of Deck"
+            // label="Name of Deck"
             className="textfield-White"
-            placeholder="Please enter the name of the Deck"
+            // placeholder="Please enter the name of the Deck"
             fullWidth
             required
             style={stylField}
-            onChange={(e) => setDeckName(e.target.value)}
+            value={prevDeckName}
           />
         </div>
       </div>
@@ -168,4 +154,4 @@ function AddQACard() {
   );
 }
 
-export default AddQACard;
+export default AddMoreCardQA;

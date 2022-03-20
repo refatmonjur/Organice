@@ -26,6 +26,9 @@ import AddEventModal from "./components/CalendarPage/AddEventModal";
 import Error from "./PageNotFound/Error";
 
 
+import StudyFlashCards from "./components/FlashcardsPage/StudyFlashCards";
+import AddMoreCardQA from "./components/FlashcardsPage/AddMoreCardQA";
+import AddMoreCardWDE from "./components/FlashcardsPage/AddMoreCardWDE";
 function App() {
   return (
     <div className="app">
@@ -54,6 +57,12 @@ function App() {
             </ProtectedRoute>
             <ProtectedRoute path="/addImageCard">
               <AddImageCard />
+            </ProtectedRoute>
+            <ProtectedRoute path="/addMoreCardQA">
+              <AddMoreCardQA />
+            </ProtectedRoute>
+            <ProtectedRoute path= "/addMoreCardWDE">
+              <AddMoreCardWDE/>
             </ProtectedRoute>
 
             {/* ToDoList Routes */}

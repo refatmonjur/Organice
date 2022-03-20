@@ -14,7 +14,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase.js";
 import { useUserAuth } from "../Context/UserAuthContext";
-
+import { Link } from "react-router-dom";
 // Front end
 import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
 import { Button, TextField, TextareaAutosize } from "@mui/material";
@@ -228,7 +228,7 @@ const AddImageCard = () => {
           style={{ marginTop: 20 }}
           OnClick={createDeck}
         >
-          Finish & Save
+         <Link to="/flashcard"> Finish & Save</Link>
         </Button>
       </div>
     </div>
