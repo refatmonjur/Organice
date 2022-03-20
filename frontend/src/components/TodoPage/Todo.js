@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
+import Footer from "../HomePage/FooterPage/Footer";
 import { IconButton, Typography } from "@mui/material";
 import {
   collection,
@@ -24,11 +25,31 @@ import "./Todo.css";
 import HomeIcon from "@mui/icons-material/Home";
 import Box from "@mui/material/Box";
 import ShowDesc from "./ShowDesc";
+import TodayIcon from "@mui/icons-material/Today";
+import DateRangeRoundedIcon from "@mui/icons-material/DateRangeRounded";
+import CalendarViewMonthRoundedIcon from "@mui/icons-material/CalendarViewMonthRounded";
+
+
+//react icons and Sidebar
+import * as BsIcons from "react-icons/bs";
+import { IconContext } from 'react-icons';
+import SidebarToDo from './Sidebar/SidebarTodo';
+
+//Imported ScrollBars for the scrolling of the total ToDolist items
+import ScrollBars from 'react-scrollbar';
+
+
 
 export default function Todo() {
   const { user } = useUserAuth();
   const [todos, setTodos] = useState([]);
   const [Loading, setLoading] = useState(false);
+
+  const scrollBarStyle = {
+    height: '600px',
+  };
+
+  const todoArray = [];
 
   useEffect(() => {
     setLoading(true);
@@ -60,36 +81,57 @@ export default function Todo() {
     await deleteDoc(docRef3);
   };
 
-  return (
-    <div>
-      <NewHomeNavbar />
-      <div>
-        <Button variant="contained">To do</Button>
-      </div>
+  
+  for (let i = 0; i < todos.length; i++) {
+    todoArray.push(
+      <EachTodo
+        key={todos[i].id}
+        todo={todos[i]}
+        toggleComplete={toggleComplete}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+      />
+    )
+  };
 
-      <div id="todo-list">
-        <h1 className="gradient__text">Todo List</h1>
-        <div className="button_align">
-          <AddTodo />
-          <div id="home_button">
-            <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-              <HomeIcon color="secondary" fontSize="large" />
-              <Link to="/WindowTodo">To-do Lists</Link>
-            </Button>
+  return (
+    <div className="todo_page">
+      <NewHomeNavbar />
+
+      <div className="content_todo">
+        {/* LEFT SIDE BAR */}
+        <SidebarToDo />
+
+        {/* RIGHT SIDE BAR */}
+        <div className="right_container">
+          <div className="todo_container">
+            <div id="todo-list">
+              {/* <h1 className="gradient__text">Todo List</h1> */}
+              <div className="button_align">
+                <AddTodo />
+              </div>
+
+              {/* Will implement a scroll bar instead of tiny-slider */}
+              {/* <TinySlider settings={settings} onClick={clickEvent}>
+                  {todos.map((todo) => (
+                    <EachTodo
+                      key={todo.id}
+                      todo={todo}
+                      toggleComplete={toggleComplete}
+                      handleDelete={handleDelete}
+                      handleEdit={handleEdit}
+                    />
+                  ))}
+                </TinySlider> */}
+              <ScrollBars horizontal autoHide={false} style={scrollBarStyle}>
+                {todoArray}
+              </ScrollBars>
+            </div>
           </div>
         </div>
-        <div className="todo_container">
-          {todos.map((todo) => (
-            <EachTodo
-              key={todo.id}
-              todo={todo}
-              toggleComplete={toggleComplete}
-              handleDelete={handleDelete}
-              handleEdit={handleEdit}
-            />
-          ))}
-        </div>
       </div>
+
+      {/* <Footer/> */}
     </div>
   );
 }

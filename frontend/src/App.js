@@ -17,8 +17,14 @@ import ProtectedRoute from "./components/Context/ProtectedRoutes";
 import WindowTodo from "./components/TodoPage/WindowTodo";
 import WeeklyTodo from "./components/TodoPage/WeeklyTodo";
 import MonthlyTodo from "./components/TodoPage/MonthlyTodo";
+
+import StudyFlashCards from "./components/FlashcardsPage/StudyFlashCards";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+
 import AddEventModal from "./components/CalendarPage/AddEventModal";
 import Error from "./PageNotFound/Error";
+
 
 function App() {
   return (
@@ -66,6 +72,11 @@ function App() {
             <ProtectedRoute path="/calendar">
               <Calendar />
             </ProtectedRoute>
+            <ProtectedRoute path="/studyFlashCards">
+              <StudyFlashCards />
+            </ProtectedRoute>
+
+            {/* <Route path="/newTodo" exact component={NewUserTodo} /> */}
             <ProtectedRoute path="/newTodo">
               <NewUserTodo />
             </ProtectedRoute>

@@ -4,6 +4,7 @@
   margin: 0;
   scroll-behavior: smooth;
   font-family: "Fira sans", sans-serif;
+  
 }
 
 a {
@@ -11,14 +12,18 @@ a {
   text-decoration: none;
 }
 
-body > #root > div {
-  height: 100vh;
+#root > div {
+  min-height: 100vh;
   background: radial-gradient(
     circle at 3% 25%,
-    rgba(0, 40, 83, 1) 0%,
+    #419dff 0%,
+    #0756aa 25%,
+    rgba(0, 40, 83, 1) 50%,
+    rgb(3, 35, 68) 75%,
     rgba(4, 12, 24, 1) 100%
   );
 }
+
 
 .gradient__text {
   background: var(--gradient-text);
@@ -30,7 +35,7 @@ body > #root > div {
 
 .task-input {
   flex: 1 1 0%;
-  background-color: #1f2937;
+  background-color: rgb(31, 41, 55);
   color: #eee;
   padding: 1rem;
   border-radius: 1rem;
@@ -48,29 +53,46 @@ body > #root > div {
 }
 
 .btn_container button {
-  background-color: green;
+  background: linear-gradient(103.22deg, #542783 -13.86%, hsl(236, 55%, 37%) 99.55%);
+  border-radius: 10px;
+}
+
+.btn_container button:hover {
+  background: linear-gradient(103.22deg, #d3adfc -13.86%, hsl(249, 97%, 75%) 99.55%);
+  border-radius: 10px;
+}
+
+.moreColor {
+  background-color: #0756aa;
+}
+
+/* TODO LIST CSS HERE */
+
+.todo_page{
+  height: 100%;
 }
 
 .todo {
   margin-top: 20px;
   padding: 10px 30px;
   border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
+  
 }
 
 .todo input {
-  color: black;
+  color: white;
   cursor: pointer;
   width: 50%;
   border: none;
   outline: none;
   cursor: pointer;
   background-color: transparent;
-  font-size: 28px;
+  font-size: 20px;
   font-family: "Poppins", sans-serif;
   font-weight: 500;
+  text-align: center;
 }
 
 .todo button {
@@ -81,13 +103,24 @@ body > #root > div {
   border-radius: 50%;
 }
 
-/* .todo_container {
-  width: 100%;
-  margin: 0 auto;
-  width: 100%;
-  height: 50px;
-  margin: 0 auto;
-} */
+#todo-list {
+  max-width: 600px;
+  margin: 2rem auto;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.todo-options {
+  display: flex;
+  min-width: 100px;
+  flex-grow: 1;
+  justify-content: end;
+}
+
+section.list {
+  flex: 1;
+}
 
 .button_align {
   display: flex;
@@ -103,4 +136,21 @@ body > #root > div {
   .task {
     margin-right: 0px;
   }
+}
+
+.content_todo {
+  display: flex;
+  justify-content: space-around;
+  align-items: start;
+  margin-left: 20px;
+  height: 100%;
+}
+
+
+
+
+
+/* currently not working */
+.nav-text a:hover {
+  background-color: #0084ff;
 }

@@ -62,6 +62,7 @@ export default function AddTodo() {
       <div>
         {/* the dialog  */}
         <MoreProperties
+          className="moreColor"
           dateTime={dateTime}
           setDateTime={setDateTime}
           setDescription={setDescription}

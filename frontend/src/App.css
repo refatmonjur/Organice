@@ -31,15 +31,10 @@
 h1 {
   text-align: center;
 }
-#todo-list {
-  width: 500px;
-  margin: 60px auto;
-  color: white;
-}
 
 form, .todo {
-  border: 1px solid grey;
-  background-color: #374151;
+  border: 1px solid rgb(255, 255, 255, 50%);
+  background-color: rgb(26, 34, 46);
   border-radius: 20px;
   padding: 10px 20px;
   margin-bottom: 20px;
@@ -62,7 +57,7 @@ form input {
 
 button {
   font-size: 16px;
-  background-color: rgb(217, 60, 35);
+  background-color: rgb(31, 41, 55);
   color: #fff;
   border-radius: 8px;
   border: none;
@@ -70,16 +65,16 @@ button {
   cursor: pointer;
 }
 button:hover {
-  background-color: rgb(173, 47, 28);
+  background-color: rgb(145, 196, 255);
 }
 button:active {
-  background-color: rgb(130,35,21);
+  background-color: rgb(145, 196, 255);
 }
 button:focus {
   outline: 0;
 }
 
-input[type='text'] { font-size: 20px; font-family: monospace; }
+input[type='text'] { font-size: 20px; font-family: monospace;}
 .todo input[type="checkbox"] {
   transform: scale(1.8) translateY(1px);
   margin: 0 16px 0 0;
@@ -99,6 +94,7 @@ input[type='text'] { font-size: 20px; font-family: monospace; }
 .todo-completed {
   display: flex;
   margin: 10px 0;
+  
 }
 .todo-actions {
   display: flex;

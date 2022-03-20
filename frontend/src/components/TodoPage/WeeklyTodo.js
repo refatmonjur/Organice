@@ -11,6 +11,12 @@ import { Link } from "react-router-dom";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { db } from "../../firebase.js";
 
+//react icons
+import * as BsIcons from "react-icons/bs";
+import { IconContext } from 'react-icons';
+import SidebarToDo from './Sidebar/SidebarTodo';
+
+
 function WeeklyTodo() {
   const { user } = useUserAuth();
   const [todos, setTodos] = useState([]);
@@ -65,53 +71,36 @@ function WeeklyTodo() {
     <div>
       <NewHomeNavbar />
       <div className="content_todo">
-        <div className="left_container">
-          {/* <div className="today_button"> */}
-          <div className="left_container_button">
-            <Link to="/WindowTodo">
-              <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-                <TodayIcon color="secondary" fontSize="large" />
-                Today
-              </Button>
-            </Link>
-
-            <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-              <DateRangeRoundedIcon color="secondary" fontSize="large" />
-              Weekly
-            </Button>
-            <Link to="/MonthlyTodo">
-              <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-                <CalendarViewMonthRoundedIcon
-                  color="secondary"
-                  fontSize="large"
-                />
-                Monthly
-              </Button>
-            </Link>
-          </div>
-          {/* <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-            <TodayIcon color="secondary" fontSize="large" />
-            Today
-          </Button>
-        
-          <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-            <DateRangeRoundedIcon color="secondary" fontSize="large" />
-            Weekly
-          </Button>
-          <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-            <CalendarViewMonthRoundedIcon color="secondary" fontSize="large" />
-            monthly
-          </Button> */}
-        </div>
+        {/* LEFT SIDE BAR */}
+        <SidebarToDo />
         <div className="right_container">
           <h1 className="gradient__text">Weekly</h1>
-          <div className="todo_container">
+          <div className="listing-spacing ">
             {todos.map((todo) => (
-              <li>{todo.title}</li>
+              <div class="card card-spacing">
+                <div className="card-body listing-bullets">
+                  <p class=""> {todo.title}</p>
+                  <small class="text-muted italicize">{todo.Description}</small>
+                </div>
+              </div>
             ))}
+
             {todos1.map((todo) => (
-              <li>{todo.title}</li>
+              <div class="card card-spacing">
+                <div className="card-body listing-bullets">
+                <p class=""> {todo.title}</p>
+                {console.log("Show me name and desc: ", todo.title, ": ", todo.Description)}
+                  <small class="text-muted">
+                    {todo.Description.length === 0 ? 
+                      <i> No Description </i>
+                      : 
+                      <i class="text-muted">{todo.Description}</i>
+                    }
+                  </small>
+                </div>
+              </div>
             ))}
+
           </div>
         </div>
       </div>

@@ -40,7 +40,7 @@ export default function EachTodo({
       <input
         style={{ textDecoration: todo.completed && "line-through" }}
         type="text"
-        value={todo.title === "" ? newInput : "✅ " + todo.title}
+        value={todo.title === "" ? newInput : todo.title}
         className="list"
         onChange={handleChange}
       />
@@ -56,6 +56,10 @@ export default function EachTodo({
         {/* <MoreOptions/> */}
         <button
           className="button-complete"
+          style={{
+            height: 10,
+            width: 10
+          }}
           onClick={() => toggleComplete(todo)}
         >
           <CheckCircleIcon id="i" />
@@ -64,12 +68,23 @@ export default function EachTodo({
         {/* this is the Edit button  */}
         <button
           className="button-edit"
+          style={{
+            height: 10,
+            width: 10
+          }}
           onClick={() => handleEdit(todo, newInput)}
         >
           <EditIcon />
         </button>
         {/* this is the delete button  */}
-        <button className="button-delete" onClick={() => handleDelete(todo.id)}>
+        <button 
+          className="button-delete"
+          style={{
+            height: 10,
+            width: 10
+          }}
+          onClick={() => handleDelete(todo.id)}
+        >
           <DeleteIcon id="i" />
         </button>
 
@@ -77,7 +92,7 @@ export default function EachTodo({
         <div>
           {/* <ShowDesc Todo={todo} /> */}
           <Button variant="outlined" onClick={handleClickOpen}>
-            <MoreHorizOutlinedIcon color="secondary" fontSize="medium" />
+            <MoreHorizOutlinedIcon color="primary" fontSize="medium" />
           </Button>
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Description</DialogTitle>
