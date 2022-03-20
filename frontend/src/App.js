@@ -17,9 +17,14 @@ import ProtectedRoute from "./components/Context/ProtectedRoutes";
 import WindowTodo from "./components/TodoPage/WindowTodo";
 import WeeklyTodo from "./components/TodoPage/WeeklyTodo";
 import MonthlyTodo from "./components/TodoPage/MonthlyTodo";
+
 import StudyFlashCards from "./components/FlashcardsPage/StudyFlashCards";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+
+import AddEventModal from "./components/CalendarPage/AddEventModal";
+import Error from "./PageNotFound/Error";
+
 
 function App() {
   return (
@@ -30,9 +35,6 @@ function App() {
             <Route path="/" exact component={Home} />
             <Route path="/login" exact component={Login} />
             <Route path="/signup" exact component={SignUp} />
-            {/* <Route path="/flashcard" exact component={Flashcard} /> */}
-            {/* <Route path="/todo" exact component={ToDo} />
-            <Route path="/calendar" exact component={Calendar} /> */}
             <ProtectedRoute path="/home">
               <NewHome />
             </ProtectedRoute>
@@ -57,21 +59,16 @@ function App() {
             {/* ToDoList Routes */}
             <ProtectedRoute path="/todo">
               <Todo />
-              </ProtectedRoute>
+            </ProtectedRoute>
             <ProtectedRoute path="/WindowTodo">
               <WindowTodo />
-              </ProtectedRoute>
+            </ProtectedRoute>
             <ProtectedRoute path="/WeeklyTodo">
               <WeeklyTodo />
-              </ProtectedRoute>
+            </ProtectedRoute>
             <ProtectedRoute path="/MonthlyTodo">
               <MonthlyTodo />
             </ProtectedRoute>
-            <ProtectedRoute path="/newTodo">
-              <NewUserTodo />
-            </ProtectedRoute>
-
-            {/* Calendar Routes */}
             <ProtectedRoute path="/calendar">
               <Calendar />
             </ProtectedRoute>
@@ -80,6 +77,10 @@ function App() {
             </ProtectedRoute>
 
             {/* <Route path="/newTodo" exact component={NewUserTodo} /> */}
+            <ProtectedRoute path="/newTodo">
+              <NewUserTodo />
+            </ProtectedRoute>
+            <Route component={Error} />
           </Switch>
         </Router>
       </UserAuthContextProvider>
