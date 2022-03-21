@@ -1,10 +1,20 @@
 .box_container {
-    min-height: 40vh;
-    background-color: hsla(203, 80%, 67%, 0.637);
-    flex-grow: 3;
-    height: auto;
-    margin-left: 140px;
-    border-radius: 20px;
-    width: 80%;
-    /* margin-top: 80px; */
-  }
+  min-height: 40%;
+  background-color: hsla(203, 80%, 67%, 0.637);
+  /* flex-grow: 3; */
+  margin-left: 10%;
+  margin-right: 10%;
+  border-radius: 20px;
+
+  /* margin-top: 80px; */
+}
+
+.button_container {
+  margin-left: 87%;
+  margin-bottom: 0%;
+  margin-top: 5%;
+}
+.todo_container {
+  height: 60%;
+  background-color: rgba(114, 140, 148, 0.671);
+}
