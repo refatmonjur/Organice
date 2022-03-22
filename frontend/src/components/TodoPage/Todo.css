@@ -1,102 +1,106 @@
 * {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    scroll-behavior: smooth;
-    font-family: "Fira sans", sans-serif;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+  font-family: "Fira sans", sans-serif;
 }
 
 a {
-    color: unset;
-    text-decoration: none;
+  color: unset;
+  text-decoration: none;
 }
 
 body > #root > div {
-    height: 100vh;
-    background: radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 100%);
+  height: 100vh;
+  background: radial-gradient(
+    circle at 3% 25%,
+    rgba(0, 40, 83, 1) 0%,
+    rgba(4, 12, 24, 1) 100%
+  );
 }
 
-.gradient__text{
-    background:var(--gradient-text);
-    background-clip: text;
-    -webkit-background-clop: text;        /* THIS ALLOWS FOR DIFFERENT BROWSERS*/
-    -webkit-text-fill-color: transparent; /* THIS ALLOWS FOR DIFFERENT BROWSERS*/
-    padding: 50px;
+.gradient__text {
+  background: var(--gradient-text);
+  background-clip: text;
+  -webkit-background-clop: text; /* THIS ALLOWS FOR DIFFERENT BROWSERS*/
+  -webkit-text-fill-color: transparent; /* THIS ALLOWS FOR DIFFERENT BROWSERS*/
+  padding: 50px;
 }
 
-.task-input{
-    flex: 1 1 0%;
-    background-color: #1F2937;
-    color: #EEE;
-    padding: 1rem;
-    border-radius: 1rem;
-    margin-right: 1rem;
+.task-input {
+  flex: 1 1 0%;
+  background-color: #1f2937;
+  color: #eee;
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-right: 1rem;
 }
 
-.btn_container{
-    font-size: 1.125rem;
-	font-weight: 700;
-	background: linear-gradient(103.22deg, #AE67FA -13.86%, #F49867 99.55%);
-	-webkit-background-clip: text;
-	/* -webkit-text-fill-color: transparent; */
-	cursor: pointer;
-	transition: 0.4s;
+.btn_container {
+  font-size: 1.125rem;
+  font-weight: 700;
+  background: linear-gradient(103.22deg, #ae67fa -13.86%, #f49867 99.55%);
+  -webkit-background-clip: text;
+  /* -webkit-text-fill-color: transparent; */
+  cursor: pointer;
+  transition: 0.4s;
 }
 
-.btn_container button{
-    background-color: green;
+.btn_container button {
+  background-color: green;
 }
 
-.todo{
-    margin-top: 20px;
-    padding: 10px 30px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.todo {
+  margin-top: 20px;
+  padding: 10px 30px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.todo input{
-    color:black;
-    cursor: pointer;
-    width: 50%;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    background-color: transparent;
-    font-size: 28px;
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
+.todo input {
+  color: black;
+  cursor: pointer;
+  width: 50%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 28px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
 }
 
-.todo button{
-    border: none;
-    outline: none;
-    cursor: pointer;
-    background-color: transparent;
-    border-radius: 50%;
+.todo button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: transparent;
+  border-radius: 50%;
 }
 
-.todo_container {
-    width: 100%;
-    height: 50px;
-    margin: 0 auto;
-    
-}
+/* .todo_container {
+  width: 100%;
+  margin: 0 auto;
+  width: 100%;
+  height: 50px;
+  margin: 0 auto;
+} */
 
 .button_align {
-    display:flex;
+  display: flex;
 }
 
-.home_button {
-    
-}
+/* .home_button {
+} */
 
 @media screen and (max-width: 667px) {
-    .task_container {
-      width: 90%;
-    }
-    .task {
-      margin-right: 0px;
-    }
+  .task_container {
+    width: 90%;
+  }
+  .task {
+    margin-right: 0px;
+  }
 }

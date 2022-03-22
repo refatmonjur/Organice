@@ -1,12 +1,22 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  Timestamp,
+} from "firebase/firestore";
 import { db } from "../../firebase.js";
 import { useUserAuth } from "../Context/UserAuthContext";
 import "./Todo.css";
+import MoreProperties from "./Dialog/MoreProperties.js";
+
 export default function AddTodo() {
   const [input, setInput] = useState("");
   const { user } = useUserAuth();
+  // const [open, setOpen] = useState(false);
+  const [dateTime, setDateTime] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,10 +27,26 @@ export default function AddTodo() {
         title: input,
         completed: false,
         timeStamp: serverTimestamp(),
+        dueDate: dateTime,
+        Description: description,
       });
       setInput("");
+      setDateTime("");
+      setDescription("");
     }
   };
+
+  // const handleChange = (newValue) => {
+  //   setDateTime(newValue);
+  // };
+
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
+
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
   return (
     <form onSubmit={handleSubmit}>
       <div className="input_container">
@@ -32,8 +58,25 @@ export default function AddTodo() {
           onChange={(e) => setInput(e.target.value)}
         />
       </div>
+      <div></div>
+      <div>
+        {/* the dialog  */}
+        <MoreProperties
+          dateTime={dateTime}
+          setDateTime={setDateTime}
+          setDescription={setDescription}
+        />
+      </div>
       <div className="btn_container">
-        <button>Add</button>
+        <button> Add</button>
+      </div>
+      <div>
+        {/* <div>
+          <OpenDialog dateTime={dateTime} setDateTime={setDateTime} />
+        </div>
+        <div>
+          <DescriptionDialog setDescription = {setDescription} />
+        </div> */}
       </div>
     </form>
   );
