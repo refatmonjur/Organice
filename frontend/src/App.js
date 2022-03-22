@@ -24,6 +24,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 import AddEventModal from "./components/CalendarPage/AddEventModal";
 import Error from "./PageNotFound/Error";
+import Profile from "./components/Profile/Profile";
 
 
 function App() {
@@ -75,7 +76,13 @@ function App() {
             <ProtectedRoute path="/studyFlashCards">
               <StudyFlashCards />
             </ProtectedRoute>
-
+            <ProtectedRoute path="/newTodo">
+              <NewUserTodo />
+            </ProtectedRoute>
+            <ProtectedRoute path="/Profile">
+              <Profile />
+            </ProtectedRoute>
+            <Route path="/Error" exact component={Error} />
             {/* <Route path="/newTodo" exact component={NewUserTodo} /> */}
             <ProtectedRoute path="/newTodo">
               <NewUserTodo />
