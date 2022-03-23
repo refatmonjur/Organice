@@ -9,10 +9,10 @@
   border-radius: 20px;
 }
 .textcolor{
-    text-align: center;
+    /* text-align: center;
     margin-left: 40px;
-    margin-top: 2%;
-    font-size: 30px;
+    margin-top: 2%; */
+    font-size: 35px;
     background:var(--gradient-text);
     background-clip: text;
     -webkit-background-clop: text;        
