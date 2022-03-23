@@ -47,9 +47,7 @@ function MoreProperties({ setDescription, dateTime, setDateTime }) {
                 label="Date Time picker"
                 value={dateTime}
                 onChange={handleChange}
-                renderInput={(params) => (
-                  <TextField {...params} InputProps={{ readOnly: true }} />
-                )}
+                renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
 
