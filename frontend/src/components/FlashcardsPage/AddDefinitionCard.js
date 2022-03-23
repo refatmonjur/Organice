@@ -14,7 +14,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase.js";
 import { useUserAuth } from "../Context/UserAuthContext";
-
+import { Link } from "react-router-dom";
 // Front end
 import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
 import { Button, TextField, TextareaAutosize, IconButton, Icon } from "@mui/material";
@@ -169,7 +169,7 @@ setInputField(values);
         </Button> */}
 
          <Button className="finish-deck-btn" style={{ marginTop: 20 }} onClick= {createDeck}>
-          Finish & Save
+         <Link to="/flashcard"> Finish & Save</Link>
         </Button>
       </div>
     </div>

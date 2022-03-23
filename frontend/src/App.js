@@ -19,14 +19,15 @@ import WeeklyTodo from "./components/TodoPage/WeeklyTodo";
 import MonthlyTodo from "./components/TodoPage/MonthlyTodo";
 
 import StudyFlashCards from "./components/FlashcardsPage/StudyFlashCards";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 import AddEventModal from "./components/CalendarPage/AddEventModal";
 import Error from "./PageNotFound/Error";
 import Profile from "./components/Profile/Profile";
 
-
+import AddMoreCardQA from "./components/FlashcardsPage/AddMoreCardQA";
+import AddMoreCardWDE from "./components/FlashcardsPage/AddMoreCardWDE";
 function App() {
   return (
     <div className="app">
@@ -56,6 +57,12 @@ function App() {
             <ProtectedRoute path="/addImageCard">
               <AddImageCard />
             </ProtectedRoute>
+            <ProtectedRoute path="/addMoreCardQA">
+              <AddMoreCardQA />
+            </ProtectedRoute>
+            <ProtectedRoute path="/addMoreCardWDE">
+              <AddMoreCardWDE />
+            </ProtectedRoute>
 
             {/* ToDoList Routes */}
             <ProtectedRoute path="/todo">
@@ -82,7 +89,6 @@ function App() {
             <ProtectedRoute path="/Profile">
               <Profile />
             </ProtectedRoute>
-            <Route path="/Error" exact component={Error} />
             {/* <Route path="/newTodo" exact component={NewUserTodo} /> */}
             <ProtectedRoute path="/newTodo">
               <NewUserTodo />

@@ -29,9 +29,11 @@ export default function EachTodo({
   const handleChange = (e) => {
     e.preventDefault();
     if (todo.complete === true) {
+      
       setNewInput(todo.title);
     } else {
       todo.title = "";
+      console.log(todo)
       setNewInput(e.target.value);
     }
   };
