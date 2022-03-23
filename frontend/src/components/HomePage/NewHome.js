@@ -4,7 +4,14 @@ import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
 import { auth } from "../../firebase.js";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { db } from "../../firebase.js";
-import { collection, getDoc, doc, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  getDoc,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import "./NewHome.css";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
@@ -20,13 +27,21 @@ import NoteOutlinedIcon from "@mui/icons-material/NoteOutlined";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 
 function NewHome() {
-  const { user } = useUserAuth();
+  // const { user } = useUserAuth();
   // const useruiid = await signUp(registerEmail, registerPassword);
-  const useruiid = user.uid;
+  // const useruiid = user.uid;
   // const userCollectionRef = doc(db, "user", "FxfgfcgsziWsOWCUxU2ZaA57lU02");
-  const [currentUser, setCurrentUser] = useState([]);
+  // const [currentUser, setCurrentUser] = useState([]);
   // const [todos, setTodos] = useState([]);
   // "FxfgfcgsziWsOWCUxU2ZaA57lU02"
+
+  const [todos, setTodos] = useState([]);
+  const [Loading, setLoading] = useState(false);
+  const { user } = useUserAuth();
+  const [decks, setDecks] = useState([]);
+  const [flashcard, setFlashcard] = useState([]);
+  const [currentUser, setCurrentUser] = useState([]);
+
   async function getUsers(db) {
     const userDocRef = doc(db, "user", user.uid);
     const data = await getDoc(userDocRef);
@@ -53,6 +68,30 @@ function NewHome() {
 
   useEffect(() => {
     getUsers(db);
+
+ const TodoCollectionRef = collection(db, "user", user.uid, "todos");
+    const todoQuery = query(TodoCollectionRef, orderBy("timeStamp", "desc"));
+    const unsub = onSnapshot(todoQuery, (queryS) => {
+      const todosArray = [];
+      queryS.forEach((doc) => {
+        todosArray.push({ ...doc.data(), id: doc.id });
+      });
+      // console.log(todosArray);
+      setTodos(todosArray);
+    });
+
+    const DecksCollectionRef = collection(db, "user", user.uid, "flashcard");
+    const unsub1 = onSnapshot(DecksCollectionRef, (queryS) => {
+      const decksArray = [];
+      queryS.forEach((doc) => {
+        decksArray.push({ ...doc.data(), id: doc.id });
+      });
+      // console.log(decksArray);
+      setDecks(decksArray);
+    });
+
+    
+    return () => unsub1();
     // getStudentRecords(db);
   }, []);
 
@@ -185,18 +224,11 @@ function NewHome() {
           <div className="row align-items-center justify-content-between bg-light">
             <div className="col-md p-5">
               <h2 className="mb-3 text-info">To-do List</h2>
+              {todos.map((todo) => (
               <div className="card text-light bg-secondary mt-2 p-2">
-                take the dog out
+              {todo.title}
               </div>
-              <div className="card text-light bg-secondary mt-2 p-2">
-                do math Homework
-              </div>
-              <div className="card text-light bg-secondary mt-2 p-2">
-                go for a walk
-              </div>
-              <div className="card text-light bg-secondary mt-2 p-2">
-                english essay
-              </div>
+            ))}
               <div className="align-items-center">
                 <Link className="btn btn-dark mt-4" to="/todo">
                   <ArrowForwardIosRoundedIcon fontSize="small" />
@@ -230,18 +262,11 @@ function NewHome() {
             </div>
             <div className="col-md p-5">
               <h2 className="mb-3 text-warning">Your Decks</h2>
+              {decks.map((deck) => (
               <div className="card text-dark bg-light mt-2 p-2">
-                take the dog out
+                {deck.deckTitle}
               </div>
-              <div className="card text-dark bg-light mt-2 p-2">
-                do math Homework
-              </div>
-              <div className="card text-dark bg-light mt-2 p-2">
-                go for a walk
-              </div>
-              <div className="card text-dark bg-light mt-2 p-2">
-                english essay
-              </div>
+            ))}
               <div className="align-items-center">
                 <Link className="btn btn-info mt-4" to="/flashcard">
                   <ArrowForwardIosRoundedIcon fontSize="small" />
@@ -287,15 +312,9 @@ function NewHome() {
                   <div className="card-title">
                     <h4 className="text-primary">Reminders</h4>
                   </div>
-                  <div className="card bg-secondary text-center p-2 mt-2">
-                    Meeting from 3:30 - 6:00 PM
-                  </div>
-                  <div className="card bg-secondary text-center p-2 mt-2">
-                    class from 3:30 - 6:00 PM
-                  </div>
-                  <div className="card bg-secondary text-center p-2 mt-2">
-                    Essay from 3:30 - 6:00 PM
-                  </div>
+                  {todos.map((todo) => (
+              <div className="card bg-secondary text-center p-2 mt-2"> {todo.title} and the due date is: {todo.dueDate === "" ? "" : "⏰ " + todo.dueDate.toDate()}</div>
+            ))}
                 </div>
               </div>
             </div>
