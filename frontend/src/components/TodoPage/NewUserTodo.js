@@ -1,13 +1,11 @@
 import React from "react";
 import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
 import "./NewUserTodo.css";
-import image from "./task.png";
 import addtasks from "./addtasks.svg";
 import complete from "./complete.svg";
 import { Button, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 
 function NewUserTodo() {
   return (
@@ -44,7 +42,6 @@ function NewUserTodo() {
       <section className="bg-gradient text-light p-5 text-sm-start text-center">
         <div className="container bg-dark shadow-lg">
           <div className="row align-items-center justify-content-between p-3">
-            {/* <h2 className="text-warning p-5">Flashcards</h2> */}
             <div className="col-md">
               <img
                 className="img-fluid d-none d-sm-block"
@@ -64,9 +61,6 @@ function NewUserTodo() {
         </div>
       </section>
 
-      {/* Events */}
-
-      
     </div>
 
     
