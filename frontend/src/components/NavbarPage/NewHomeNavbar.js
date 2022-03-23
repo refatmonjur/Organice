@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -20,6 +19,7 @@ import { useHistory } from "react-router-dom";
 import Logo from "./test_logo.png";
 import { doc, getDoc, collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase";
+import { userData } from "../Context/UserData";
 
 const useStyles = makeStyles({
   header: {
@@ -29,12 +29,16 @@ const useStyles = makeStyles({
   },
 });
 
-function Navbar() {
+function NewHomeNavbar() {
   // style hook here
   const classes = useStyles();
   const { user } = useUserAuth();
   const pages = ["Flashcards", "To-do List", "Calendar"];
   const settings = ["Account", "Logout"];
+
+  // const lol = "https://ui-avatars.com/api/?rounded=true&name=" + {user.Firstname} + {user.Lastname};
+  // console.log(lol);
+console.log(user)
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -211,7 +215,8 @@ function Navbar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open User Settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
+                <img src= "https://ui-avatars.com/api/?rounded=true&name=Refat+Monjur"></img>
               </IconButton>
             </Tooltip>
             <Menu
@@ -248,4 +253,4 @@ function Navbar() {
     </AppBar>
   );
 }
-export default Navbar;
+export default NewHomeNavbar;

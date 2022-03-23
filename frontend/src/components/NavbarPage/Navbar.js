@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -18,6 +18,7 @@ import Logo from "./test_logo.png";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { useHistory } from "react-router-dom";
 import Flashcard from "../FlashcardsPage/Flashcard";
+
 
 const useStyles = makeStyles({
   header: {
@@ -62,6 +63,8 @@ function Navbar() {
       console.log(error.message);
     }
   };
+
+
   return (
     <AppBar position="static" className={classes.header}>
       <Container maxWidth="xl">
@@ -175,7 +178,8 @@ function Navbar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open User Settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
+                <img src="https://ui-avatars.com/api/?rounded=true&name=John+Doe"></img>
               </IconButton>
             </Tooltip>
             <Menu
