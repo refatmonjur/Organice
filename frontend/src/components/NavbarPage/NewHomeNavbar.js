@@ -2,6 +2,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
+import { useState, useEffect } from "react";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -35,13 +36,10 @@ function NewHomeNavbar() {
   const { user } = useUserAuth();
   const pages = ["Flashcards", "To-do List", "Calendar"];
   const settings = ["Account", "Logout"];
-
-  // const lol = "https://ui-avatars.com/api/?rounded=true&name=" + {user.Firstname} + {user.Lastname};
-  // console.log(lol);
-console.log(user)
-
+  const useruiid = user.uid;
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [currentUser, setCurrentUser] = useState([]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -69,36 +67,47 @@ console.log(user)
     }
   };
 
+  async function getUsers(db) {
+    try {
+      const userDocRef = doc(db, "user", user.uid);
+      const data = await getDoc(userDocRef);
+      const fields = [];
+      fields.push(data.data());
+      setCurrentUser(fields);
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
 
   const handlenewUserTodo = async (e) => {
+    // const docRef = collection(db, "user", user.uid, "todos");
+    // const docSnap = await getDoc(docRef);
+    // if (docSnap.exists()) {
+    //  history.push("/todo")
+    // }
+    // else{
+    //   history.push("/newTodo")
+    // }
 
-      // const docRef = collection(db, "user", user.uid, "todos");
-      // const docSnap = await getDoc(docRef);
-      // if (docSnap.exists()) {
-      //  history.push("/todo")
-      // }
-      // else{
-      //   history.push("/newTodo")
-      // }
-
-
-      const recordCol = collection(db, "user", user.uid, "todos");
-        onSnapshot(recordCol, (querySnapshot) => {
-          // if record array length is 0 then this is a new user with no todo
-            const record = [];
-            // map all todos from collection to record array
-            querySnapshot.forEach((doc) => {
-                record.push(doc.data());
-            });
-            if(record.length === 0)
-            {
-              history.push("/newTodo");
-            }
-            else{
-              history.push("/todo");
-            }
-        });
+    const recordCol = collection(db, "user", user.uid, "todos");
+    onSnapshot(recordCol, (querySnapshot) => {
+      // if record array length is 0 then this is a new user with no todo
+      const record = [];
+      // map all todos from collection to record array
+      querySnapshot.forEach((doc) => {
+        record.push(doc.data());
+      });
+      if (record.length === 0) {
+        history.push("/newTodo");
+      } else {
+        history.push("/todo");
+      }
+    });
   };
+
+  useEffect(() => {
+    getUsers(db);
+  }, []);
 
   return (
     <AppBar position="static" className={classes.header}>
@@ -187,7 +196,7 @@ console.log(user)
               // path="/todo"
             >
               {/* <Link to="/todo" className="nabBarOptions"> */}
-                To-do List
+              To-do List
               {/* </Link> */}
             </Button>
             <Button
@@ -215,8 +224,18 @@ console.log(user)
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open User Settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
-                <img src= "https://ui-avatars.com/api/?rounded=true&name=Refat+Monjur"></img>
+                {currentUser.map((users) => {
+                  return (
+                    <img
+                      src={
+                        "https://ui-avatars.com/api/?rounded=true&name=" +
+                        users.firstName +
+                        "+" +
+                        users.lastName
+                      }
+                    ></img>
+                  );
+                })}
               </IconButton>
             </Tooltip>
             <Menu
