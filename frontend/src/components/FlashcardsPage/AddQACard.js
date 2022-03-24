@@ -25,6 +25,7 @@ import {
 } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import AddIcon from "@mui/icons-material/Add";
+import DragHandle from "@mui/icons-material/DragHandle";
 
 //CSS
 import "./Flashcard.css";
@@ -34,7 +35,7 @@ import "./Flashcard.css";
 function AddQACard() {
   const avatarStyle = { backgroundColor: "indigo" };
   const stylButn = { margin: "8px 0" };
-  const stylField = { margin: "8px 0"};
+  const stylField = { margin: "8px 0" };
   const { user } = useUserAuth();
 
   const [deckName, setDeckName] = useState("");
@@ -85,13 +86,17 @@ function AddQACard() {
   };
 
   const handleAddFields = (index) => {
+    console.log("added card");
+    console.log("index: ", index)
     setInputField([...inputFields, { question: "", answer: "" }]);
   };
 
   const handleRemoveFields = (index) => {
-    const values = [...inputFields];
-    values.splice(index, 1);
-    setInputField(values);
+    if (index != 0) {
+      const values = [...inputFields];
+      values.splice(index, 1);
+      setInputField(values);
+    }
   };
 
   return (
@@ -102,9 +107,9 @@ function AddQACard() {
 
       <div className="addnewdeck-header center-text">
         <div id="flex-containerQA">
-          <div 
+          <div
             className="gradient__text"
-            style={{ marginTop: -40, fontWeight: "bold"}}
+            style={{ marginTop: -40, fontWeight: "bold" }}
           >
             Please give your Q/A Deck a name
           </div>
@@ -120,43 +125,76 @@ function AddQACard() {
       </div>
 
       {/* Question Answer Add Cards Div */}
-      <form 
+      <form
         onSubmit={handleSubmit}
-        style={{backgroundColor: "#0e1a3a90"}}
+        style={{
+          backgroundColor: "#0e1a3a90",
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column"
+        }} // #0e1a3a90
       >
+        {/* PLEASE CHECK THIS LINE, I did this to make there only be ONE Plus sign */}
+        {/* <div className="card">
+          <IconButton onClick={() => handleAddFields(0)}>
+            <AddIcon />
+          </IconButton>
+        </div> */}
         {inputFields.map((inputField, index) => (
-          <div key={index}>
-            <div className="addnewdeck-header center-text">
-              <div id="flex-containerQA">
-                <div>Fill in your Question and Answer</div>
-                <TextareaAutosize
-                  className="textfield-White fields-spacing "
-                  style={{borderRadius: 0}}
-                  placeholder=" Enter Question"
-                  name="question"
-                  value={inputField.question}
-                  // onChange={(e) => setQuestion(e.target.value)}
-                  onChange={(event) => handleChangeInput(index, event)}
-                />
-                <TextareaAutosize
-                  className="textfield-White fields-spacing "
-                  style={{borderRadius: 0}}
-                  placeholder=" Enter Answer"
-                  name="answer"
-                  value={inputField.answer}
-                  // onChange={(e) => setAnswer(e.target.value)}
-                  onChange={(event) => handleChangeInput(index, event)}
-                />
+          <div key={index} style={{ marginTop: 5, marginBottom: 5 }}>
+            <div className="card">
+              <div className="card-header" style={{ justifyContent: "space-around", display: "flex" }}>
+                <div>
+                  ith Number
+                </div>
+                <div>
+                  <IconButton>
+                    <DragHandle />
+                  </IconButton>
+                  {index != 0 &&
+                    <IconButton onClick={() => handleRemoveFields(index)}>
+                      <DeleteOutlineIcon />
+                    </IconButton>
+                  }
+                </div>
               </div>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', width: 400, justifyContent: "center" }}>
-              <IconButton onClick={() => handleRemoveFields(index)}>
-                <DeleteOutlineIcon style={{ color: "white" }} />
-              </IconButton>
-              <IconButton onClick={() => handleAddFields(index)}>
-                <AddIcon style={{ color: "white" }} />
-              </IconButton>
+            <div className="card">
+              <div id="flex-containerQArow" className="card-body">
+                <div className="card-body">
+                  <TextareaAutosize
+                    placeholder=" Enter Question"
+                    className="resizeTextarea"
+                    name="question"
+                    value={inputField.question}
+                    // onChange={(e) => setQuestion(e.target.value)}
+                    onChange={(event) => handleChangeInput(index, event)}
+                  />
+                  <div className="QAfonts">QUESTION</div>
+                </div>
+                <div className="card-body">
+                  <TextareaAutosize
+                    placeholder=" Enter Answer"
+                    className="resizeTextarea"
+                    name="answer"
+                    value={inputField.answer}
+                    // onChange={(e) => setAnswer(e.target.value)}
+                    onChange={(event) => handleChangeInput(index, event)}
+                  />
+                  <div className="QAfonts">ANSWER</div>
+                </div>
+              </div>
             </div>
+            {index == 0 &&
+              <div className="card">
+                <IconButton 
+                  style={{color: "teal"}}
+                  onClick={() => handleAddFields(index)}
+                >
+                  <AddIcon />
+                </IconButton>
+              </div>
+            }
           </div>
         ))}
       </form>
@@ -167,10 +205,15 @@ function AddQACard() {
 
         <Button
           className="finish-deck-btn"
-          style={{ marginTop: 20 }}
+          style={{ marginTop: 20}}
           onClick={createDeck}
         >
-          <Link to="/flashcard"> Finish & Save</Link>
+          <Link 
+            style={{textDecoration: "none", color: "white"}}
+            to="/flashcard"
+          >
+            Finish & Save
+          </Link>
         </Button>
       </div>
     </div>

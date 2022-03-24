@@ -99,7 +99,7 @@
 }
 
 .add-deck:hover{
-    background-color: hsl(221, 62%, 55%);
+    background-color: #4572d3;
 }
 
 /* Centering */
@@ -146,13 +146,26 @@
     padding: 40px;
     color: white;
     font-size: 24px;
+    min-width: 100vh;
 }
 
 
 /* Add New Cards CSS */
+/* textarea */
 .textfield-White {
     background-color: white;
     border-radius: 10px;
+}
+
+.resizeTextarea {
+    resize:both; 
+    overflow: hidden;
+    width:100%;
+    height:100%;
+    border-bottom: 3px solid rgba(23, 28, 87, 0.377);
+    border-top: 0ch;
+    border-left: 0ch;
+    border-right: 0ch;
 }
 
 .input,
@@ -165,6 +178,11 @@
     flex-direction: column;
     flex-grow: 1;
     max-width: 10000000px;
+}
+
+#flex-containerQArow {
+    display: flex;
+    flex-direction: row;
 }
 
 .fields-spacing {
@@ -277,4 +295,13 @@
     border-radius: 10px;
     justify-content: center;
     align-items: center;
+}
+
+/* Fonts */
+.QAfonts {
+    /* font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
+    color: rgba(70, 70, 70, 0.397);
+    font-weight: bold;
 }
