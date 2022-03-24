@@ -5,7 +5,10 @@
 }
 
 .size{
-    height: 10px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+
 }
 
 .thecalendar {
@@ -13,5 +16,5 @@
     height: 150;
     width: 100;
     margin-left: 0%;
-    contentHeight: 600;
+    
 }

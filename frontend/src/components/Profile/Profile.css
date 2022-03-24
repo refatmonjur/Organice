@@ -1,0 +1,45 @@
+/* .picture {
+    position: absolute;
+    margin: auto;
+}
+.button{
+    margin: auto;
+} */
+.welcome {
+  background-color: wheat;
+  font-size: 35px;
+  background: var(--gradient-text);
+  background-clip: text;
+  -webkit-background-clop: text; /* THIS ALLOWS FOR DIFFERENT BROWSERS*/
+  -webkit-text-fill-color: transparent; /* THIS ALLOWS FOR DIFFERENT BROWSERS*/
+  padding: 20px;
+}
+.container_1 {
+  display: flex;
+  border-radius: 25px;
+  margin-right: 20%;
+  margin-left: 20%;
+  background-color: #3fb0ac;
+  align-items: center;
+  flex-direction: column;
+  gap: 40px;
+}
+.avatar--container {
+  margin-top: 20px;
+  height: 200px;
+  width: 200px;
+  display: inline-block;
+  border-radius: 195px;
+  background-color: gainsboro;
+}
+.userinfo-container {
+  size: 30px;
+}
+.userwindow {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.password-container {
+  margin-bottom: 30px;
+}
