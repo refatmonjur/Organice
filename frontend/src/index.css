@@ -4,6 +4,7 @@
   --font-family: 'Manrope', sans-serif;
 
   --gradient-text: linear-gradient(89.97deg, #cea9f5 1.84%, #F49867 102.67%);
+  --gradient-deck-text: linear-gradient(89.97deg, #94556d 1.84%, #002b7a 102.67%);
   --gradient-bar: linear-gradient(103.22deg, #AE67FA -13.86%, #F49867 99.55%);
   
   --color-bg: #040C18;

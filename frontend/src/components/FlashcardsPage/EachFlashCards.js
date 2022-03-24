@@ -30,7 +30,10 @@ function EachFlashCards({ flash, handleDelete, handleEdit2 }) {
   };
 
   return (
-    <div className="transparentBg2">
+    <div 
+      className="card"
+      style={{margin: 10}}
+    >
       {/* SHOW THIS DIV IF User has no decks in their data */}
       <div className="flashcard-container">
         <div className="flashcard-prompt">

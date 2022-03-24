@@ -16,9 +16,19 @@
 }
 
 .transparentBgFlashcard {
-    background-color: hsla(221, 40%, 63%, 0.445);
+    background-color: hsla(221, 40%, 63%, 0.322);
     margin: 40px;
     border-radius: 40px;
+    width: 100vh;
+    height: 100vh;
+}
+
+.transparentBg-Deck {
+    background-color: hsla(220, 92%, 85%, 0.349);
+    margin: 20px;
+    height: 85vh;
+    border-radius: 40px;
+    /* color:#dcdff18e; */
 }
 
 .add-card-bg {
@@ -65,10 +75,10 @@
 
 .create-new-deck-button{
     background-color: rgb(182, 201, 243) !important;
-    color: #060f24 !important;
+    color: #1e2406 !important;
     font-weight: bold !important;
     font-size: 16px !important;
-    padding: 10px !important;
+    padding: 15px !important;
 }
 
 /* ADD Deck Button */
@@ -89,7 +99,7 @@
 }
 
 .add-deck:hover{
-    background-color: hsl(221, 62%, 55%);
+    background-color: #4572d3;
 }
 
 /* Centering */
@@ -136,13 +146,31 @@
     padding: 40px;
     color: white;
     font-size: 24px;
+    min-width: 100vh;
 }
 
 
 /* Add New Cards CSS */
+/* textarea */
 .textfield-White {
     background-color: white;
-    border-radius: 20px;
+    border-radius: 10px;
+}
+
+.resizeTextarea {
+    resize:both; 
+    overflow: hidden;
+    width:100%;
+    height:100%;
+    border-bottom: 3px solid rgba(23, 28, 87, 0.377);
+    border-top: 0ch;
+    border-left: 0ch;
+    border-right: 0ch;
+}
+
+.input,
+.textarea {
+    padding: 1px 6px;
 }
 
 #flex-containerQA {
@@ -150,6 +178,11 @@
     flex-direction: column;
     flex-grow: 1;
     max-width: 10000000px;
+}
+
+#flex-containerQArow {
+    display: flex;
+    flex-direction: row;
 }
 
 .fields-spacing {
@@ -236,4 +269,39 @@
     margin: 0 auto;
 }
 
-/* Flippy Card Designs */
+/* flashcard deck title */
+.deck-title {
+    background:var(--gradient-deck-text);
+    background-clip: text;
+    -webkit-text-fill-color: transparent; /* THIS ALLOWS FOR DIFFERENT BROWSERS*/
+    font-size: 18px;
+    line-height: 32px;
+    padding: 0px 10px;
+}
+
+.deck-cards-title{
+    background:var(--gradient-deck-text);
+    background-clip: text;
+    -webkit-text-fill-color: transparent; /* THIS ALLOWS FOR DIFFERENT BROWSERS*/
+    padding: 20px;
+    margin: 20px 0px;
+}
+
+/* Study Each Card CSS */
+.background-button {
+    background-color: #0e1a3a;
+    color:hsl(0, 0%, 100%);
+    font-weight: 700;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Fonts */
+.QAfonts {
+    /* font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
+    color: rgba(70, 70, 70, 0.397);
+    font-weight: bold;
+}

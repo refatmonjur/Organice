@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { db } from "../../firebase.js";
-import { collection, onSnapshot, doc, deleteDoc,updateDoc } from "firebase/firestore";
+import { collection, onSnapshot, doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { useUserAuth } from "../Context/UserAuthContext";
 import Modal from "react-modal";
 import EachFlashCards from "./EachFlashCards.js";
@@ -24,6 +24,7 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
     },
+    
   };
   useEffect(() => {
     // setLoading(true);
@@ -74,14 +75,14 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
     );
     await deleteDoc(docRef3);
   };
-  const handleEdit = async (flash, newWord, newDefinition, newExample ) => {
+  const handleEdit = async (flash, newWord, newDefinition, newExample) => {
     const docRef4 = doc(db, "user",
-    user.uid,
-    "flashcard",
-    deckName,
-    "deck",
-    flash.id);
-    await updateDoc(docRef4, {definition: newDefinition, example: newExample, word: newWord});
+      user.uid,
+      "flashcard",
+      deckName,
+      "deck",
+      flash.id);
+    await updateDoc(docRef4, { definition: newDefinition, example: newExample, word: newWord });
   };
 
   const handleEdit2 = async (flash, newQuestion, newAnswer) => {
@@ -125,7 +126,7 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
       //push it to the page that takes the word, definition, purpose and image
     }
   };
-  
+
   // console.log(Object.keys(decks1[0]).length); // this is how we get length of the object
   return (
     <div>
@@ -140,24 +141,37 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
           <StudyEachCard deckName={deckName} />
         </div>
         {/* <h1>CARDS ON {deckName}: </h1> */}
-        <div className=" flashcard-deck-title gradient__text">
-          CARDS ON {deckName}:
+        <div 
+          className="transparentBg-Deck"
+        >
+          <div
+            className="deck-cards-title center"
+            style={{ justifyContent: "center", fontSize: 22, fontWeight: "bold" }}
+          >
+            Cards in "{deckName}":
+          </div>
+          <div>
+            {decks1.map((flash) => (
+              <div>
+                {Object.keys(flash).length == 3 && (
+                  <EachFlashCards flash={flash} handleDelete={handleDelete} handleEdit2={handleEdit2} />
+                )}
+                {Object.keys(flash).length == 4 && (
+                  <EachFlashCardsWDE flash={flash} handleDelete={handleDelete} handleEdit={handleEdit} />
+                )}
+              </div>
+              // {/* // here call another component for each flashcards  */}
+            ))}
+          </div>
         </div>
         <div>
-          {decks1.map((flash) => (
-            <div>
-              {Object.keys(flash).length == 3 && (
-                <EachFlashCards flash={flash} handleDelete={handleDelete} handleEdit2 = {handleEdit2} />
-              )}
-              {Object.keys(flash).length == 4 && (
-                <EachFlashCardsWDE  flash={flash} handleDelete={handleDelete} handleEdit = {handleEdit}  />
-              )}
-            </div>
-            // {/* // here call another component for each flashcards  */}
-          ))}
-        </div>
-        <div>
-          <button onClick={handleAdd}>ADD NEW CARDS</button>
+          <button 
+          className="center"
+          style={{ justifyContent: "center"}}
+            onClick={handleAdd}
+          >
+            ADD NEW CARDS
+          </button>
         </div>
       </Modal>
 

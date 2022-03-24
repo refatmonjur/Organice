@@ -14,6 +14,7 @@ import {
   deleteDoc,
   orderBy,
 } from "firebase/firestore";
+import { Button } from "@mui/material";
 import { handleBreakpoints } from "@mui/system";
 
 function StudyEachCard({ deckName }) {
@@ -44,17 +45,11 @@ function StudyEachCard({ deckName }) {
 
   return (
     <div>
-      <div className=" flashcard-deck-title gradient__text">{deckName}</div>
-      <div>
-        <button
-          onClick={() => {
-            if (currentCard > 0) {
-              setCurrentCard(currentCard - 1);
-            }
-          }}
-        >
-          prev
-        </button>
+      <div 
+        className="deck-cards-title center"
+        style={{ justifyContent: "center", fontSize: 22, fontWeight: "bold"}}
+      >
+        {deckName}
       </div>
       <div>
         <Flippy
@@ -64,13 +59,28 @@ function StudyEachCard({ deckName }) {
           style={{ minWidth: "200px", height: "200px" }} /// these are optional style, it is not necessary
         >
           <FrontSide
-            style={{ backgroundColor: "#41669d", textAlign: "center" }}
+            style={{ 
+              color: "white",
+              backgroundColor: "#2a3785",
+              fontSize: 20,
+              display: "flex",
+              justifyContent: 'center', 
+              alignItems: 'center'
+            }}
           >
             {flashCards.length > 0 && <p>{flashCards[currentCard].question}</p>}
             {flashCards.length > 0 && <p>{flashCards[currentCard].word}</p>}
           </FrontSide>
 
-          <BackSide style={{ backgroundColor: "#FFFFFF", textAlign: "center" }}>
+          <BackSide 
+            style={{ 
+              backgroundColor: "#dcdff18e",
+              fontSize: 20,
+              display: "flex",
+              justifyContent: 'center', 
+              alignItems: 'center'
+            }}
+          >
             {flashCards.length > 0 && <p>{flashCards[currentCard].answer}</p>}
             {flashCards.length > 0 && <p>{flashCards[currentCard].definition}</p>}
             {flashCards.length > 0 && <p>{flashCards[currentCard].example}</p>}
@@ -78,15 +88,31 @@ function StudyEachCard({ deckName }) {
           </BackSide>
         </Flippy>
       </div>
-      <div>
+      <div
+        style={{ justifyContent: "center", display: "flex", padding: 15 }}
+        className="center"
+      >
         <button
+          className="background-button"
+          style={{marginRight: 10, flexGrow: 2,  maxWidth: 300}}
+          onClick={() => {
+            if (currentCard > 0) {
+              setCurrentCard(currentCard - 1);
+            }
+          }}
+        >
+          Prev
+        </button>
+        <button
+          className="background-button"
+          style={{flexGrow: 2, maxWidth: 300}}
           onClick={() => {
             if (currentCard + 1 < flashCards.length) {
               setCurrentCard(currentCard + 1);
             }
           }}
         >
-          next
+          Next
         </button>
       </div>
     </div>
