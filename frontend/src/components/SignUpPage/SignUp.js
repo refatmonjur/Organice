@@ -18,6 +18,7 @@ import "./SignUp.css";
 import { useHistory } from "react-router-dom";
 import { db } from "../../firebase";
 import { collection, doc, setDoc } from "firebase/firestore";
+import Navbar from "../NavbarPage/Navbar";
 
 function SignUp() {
   const { user } = useUserAuth();
@@ -103,6 +104,8 @@ function SignUp() {
 
   return (
     <div>
+      
+      <Navbar />
       <Grid className="login__container">
         <Paper elevation={10} style={paperStyle}>
           <Grid align="center">

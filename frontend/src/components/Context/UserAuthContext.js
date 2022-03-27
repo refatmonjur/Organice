@@ -6,6 +6,9 @@ import {
   signOut,
   GoogleAuthProvider,
   signInWithPopup,
+  confirmPasswordReset,
+  updatePassword,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth } from "../../firebase";
 
@@ -59,6 +62,25 @@ export function UserAuthContextProvider({ children }) {
     return ret2;
   }
 
+  
+  function passwordUpdate(email) {
+    if(email === user.email)
+    {
+      return sendPasswordResetEmail(auth, email). then(() =>
+      { 
+          // signOut(auth);
+          console.log("Email Sent!");
+      }).catch((error)=> {
+        const errorCode = error.code;
+      const errorMessage = error.message;
+        console.log(errorMessage);
+      })
+    }
+    else{
+      console.log("Wrong Email!")
+    }
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
       console.log("Auth", currentuser);
@@ -72,7 +94,7 @@ export function UserAuthContextProvider({ children }) {
 
   return (
     <userAuthContext.Provider
-      value={{ user, logIn, signUp, logOut, googleSignIn }}
+      value={{ user, logIn, signUp, logOut, googleSignIn, passwordUpdate }}
     >
       {children}
     </userAuthContext.Provider>

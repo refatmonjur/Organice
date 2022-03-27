@@ -26,6 +26,7 @@ import { db } from "../../firebase";
 import { collection, doc, setDoc, getDoc } from "firebase/firestore";
 // import { useUserAuth } from "../Context/UserAuthContext";
 import { userData } from "../Context/UserData";
+import Navbar from "../NavbarPage/Navbar.js";
 
 function Login() {
   const { user } = useUserAuth();
@@ -130,6 +131,7 @@ function Login() {
   };
   return (
     <div className="login">
+      <Navbar />
       <div className="app__header"></div>
       <Grid className="login__container">
         <Paper elevation={10} style={paperStyle}>
