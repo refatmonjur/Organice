@@ -10,6 +10,7 @@ import { useUserAuth } from "../Context/UserAuthContext";
 import { db } from "../../firebase.js";
 import { collection, onSnapshot, doc, deleteDoc } from "firebase/firestore";
 import { useHistory } from "react-router-dom";
+import deck from "./deck.svg";
 import StudyFlashCard from "./StudyFlashCards";
 import EachFlashCards from './EachFlashCards';
 import { textAlign } from "@mui/system";
@@ -95,8 +96,37 @@ function Flashcard() {
     <div>
       <div>
         <NewHomeNavbar />
+
+        <section className="bg-gradient text-light p-4 text-sm-start text-center">
+          <div className="container bg-dark shadow-lg ">
+            <div className="d-sm-flex align-items-center justify-content-between p-4">
+              <div>
+                <h1 className="text-sm-start">
+                  Welcome to
+                  <span className="textcolor1"> Organice's </span>
+                  Flashcard Section
+                </h1>
+                <p className="lead my-4">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                  enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                  nisi
+                </p>
+              </div>
+              <img
+                className="img-fluid w-50 d-none d-sm-block"
+                src={deck}
+                alt=""
+              ></img>
+            </div>
+          </div>
+        </section>
+
+
+        
       </div>
 
+      <section>
       <div className="max-height-flashcard-section"
         style={{
           justifyContent: "center"
@@ -112,21 +142,48 @@ function Flashcard() {
           >
             Decks
           </h3>
+
+          
+
+          <div class="container">
+            <div class="row row-cols-4 text-center p-5 mb-2 mt-2">
+            
+            {decks.map((deck) => (
+              <div className="card-body text-center ">
+                <ShowDecksinPage key={deck.id} deck={deck} deleting={deleting} />
+              </div>
+            ))}
+            {/* <ShowDecksinPage key={deck.id} deck={deck} deleting={deleting}/> */}
+            {/* {hasDeck ? <ShowDecksinPage /> : <NoDeckPage />} */}
+          
+               {/* <div class="card">CS103</div>
+              <div class="card">CS104</div>
+              <div class="card">EE210</div>
+              <div class="card">EE457</div>
+              <div class="card">EE330</div>
+              <div class="card">EE312</div>
+              <div class="card">CS210</div>
+              <div class="card">CS332</div>
+              <div class="card">Senior Design</div> */}
+            </div>
+          </div>
+
           <Button
             className="create-new-deck-button center"
             style={{
               display: "block",
               margin: "auto",
-              marginTop: -55
+              marginTop: 0
+              // marginTop: -55
             }}
           // onClick={ }
           >
-            <Link 
+            <Link
               to="/addNewDeck"
-              style={{ 
+              style={{
                 textDecoration: "none",
               }}
-            > 
+            >
               Create New Deck
             </Link>
           </Button>
@@ -149,6 +206,7 @@ function Flashcard() {
           </div>
         </div>
       </div>
+      </section>
     </div>
   );
 }

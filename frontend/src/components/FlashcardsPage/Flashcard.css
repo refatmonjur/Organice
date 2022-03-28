@@ -305,3 +305,10 @@
     color: rgba(70, 70, 70, 0.397);
     font-weight: bold;
 }
+.textcolor1{
+    background:var(--gradient-text);
+    background-clip: text;
+    -webkit-background-clop: text;        
+    -webkit-text-fill-color: transparent; 
+    
+  }
