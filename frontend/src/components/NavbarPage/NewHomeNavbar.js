@@ -119,7 +119,7 @@ function NewHomeNavbar() {
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
             <Link to="/home">
-              <img src={Logo} width="100" height="80" />
+              <img src={Logo} width="85" height="68" />
             </Link>
             {/* <img src={Logo} width="100" height="80" /> */}
 
@@ -255,7 +255,7 @@ function NewHomeNavbar() {
               onClose={handleCloseUserMenu}
             >
               <MenuItem key="account" onClick={handleCloseNavMenu}>
-                <Link to="/" className="menuOptions" textAlign="center">
+                <Link to="/profile" className="menuOptions" textAlign="center">
                   Account
                 </Link>
               </MenuItem>

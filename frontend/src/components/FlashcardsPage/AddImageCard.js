@@ -237,7 +237,7 @@ const AddImageCard = () => {
           style={{ marginTop: 20 }}
           onClick={(e) => createDeck(e)}
         >
-          Finish & Save
+          <Link to="/flashcard"> Finish & Save</Link>
         </Button>
       </div>
     </div>
