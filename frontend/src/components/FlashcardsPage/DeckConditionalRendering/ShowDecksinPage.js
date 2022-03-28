@@ -20,13 +20,17 @@ export default function ShowDecksinPage({ deck, deleting }) {
 
   return (
     <div>
-      <div
-        className="newUser-text center"
-        style={{ marginBottom: 50 }}
-      >
+      <div className="newUser-text center" style={{ marginBottom: 50 }}>
         <div className="deck-title"> {deck.deckTitle} </div>
         <div>
-          <Button onClick={() => { setClicked(true); }}> Study </Button>
+          <Button
+            onClick={() => {
+              setClicked(true);
+            }}
+          >
+            {" "}
+            Study{" "}
+          </Button>
           <Button onClick={() => deleting(deck.id)}>Delete</Button>
         </div>
       </div>

@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
+import { useState, useEffect } from "react";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -20,6 +20,7 @@ import { useHistory } from "react-router-dom";
 import Logo from "./test_logo.png";
 import { doc, getDoc, collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase";
+import { userData } from "../Context/UserData";
 
 const useStyles = makeStyles({
   header: {
@@ -29,15 +30,16 @@ const useStyles = makeStyles({
   },
 });
 
-function Navbar() {
+function NewHomeNavbar() {
   // style hook here
   const classes = useStyles();
   const { user } = useUserAuth();
   const pages = ["Flashcards", "To-do List", "Calendar"];
   const settings = ["Account", "Logout"];
-
+  const useruiid = user.uid;
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [currentUser, setCurrentUser] = useState([]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -65,36 +67,47 @@ function Navbar() {
     }
   };
 
+  async function getUsers(db) {
+    try {
+      const userDocRef = doc(db, "user", user.uid);
+      const data = await getDoc(userDocRef);
+      const fields = [];
+      fields.push(data.data());
+      setCurrentUser(fields);
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
 
   const handlenewUserTodo = async (e) => {
+    // const docRef = collection(db, "user", user.uid, "todos");
+    // const docSnap = await getDoc(docRef);
+    // if (docSnap.exists()) {
+    //  history.push("/todo")
+    // }
+    // else{
+    //   history.push("/newTodo")
+    // }
 
-      // const docRef = collection(db, "user", user.uid, "todos");
-      // const docSnap = await getDoc(docRef);
-      // if (docSnap.exists()) {
-      //  history.push("/todo")
-      // }
-      // else{
-      //   history.push("/newTodo")
-      // }
-
-
-      const recordCol = collection(db, "user", user.uid, "todos");
-        onSnapshot(recordCol, (querySnapshot) => {
-          // if record array length is 0 then this is a new user with no todo
-            const record = [];
-            // map all todos from collection to record array
-            querySnapshot.forEach((doc) => {
-                record.push(doc.data());
-            });
-            if(record.length === 0)
-            {
-              history.push("/newTodo");
-            }
-            else{
-              history.push("/todo");
-            }
-        });
+    const recordCol = collection(db, "user", user.uid, "todos");
+    onSnapshot(recordCol, (querySnapshot) => {
+      // if record array length is 0 then this is a new user with no todo
+      const record = [];
+      // map all todos from collection to record array
+      querySnapshot.forEach((doc) => {
+        record.push(doc.data());
+      });
+      if (record.length === 0) {
+        history.push("/newTodo");
+      } else {
+        history.push("/todo");
+      }
+    });
   };
+
+  useEffect(() => {
+    getUsers(db);
+  }, []);
 
   return (
     <AppBar position="static" className={classes.header}>
@@ -183,7 +196,7 @@ function Navbar() {
               // path="/todo"
             >
               {/* <Link to="/todo" className="nabBarOptions"> */}
-                To-do List
+              To-do List
               {/* </Link> */}
             </Button>
             <Button
@@ -211,7 +224,18 @@ function Navbar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open User Settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                {currentUser.map((users) => {
+                  return (
+                    <img
+                      src={
+                        "https://ui-avatars.com/api/?rounded=true&name=" +
+                        users.firstName +
+                        "+" +
+                        users.lastName
+                      }
+                    ></img>
+                  );
+                })}
               </IconButton>
             </Tooltip>
             <Menu
@@ -248,4 +272,4 @@ function Navbar() {
     </AppBar>
   );
 }
-export default Navbar;
+export default NewHomeNavbar;

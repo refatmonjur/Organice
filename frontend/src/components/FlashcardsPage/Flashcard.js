@@ -11,13 +11,12 @@ import { db } from "../../firebase.js";
 import { collection, onSnapshot, doc, deleteDoc } from "firebase/firestore";
 import { useHistory } from "react-router-dom";
 import StudyFlashCard from "./StudyFlashCards";
-import EachFlashCards from './EachFlashCards';
+import EachFlashCards from "./EachFlashCards";
 import { textAlign } from "@mui/system";
 
 //For Flipping Flashcard
-import Flippy, { FrontSide, BackSide } from 'react-flippy';
+import Flippy, { FrontSide, BackSide } from "react-flippy";
 import { red } from "@mui/material/colors";
-
 
 function Flashcard() {
   // state = {
@@ -97,17 +96,19 @@ function Flashcard() {
         <NewHomeNavbar />
       </div>
 
-      <div className="max-height-flashcard-section"
+      <div
+        className="max-height-flashcard-section"
         style={{
-          justifyContent: "center"
+          justifyContent: "center",
         }}
       >
         {/* 1st Transparent Background that shows the list of decks and holds the Create New Deck Button */}
         <div className="transparentBgFlashcard">
-          <h3 className="gradient__text"
+          <h3
+            className="gradient__text"
             style={{
               justifyContent: "center",
-              textAlign: "center"
+              textAlign: "center",
             }}
           >
             Decks
@@ -117,23 +118,27 @@ function Flashcard() {
             style={{
               display: "block",
               margin: "auto",
-              marginTop: -55
+              marginTop: -55,
             }}
-          // onClick={ }
+            // onClick={ }
           >
-            <Link 
+            <Link
               to="/addNewDeck"
-              style={{ 
+              style={{
                 textDecoration: "none",
               }}
-            > 
+            >
               Create New Deck
             </Link>
           </Button>
           <div>
             {decks.map((deck) => (
               <div>
-                <ShowDecksinPage key={deck.id} deck={deck} deleting={deleting} />
+                <ShowDecksinPage
+                  key={deck.id}
+                  deck={deck}
+                  deleting={deleting}
+                />
                 <div>
                   {/* {flashcard.map((flash) => (
                   <div>

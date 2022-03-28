@@ -5,6 +5,7 @@ class Profile {
     this.lastname = "";
     this.ud = "";
     this.email = "";
+    this.url = "";
   }
 
   getEmail() {
@@ -12,6 +13,13 @@ class Profile {
   }
   setEmail(v) {
     this.email = v;
+  }
+  setUrl(v) {
+    this.url = v;
+    console.log(this.url);
+  }
+  getUrl() {
+    return this.url;
   }
 
   getFirstname() {

@@ -17,10 +17,20 @@ import { DialogTitle } from "@mui/material";
 import { DialogContent } from "@mui/material";
 import { useState } from "react";
 import imageavatar from "./avatar.png";
+import { useUserAuth } from "../Context/UserAuthContext";
+import { useLocation } from "react-router-dom";
+function useQuery() {
+  const location = useLocation();
+  return new URLSearchParams(location.search);
+}
 
 function Profile() {
   const [open, setOpen] = useState(false);
   const [openPass, setOpenPass] = useState(false);
+  const [email, setEmail] = useState("");
+  const {user} = useUserAuth();
+  const {passwordUpdate} = useUserAuth();
+  
 
   const handleClose = () => {
     setOpen(false);
@@ -31,6 +41,7 @@ function Profile() {
   };
 
   const handleClosePass = () => {
+    passwordUpdate(email);
     setOpenPass(false);
   };
 
@@ -62,7 +73,6 @@ function Profile() {
           <TextField
             id="outlined-basic"
             label="Name:"
-            defaultValue="Refat Monjur"
             variant="standard"
             size="small"
             InputProps={{
@@ -123,20 +133,23 @@ function Profile() {
           </DialogActions>
         </Dialog>
       </div>
-      <div>
+      <div >
         <Dialog open={openPass} onClose={handleClosePass}>
           <DialogTitle>Update Password</DialogTitle>
           <DialogContent>
             <TextField
               id="outlined-basic"
-              label=" Enter New Password"
+              label=" Enter Email"
               variant="outlined"
               size="small"
+              type="text"
+              value= {email}
+              onChange= {e => setEmail(e.target.value)}
             />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClosePass}>Cancel</Button>
-            <Button onClick={handleClosePass}>Update Password</Button>
+            <Button onClick={handleClosePass}>Send Password Reset</Button>
           </DialogActions>
         </Dialog>
       </div>

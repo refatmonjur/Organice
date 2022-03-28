@@ -59,7 +59,6 @@ function AddQACard() {
     //   question: question,
     //   answer: answer,
     // };
-
     const decksrefs = collection(
       db,
       "user",
@@ -87,7 +86,7 @@ function AddQACard() {
 
   const handleAddFields = (index) => {
     console.log("added card");
-    console.log("index: ", index)
+    console.log("index: ", index);
     setInputField([...inputFields, { question: "", answer: "" }]);
   };
 
@@ -131,7 +130,7 @@ function AddQACard() {
           backgroundColor: "#0e1a3a90",
           display: "flex",
           justifyContent: "center",
-          flexDirection: "column"
+          flexDirection: "column",
         }} // #0e1a3a90
       >
         {/* PLEASE CHECK THIS LINE, I did this to make there only be ONE Plus sign */}
@@ -143,19 +142,20 @@ function AddQACard() {
         {inputFields.map((inputField, index) => (
           <div key={index} style={{ marginTop: 5, marginBottom: 5 }}>
             <div className="card">
-              <div className="card-header" style={{ justifyContent: "space-around", display: "flex" }}>
-                <div>
-                  ith Number
-                </div>
+              <div
+                className="card-header"
+                style={{ justifyContent: "space-around", display: "flex" }}
+              >
+                <div>ith Number</div>
                 <div>
                   <IconButton>
                     <DragHandle />
                   </IconButton>
-                  {index != 0 &&
+                  {index != 0 && (
                     <IconButton onClick={() => handleRemoveFields(index)}>
                       <DeleteOutlineIcon />
                     </IconButton>
-                  }
+                  )}
                 </div>
               </div>
             </div>
@@ -185,16 +185,16 @@ function AddQACard() {
                 </div>
               </div>
             </div>
-            {index == 0 &&
+            {index == 0 && (
               <div className="card">
-                <IconButton 
-                  style={{color: "teal"}}
+                <IconButton
+                  style={{ color: "teal" }}
                   onClick={() => handleAddFields(index)}
                 >
                   <AddIcon />
                 </IconButton>
               </div>
-            }
+            )}
           </div>
         ))}
       </form>
@@ -205,11 +205,11 @@ function AddQACard() {
 
         <Button
           className="finish-deck-btn"
-          style={{ marginTop: 20}}
+          style={{ marginTop: 20 }}
           onClick={createDeck}
         >
-          <Link 
-            style={{textDecoration: "none", color: "white"}}
+          <Link
+            style={{ textDecoration: "none", color: "white" }}
             to="/flashcard"
           >
             Finish & Save

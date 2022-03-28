@@ -29,16 +29,13 @@ import TodayIcon from "@mui/icons-material/Today";
 import DateRangeRoundedIcon from "@mui/icons-material/DateRangeRounded";
 import CalendarViewMonthRoundedIcon from "@mui/icons-material/CalendarViewMonthRounded";
 
-
 //react icons and Sidebar
 import * as BsIcons from "react-icons/bs";
-import { IconContext } from 'react-icons';
-import SidebarToDo from './Sidebar/SidebarTodo';
+import { IconContext } from "react-icons";
+import SidebarToDo from "./Sidebar/SidebarTodo";
 
 //Imported ScrollBars for the scrolling of the total ToDolist items
-import ScrollBars from 'react-scrollbar';
-
-
+import ScrollBars from "react-scrollbar";
 
 export default function Todo() {
   const { user } = useUserAuth();
@@ -46,7 +43,7 @@ export default function Todo() {
   const [Loading, setLoading] = useState(false);
 
   const scrollBarStyle = {
-    height: '600px',
+    height: "600px",
   };
 
   const todoArray = [];
@@ -81,7 +78,6 @@ export default function Todo() {
     await deleteDoc(docRef3);
   };
 
-  
   for (let i = 0; i < todos.length; i++) {
     todoArray.push(
       <EachTodo
@@ -91,8 +87,8 @@ export default function Todo() {
         handleDelete={handleDelete}
         handleEdit={handleEdit}
       />
-    )
-  };
+    );
+  }
 
   return (
     <div className="todo_page">

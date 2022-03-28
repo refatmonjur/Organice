@@ -17,9 +17,15 @@ import { useUserAuth } from "../Context/UserAuthContext";
 import { Link } from "react-router-dom";
 // Front end
 import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
-import { Button, TextField, TextareaAutosize, IconButton, Icon } from "@mui/material";
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import AddIcon from '@mui/icons-material/Add';
+import {
+  Button,
+  TextField,
+  TextareaAutosize,
+  IconButton,
+  Icon,
+} from "@mui/material";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import AddIcon from "@mui/icons-material/Add";
 //CSS
 import "./Flashcard.css";
 
@@ -33,12 +39,12 @@ function AddDefinitionCard() {
   const [definition, setDefinition] = useState("");
   const [example, setExample] = useState("");
   const [inputFields, setInputField] = useState([
-    { word: '', definition: '', example: ''},
+    { word: "", definition: "", example: "" },
   ]);
 
   const createDeck = async (e) => {
     e.preventDefault();
-      // const FlashCardRefs = collection(db, "user", user.uid, "flashcard");
+    // const FlashCardRefs = collection(db, "user", user.uid, "flashcard");
     const FlashCardRefs = doc(db, "user", user.uid, "flashcard", deckName);
     var data = {
       deckTitle: deckName,
@@ -49,11 +55,11 @@ function AddDefinitionCard() {
       console.log("check firebase");
     }
     // var data1 = {
-    //   word: word, 
+    //   word: word,
     //   definition: definition,
     //   example: example,
     // };
-    
+
     const decksrefs = collection(
       db,
       "user",
@@ -62,35 +68,33 @@ function AddDefinitionCard() {
       deckName,
       "deck"
     );
-    for(let i=0; i<inputFields.length; i++){
+    for (let i = 0; i < inputFields.length; i++) {
       await addDoc(decksrefs, inputFields[i]);
       console.log("check firebase");
     }
-
-    
   };
 
-const handleChangeInput = (index, event) => {
- const values = [...inputFields];
- values[index][event.target.name] = event.target.value;
- setInputField(values);
-};
+  const handleChangeInput = (index, event) => {
+    const values = [...inputFields];
+    values[index][event.target.name] = event.target.value;
+    setInputField(values);
+  };
 
-const handleSubmit= (e) => {
-  e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  console.log("InputFields", inputFields);
-};
+    console.log("InputFields", inputFields);
+  };
 
-const handleAddFields = (index) => {
-  setInputField([...inputFields, { word: '', definition: '', example: ''}])
-};
+  const handleAddFields = (index) => {
+    setInputField([...inputFields, { word: "", definition: "", example: "" }]);
+  };
 
-const handleRemoveFields= (index) => {
-const values = [...inputFields];
-values.splice(index, 1);
-setInputField(values);
-};
+  const handleRemoveFields = (index) => {
+    const values = [...inputFields];
+    values.splice(index, 1);
+    setInputField(values);
+  };
 
   return (
     <div>
@@ -117,49 +121,44 @@ setInputField(values);
 
       {/* Question Answer Add Cards Div */}
       <form onSubmit={handleSubmit}>
-        {inputFields.map((inputField, index) => 
-        (
-          <div key= {index}>
+        {inputFields.map((inputField, index) => (
+          <div key={index}>
             <div className="addnewdeck-header center-text">
-        <div id="flex-containerQA">
-          <div>Fill in your Word, Definition and Example</div>
-          <TextareaAutosize
-            className="textfield-White fields-spacing "
-            name= "word"
-            placeholder="Enter Word"
-            value= {inputField.word}
-            // onChange={(e) => setWord(e.target.value)}
-            onChange={event => handleChangeInput(index, event)}
-          />
-          <TextareaAutosize
-            className="textfield-White fields-spacing "
-            name= "definition"
-            placeholder="Enter Definition"
-            value= {inputField.definition}
-            // onChange={(e) => setDefinition(e.target.value)}
-            onChange={event => handleChangeInput(index, event)}
-          />
+              <div id="flex-containerQA">
+                <div>Fill in your Word, Definition and Example</div>
+                <TextareaAutosize
+                  className="textfield-White fields-spacing "
+                  name="word"
+                  placeholder="Enter Word"
+                  value={inputField.word}
+                  // onChange={(e) => setWord(e.target.value)}
+                  onChange={(event) => handleChangeInput(index, event)}
+                />
+                <TextareaAutosize
+                  className="textfield-White fields-spacing "
+                  name="definition"
+                  placeholder="Enter Definition"
+                  value={inputField.definition}
+                  // onChange={(e) => setDefinition(e.target.value)}
+                  onChange={(event) => handleChangeInput(index, event)}
+                />
 
-          <TextareaAutosize
-            className="textfield-White fields-spacing "
-            name= "example"
-            placeholder="Enter Example"
-            value= {inputField.example}
-            onChange={event => handleChangeInput(index, event)}
-            // onChange={(e) => setExample(e.target.value)}
-          />
-        </div>
-      </div>
-      <IconButton
-        onClick={() => handleRemoveFields(index)}
-      >
-        <DeleteOutlineIcon/>
-      </IconButton>
-      <IconButton
-      onClick={() => handleAddFields(index)} 
-      >
-        <AddIcon />
-      </IconButton>
+                <TextareaAutosize
+                  className="textfield-White fields-spacing "
+                  name="example"
+                  placeholder="Enter Example"
+                  value={inputField.example}
+                  onChange={(event) => handleChangeInput(index, event)}
+                  // onChange={(e) => setExample(e.target.value)}
+                />
+              </div>
+            </div>
+            <IconButton onClick={() => handleRemoveFields(index)}>
+              <DeleteOutlineIcon />
+            </IconButton>
+            <IconButton onClick={() => handleAddFields(index)}>
+              <AddIcon />
+            </IconButton>
           </div>
         ))}
       </form>
@@ -168,8 +167,12 @@ setInputField(values);
           Add Card
         </Button> */}
 
-         <Button className="finish-deck-btn" style={{ marginTop: 20 }} onClick= {createDeck}>
-         <Link to="/flashcard"> Finish & Save</Link>
+        <Button
+          className="finish-deck-btn"
+          style={{ marginTop: 20 }}
+          onClick={createDeck}
+        >
+          <Link to="/flashcard"> Finish & Save</Link>
         </Button>
       </div>
     </div>
