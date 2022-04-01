@@ -18,10 +18,11 @@ import "./Navbar.css";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { useHistory } from "react-router-dom";
 import Logo from "./test_logo.png";
-import { doc, getDoc, collection, onSnapshot } from "firebase/firestore";
+import { doc, getDoc, collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import { db } from "../../firebase";
 import { userData } from "../Context/UserData";
-
+import { ReactNotifications, Store } from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
 const useStyles = makeStyles({
   header: {
     // backgroundColor: "blue",
@@ -40,6 +41,7 @@ function NewHomeNavbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [currentUser, setCurrentUser] = useState([]);
+  const [reminder, setReminder] = useState([]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -55,7 +57,39 @@ function NewHomeNavbar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleNotification = () => {
+
+    // first get the todos from the users collection (maybe write a function getUserReminder) and call it here
+    // -> querty them and take only the ones with the (dueDate != "")
+    // -> query where completed is false
+    // order by the earliest first
+    //put them into an array, and use that array like below
+  getUsersReminder();
+  console.log(reminder)
+    const name = ["Saab", "Volvo", "BMW"];
+    const description = ["description 1", "description 2", "description 3"];
+    for (let i = 0; i < reminder.length; i++) {
+      Store.addNotification({
+        title: reminder[i].title,
+        message: "⏰"+ " " + reminder[i].dueDate.toDate(),
+        type: "warning",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 4000,
+          showIcon: true,
+          onScreen: true,
+          pauseOnHover: true
+        }
+      });
+    }
+
+  }
   const { logOut } = useUserAuth();
+
 
   const history = useHistory();
   const Logout = async () => {
@@ -78,138 +112,154 @@ function NewHomeNavbar() {
       console.log(e.message);
     }
   }
+  async function getUsersReminder() {
+      const TodoCollectionRef = collection(db, "user", user.uid, "todos");
+      const todoQuery1 = query(TodoCollectionRef, orderBy("timeStamp", "desc"));
+      const unsub = onSnapshot(todoQuery1, (queryS) => {
+        const todosArray1 = [];
+        queryS.forEach((doc) => {
+          todosArray1.push({ ...doc.data(), id: doc.id });
+        });
+        console.log(todosArray1);
+        setReminder(todosArray1);
+       
+      })
+      return () => unsub();
+    }
 
   const handlenewUserTodo = async (e) => {
-    // const docRef = collection(db, "user", user.uid, "todos");
-    // const docSnap = await getDoc(docRef);
-    // if (docSnap.exists()) {
-    //  history.push("/todo")
-    // }
-    // else{
-    //   history.push("/newTodo")
-    // }
+      // const docRef = collection(db, "user", user.uid, "todos");
+      // const docSnap = await getDoc(docRef);
+      // if (docSnap.exists()) {
+      //  history.push("/todo")
+      // }
+      // else{
+      //   history.push("/newTodo")
+      // }
 
-    const recordCol = collection(db, "user", user.uid, "todos");
-    onSnapshot(recordCol, (querySnapshot) => {
-      // if record array length is 0 then this is a new user with no todo
-      const record = [];
-      // map all todos from collection to record array
-      querySnapshot.forEach((doc) => {
-        record.push(doc.data());
+      const recordCol = collection(db, "user", user.uid, "todos");
+      onSnapshot(recordCol, (querySnapshot) => {
+        // if record array length is 0 then this is a new user with no todo
+        const record = [];
+        // map all todos from collection to record array
+        querySnapshot.forEach((doc) => {
+          record.push(doc.data());
+        });
+        if (record.length === 0) {
+          history.push("/newTodo");
+        } else {
+          history.push("/todo");
+        }
       });
-      if (record.length === 0) {
-        history.push("/newTodo");
-      } else {
-        history.push("/todo");
-      }
-    });
-  };
+    };
 
-  useEffect(() => {
-    getUsers(db);
-  }, []);
+    useEffect(() => {
+      getUsers(db);
+    }, []);
 
-  return (
-    <AppBar position="static" className={classes.header}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-          >
-            <Link to="/home">
-              <img src={Logo} width="85" height="68" />
-            </Link>
-            {/* <img src={Logo} width="100" height="80" /> */}
+    return (
 
-            {/* <img src={Logo} width="100" height="80" /> */}
-          </Typography>
-          {/* comment */}
-          {/* When Browser is Smaller */}
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              color="inherit"
-              aria-controls="menu-appbar"
-              onClick={handleOpenNavMenu}
+      <AppBar position="static" className={classes.header}>
+        <Container maxWidth="xl">
+          <ReactNotifications />
+          <Toolbar disableGutters>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
             >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              <MenuItem key="Flashcards" onClick={handleCloseNavMenu}>
-                <Link to="/flashcard" className="menuOptions">
-                  Flashcard
-                </Link>
-              </MenuItem>
-              <MenuItem key="To-do List" onClick={handleCloseNavMenu}>
-                <Link to="/todo" className="menuOptions">
-                  To-do List
-                </Link>
-              </MenuItem>
-              <MenuItem key="Calendar" onClick={handleCloseNavMenu}>
-                <Link to="/calendar" className="menuOptions">
-                  Calendar
-                </Link>
-              </MenuItem>
-            </Menu>
-          </Box>
-          {/* When Browser is Maximized */}
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-          >
-            Organice
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Button
-              key="Flashcards"
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-              path="/flashcard"
-            >
-              <Link to="/flashcard" className="nabBarOptions">
-                Flashcard
+              <Link to="/home">
+                <img src={Logo} width="85" height="68" />
               </Link>
-            </Button>
-            <Button
-              key="To-do List"
-              onClick={handlenewUserTodo}
-              sx={{ my: 2, color: "white", display: "block" }}
-              // path="/todo"
+              {/* <img src={Logo} width="100" height="80" /> */}
+
+              {/* <img src={Logo} width="100" height="80" /> */}
+            </Typography>
+            {/* comment */}
+            {/* When Browser is Smaller */}
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                color="inherit"
+                aria-controls="menu-appbar"
+                onClick={handleOpenNavMenu}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
+              >
+                <MenuItem key="Flashcards" onClick={handleCloseNavMenu}>
+                  <Link to="/flashcard" className="menuOptions">
+                    Flashcard
+                </Link>
+                </MenuItem>
+                <MenuItem key="To-do List" onClick={handleCloseNavMenu}>
+                  <Link to="/todo" className="menuOptions">
+                    To-do List
+                </Link>
+                </MenuItem>
+                <MenuItem key="Calendar" onClick={handleCloseNavMenu}>
+                  <Link to="/calendar" className="menuOptions">
+                    Calendar
+                </Link>
+                </MenuItem>
+              </Menu>
+            </Box>
+            {/* When Browser is Maximized */}
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
             >
-              {/* <Link to="/todo" className="nabBarOptions"> */}
+              Organice
+          </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              <Button
+                key="Flashcards"
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+                path="/flashcard"
+              >
+                <Link to="/flashcard" className="nabBarOptions">
+                  Flashcard
+              </Link>
+              </Button>
+              <Button
+                key="To-do List"
+                onClick={handlenewUserTodo}
+                sx={{ my: 2, color: "white", display: "block" }}
+              // path="/todo"
+              >
+                {/* <Link to="/todo" className="nabBarOptions"> */}
               To-do List
               {/* </Link> */}
-            </Button>
-            <Button
-              key="Calendar"
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-              path="/calendar"
-            >
-              <Link to="/calendar" className="nabBarOptions">
-                Calendar
+              </Button>
+              <Button
+                key="Calendar"
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+                path="/calendar"
+              >
+                <Link to="/calendar" className="nabBarOptions">
+                  Calendar
               </Link>
-            </Button>
-            {/* <Button
+              </Button>
+              {/* <Button
               key="Get Started"
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
@@ -219,57 +269,62 @@ function NewHomeNavbar() {
                 Get Started
               </Link>
             </Button> */}
-          </Box>
-          {/* User Account Options */}
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open User Settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {currentUser.map((users) => {
-                  return (
-                    <img
-                      src={
-                        "https://ui-avatars.com/api/?rounded=true&name=" +
-                        users.firstName +
-                        "+" +
-                        users.lastName
-                      }
-                    ></img>
-                  );
-                })}
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem key="account" onClick={handleCloseNavMenu}>
-                <Link to="/profile" className="menuOptions" textAlign="center">
-                  Account
+            </Box>
+            {/* User Account Options */}
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open User Settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  {currentUser.map((users) => {
+                    return (
+                      <img
+                        src={
+                          "https://ui-avatars.com/api/?rounded=true&name=" +
+                          users.firstName +
+                          "+" +
+                          users.lastName
+                        }
+                      ></img>
+                    );
+                  })}
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem key="account" onClick={handleCloseNavMenu}>
+                  <Link to="/profile" className="menuOptions" textAlign="center">
+                    Account
                 </Link>
-              </MenuItem>
-              {/* <MenuItem key="logout" onClick={(Logout, handleCloseNavMenu)}>
+                </MenuItem>
+                <MenuItem onClick={handleNotification}>
+
+                  Notifications
+          </MenuItem>
+
+                {/* <MenuItem key="logout" onClick={(Logout, handleCloseNavMenu)}>
                 <Link to="/" className="menuOptions" textAlign="center">
                   Logout
                 </Link>
               </MenuItem> */}
-              <MenuItem onClick={Logout}>Log Out</MenuItem>
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
-  );
-}
-export default NewHomeNavbar;
+                <MenuItem onClick={Logout}>Log Out</MenuItem>
+              </Menu>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    );
+  }
+  export default NewHomeNavbar;
