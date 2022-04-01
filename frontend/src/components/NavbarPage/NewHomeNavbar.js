@@ -23,6 +23,7 @@ import { db } from "../../firebase";
 import { userData } from "../Context/UserData";
 import { ReactNotifications, Store } from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
+import { where } from "firebase/firestore";
 const useStyles = makeStyles({
   header: {
     // backgroundColor: "blue",
@@ -69,17 +70,29 @@ function NewHomeNavbar() {
   console.log(reminder)
     const name = ["Saab", "Volvo", "BMW"];
     const description = ["description 1", "description 2", "description 3"];
+    
+    
     for (let i = 0; i < reminder.length; i++) {
+    const date = new Date(reminder[i].dueDate.toDate())
+    const options ={
+      year: "numeric",
+      month : "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    }
+    const new_date = date.toLocaleDateString(undefined, options)
+
       Store.addNotification({
         title: reminder[i].title,
-        message: "⏰"+ " " + reminder[i].dueDate.toDate(),
+        message: "⏰"+ " " + new_date,
         type: "warning",
-        insert: "top",
-        container: "top-right",
+        insert: "bottom",
+        container: "bottom-right",
         animationIn: ["animate__animated", "animate__fadeIn"],
         animationOut: ["animate__animated", "animate__fadeOut"],
         dismiss: {
-          duration: 4000,
+          duration: 5000,
           showIcon: true,
           onScreen: true,
           pauseOnHover: true
@@ -114,7 +127,7 @@ function NewHomeNavbar() {
   }
   async function getUsersReminder() {
       const TodoCollectionRef = collection(db, "user", user.uid, "todos");
-      const todoQuery1 = query(TodoCollectionRef, orderBy("timeStamp", "desc"));
+      const todoQuery1 = query(TodoCollectionRef, orderBy("dueDate", "asc"), where("dueDate", "!=", ""));
       const unsub = onSnapshot(todoQuery1, (queryS) => {
         const todosArray1 = [];
         queryS.forEach((doc) => {
@@ -160,8 +173,8 @@ function NewHomeNavbar() {
     return (
 
       <AppBar position="static" className={classes.header}>
+         <ReactNotifications />
         <Container maxWidth="xl">
-          <ReactNotifications />
           <Toolbar disableGutters>
             <Typography
               variant="h6"

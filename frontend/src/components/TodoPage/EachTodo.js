@@ -37,6 +37,22 @@ export default function EachTodo({
       setNewInput(e.target.value);
     }
   };
+
+  const handleDate= () =>
+  {
+    
+      const date = new Date(todo.dueDate.toDate())
+      const options ={
+        year: "numeric",
+        month : "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }
+     const new_date = date.toLocaleDateString(undefined, options)
+    return new_date;
+  } 
+
   return (
     <div className="todo" style={{}}>
       <input
@@ -49,7 +65,7 @@ export default function EachTodo({
       <input
         type="text"
         readOnly
-        value={todo.dueDate === "" ? "" : "⏰ " + todo.dueDate.toDate()}
+        value={todo.dueDate === "" ? "" : "Date: " + handleDate()}
         className="list"
       />
 
