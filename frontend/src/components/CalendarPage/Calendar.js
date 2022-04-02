@@ -26,7 +26,7 @@ export default function Calendar() {
   const calendarRef = useRef(null);
   const { user } = useUserAuth();
   const [todos, setTodos] = useState([]);
-
+  const [events, setEvents] = useState([]);
   useEffect(() => {
     const TodoCollectionRef = collection(db, "user", user.uid, "todos");
     const todoQuery = query(TodoCollectionRef, where("dueDate", "!=", ""));
@@ -39,17 +39,49 @@ export default function Calendar() {
       console.log("todosArray: " + JSON.stringify(todosArray));
       console.log(todos);
     });
-    return () => unsub();
+
+    const eventsCollectionRef = collection(db, "user", user.uid, "events");
+    const unsub1 = onSnapshot(eventsCollectionRef, (queryS1) => {
+      let eventsArray = [];
+      queryS1.forEach((doc) => {
+        eventsArray.push({ ...doc.data(), id: doc.id });
+      });
+      setEvents(eventsArray);
+    });
+
+    return () => [unsub(), unsub1()];
   }, []);
 
-  console.log("Todos: " + todos);
-  for (let i = 0; i < todos.length; i++) {
-    const epochTime = todos[i].dueDate.seconds;
-    const d = new Date(epochTime * 1000);
-    const justDate = new Date(d).toISOString().substring(0, 10);
-    console.log("Just date: " + justDate);
-    todos[i].start = justDate;
-  }
+  console.log("events: " + JSON.stringify(events));
+  console.log("Todos: " + JSON.stringify(todos));
+
+  const getCalendarEvents = () => {
+    for (let i = 0; i < todos.length; i++) {
+      const epochTime = todos[i].dueDate.seconds;
+      const d = new Date(epochTime * 1000);
+      const justDate = new Date(d).toISOString().substring(0, 10);
+      console.log("Just date: " + justDate);
+      todos[i].start = justDate;
+    }
+
+    console.log(events);
+    // console.log(events[0].start.seconds);
+    for (let i = 0; i < events.length; i++) {
+      const epochEventTime = events[i].startDate.seconds;
+      console.log(epochEventTime);
+      const d2 = new Date(epochEventTime * 1000);
+      const justEventDate = new Date(d2).toISOString().substring(0, 10);
+      console.log(justEventDate);
+      events[i].start = justEventDate;
+      const epochEventTimeEnd = events[i].endDate.seconds;
+      const d1 = new Date(epochEventTimeEnd * 1000);
+      const justEventDate1 = new Date(d1).toISOString().substring(0, 10);
+      events[i].end = justEventDate1;
+    }
+
+    const showCalendar = todos.concat(events);
+    return showCalendar;
+  };
 
   const onEventAdded = (event) => {
     let currentCalendarApi = calendarRef.current.getApi();
@@ -89,7 +121,7 @@ export default function Calendar() {
               dateClick={handleDateClick}
               weekends={true}
               eventStartEditable={true}
-              events={todos}
+              events={getCalendarEvents()}
             />
           </div>
         </div>
@@ -97,7 +129,7 @@ export default function Calendar() {
         <AddEventModal
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
-          events={todos}
+          // events={todos}
           onEventAdded={(event) => onEventAdded(event)}
           arg={selectedDate}
         />

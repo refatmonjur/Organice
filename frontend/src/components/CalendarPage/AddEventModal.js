@@ -7,13 +7,16 @@ import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
 import "./AddEventModal.css";
 import DialogContentText from "@mui/material/DialogContentText";
-
+import { db } from "../../firebase.js";
+import { useUserAuth } from "../Context/UserAuthContext";
+import { collection, addDoc } from "firebase/firestore";
 export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
   const [title, setTitle] = useState("");
   const [start, setStart] = useState(new Date());
   const [end, setEnd] = useState("");
   const [startDate, setStartDate] = useState("");
   const [startTime, setStartTime] = useState("");
+  const { user } = useUserAuth();
 
   useEffect(() => {
     setStart(arg);
@@ -34,13 +37,18 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
     setEnd(newEnd);
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
-    console.log("Title: " + title);
-    console.log("Start: " + start);
-    console.log("Type: " + typeof start);
-    console.log("End: " + end);
-    onEventAdded({ title, start, end });
+    // onEventAdded({ title, start, end });
+    // call database here
+    const eventsCollectionRef = collection(db, "user", user.uid, "events");
+    if (title !== "") {
+      await addDoc(eventsCollectionRef, {
+        title: title,
+        startDate: start,
+        endDate: end,
+      });
+    }
     setEnd("");
     onClose();
   };
