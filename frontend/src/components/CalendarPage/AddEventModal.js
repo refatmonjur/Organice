@@ -1,44 +1,97 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
-import Datetime from 'react-datetime';
-//import "react-datetime/css/react-datetime.css";
-import "./AddEventModal.css"
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import TextField from "@mui/material/TextField";
+import Datetime from "react-datetime";
+import "react-datetime/css/react-datetime.css";
+import "./AddEventModal.css";
+import DialogContentText from "@mui/material/DialogContentText";
 
-export default function AddEventModal ({isOpen, onClose, onEventAdded}) {
-    const [title, setTitle] = useState("");
-    const [start, setStart] = useState(new Date());
-    const [end, setEnd] = useState(new Date());
+export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
+  const [title, setTitle] = useState("");
+  const [start, setStart] = useState(new Date());
+  const [end, setEnd] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [startTime, setStartTime] = useState("");
 
-    const onSubmit = (event) => {
-        event.preventDefault();
+  useEffect(() => {
+    setStart(arg);
+  });
 
-        onEventAdded({
-            title,
-            start,
-            end
-        })
-         onClose();
-    }
-    return (
-        <Modal isOpen={isOpen} onRequestClose={onClose}>
-            <form onSubmit={onSubmit}>
-                <div className="title">
-                <input placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} />
-                </div>
-                <div>
-                <label>Start Date</label>    
-                <Datetime value={start} onChange={date => setStart(date)} />
-                </div>
+  const handleInput = (e) => {
+    e.preventDefault();
+    start = e.target.value();
+  };
 
-                <div>
-                <label>End Date</label>    
-                <Datetime value={end} onChange={date => setEnd(date)} />
-                </div>
+  const handleStartDate = (date) => {
+    const newStart = new Date(date);
+    setStart(newStart);
+  };
 
-                <button>Add event</button>
-                 </form>
-        </Modal>
+  const handleEndDate = (date) => {
+    const newEnd = new Date(date);
+    setEnd(newEnd);
+  };
 
+  const onSubmit = (event) => {
+    event.preventDefault();
+    console.log("Title: " + title);
+    console.log("Start: " + start);
+    console.log("Type: " + typeof start);
+    console.log("End: " + end);
+    onEventAdded({ title, start, end });
+    setEnd("");
+    onClose();
+  };
+  console.log("arg: " + arg);
+  return (
+    <Dialog open={isOpen} onClose={onClose}>
+      <form onSubmit={onSubmit}>
+        <div className="title">
+          <DialogTitle>Event</DialogTitle>
+          <DialogContentText>
+            Create an event for this date (excl).
+            <br />
+            Enter a title:
+          </DialogContentText>
+          <TextField
+            autoFocus
+            fullWidth
+            id="title"
+            type="text"
+            variant="standard"
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+          />
 
-    )
+          <div>
+            <label>Start Date</label>
+            <Datetime
+              value={start}
+              //onChange = {date => setStart(date)}
+              onChange={handleStartDate}
+              timeFormat={false}
+              className="start-date"
+            />
+          </div>
+
+          <div>
+            <label>End Date (Exclusive)</label>
+            {
+              <Datetime
+                value={end}
+                //onChange = {date => setEnd(date)}
+                timeFormat={false}
+                onChange={handleEndDate}
+                input={false}
+              />
+            }
+          </div>
+
+          <button>Add event</button>
+        </div>
+      </form>
+    </Dialog>
+  );
 }

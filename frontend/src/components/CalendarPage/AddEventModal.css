@@ -1,6 +1,15 @@
-.title {
-padding: 100px;
-    height: 100px;
-    width: 100px;
-    margin: 0;
+.title { 
+    /* height: 20em;
+    width: 30em;
+    align-content: center;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto; */
+    padding: 20px;
+    height:50em;
+}
+
+.start-date {
+    pointer-events: none;
+    cursor: default;
 }
