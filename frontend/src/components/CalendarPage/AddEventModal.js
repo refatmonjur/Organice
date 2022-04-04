@@ -20,12 +20,7 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
   const [open, setOpen] = useState(false);
   useEffect(() => {
     setStart(arg);
-  });
-
-  const handleInput = (e) => {
-    e.preventDefault();
-    start = e.target.value();
-  };
+  }, [arg]);
 
   const handleStartDate = (date) => {
     const newStart = new Date(date);
@@ -54,12 +49,10 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
     console.log("Type: " + typeof start);
     console.log("End: " + end);
     setEnd("");
+    setTitle("");
     onClose();
   };
-  const openModal = () => {
-    setStart(arg);
-    setOpen(isOpen);
-  };
+
   console.log("arg: " + arg);
   return (
     <Dialog open={isOpen} onClose={onClose}>
@@ -87,7 +80,7 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
               value={start}
               //onChange = {date => setStart(date)}
               onChange={handleStartDate}
-              dateFormat={false}
+              // dateFormat={false}
               //timeFormat={false}
               // className="start-date"
             />
@@ -101,7 +94,7 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
                 //onChange = {date => setEnd(date)}
                 //timeFormat={false}
                 onChange={handleEndDate}
-                input={false}
+                // input={false}
               />
             }
           </div>
