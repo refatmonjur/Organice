@@ -8,6 +8,8 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { useRef } from "react";
+import { Modal } from "@mui/material";
+import { Button } from "@mui/material";
 import {
   collection,
   onSnapshot,
@@ -17,16 +19,26 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase.js";
 import "./Calendar.css";
+import Dialog from "@mui/material/Dialog";
 
 export default function Calendar() {
   const [modalOpen, setModalOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
-
+  const [show, setShow] = useState(false);
+  const [hasDueDate, setHasDueDate] = useState(false);
+  const [description, setDescription] = useState("");
   const calendarRef = useRef(null);
   const { user } = useUserAuth();
   const [todos, setTodos] = useState([]);
   const [events, setEvents] = useState([]);
+  const [eventsObjTitle, setEventsObjTitle] = useState(null);
+  const [eventsObjDate, setEventsObjDate] = useState(null);
+  const [eventsObjStartDate, setEventsObjStartDate] = useState(null);
+  const [eventsObjEndDate, setEventsObjEndDate] = useState(null);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   useEffect(() => {
     const TodoCollectionRef = collection(db, "user", user.uid, "todos");
     const todoQuery = query(TodoCollectionRef, where("dueDate", "!=", ""));
@@ -36,8 +48,6 @@ export default function Calendar() {
         todosArray.push({ ...doc.data(), id: doc.id });
       });
       setTodos(todosArray);
-      console.log("todosArray: " + JSON.stringify(todosArray));
-      console.log(todos);
     });
 
     const eventsCollectionRef = collection(db, "user", user.uid, "events");
@@ -46,36 +56,40 @@ export default function Calendar() {
       queryS1.forEach((doc) => {
         eventsArray.push({ ...doc.data(), id: doc.id });
       });
+      console.log(eventsArray);
       setEvents(eventsArray);
     });
 
     return () => [unsub(), unsub1()];
   }, []);
 
-  console.log("events: " + JSON.stringify(events));
-  console.log("Todos: " + JSON.stringify(todos));
+  // startDate.seconds == "129381239213"
+  // Convert startDate.seconds into the format above
+  // const demoArray = {
+  //   title: "event3",
+  //   start: "2022-04-03T12:30:00",
+  //   end: "2022-04-03T12:55:00", // will make the time show
+  // };
 
   const getCalendarEvents = () => {
     for (let i = 0; i < todos.length; i++) {
       const epochTime = todos[i].dueDate.seconds;
       const d = new Date(epochTime * 1000);
       const justDate = new Date(d).toISOString().substring(0, 10);
-      console.log("Just date: " + justDate);
       todos[i].start = justDate;
     }
 
-    console.log(events);
-    // console.log(events[0].start.seconds);
     for (let i = 0; i < events.length; i++) {
       const epochEventTime = events[i].startDate.seconds;
-      console.log(epochEventTime);
       const d2 = new Date(epochEventTime * 1000);
-      const justEventDate = new Date(d2).toISOString().substring(0, 10);
-      console.log(justEventDate);
+      //const justEventDate = new Date(d2).toISOString().substring(0, 10);
+      const justEventDate = new Date(d2).toISOString();
+
       events[i].start = justEventDate;
       const epochEventTimeEnd = events[i].endDate.seconds;
       const d1 = new Date(epochEventTimeEnd * 1000);
-      const justEventDate1 = new Date(d1).toISOString().substring(0, 10);
+      //const justEventDate1 = new Date(d1).toISOString().substring(0, 10);
+      const justEventDate1 = new Date(d1).toISOString();
       events[i].end = justEventDate1;
     }
 
@@ -115,13 +129,30 @@ export default function Calendar() {
                 center: "title",
                 right: "dayGridMonth,timeGridWeek,timeGridDay",
               }}
-              height="auto"
-              defaultAllDay="true"
+              aspectRatio="2.4"
+              // defaultAllDay="true"
               selectable={true}
               dateClick={handleDateClick}
               weekends={true}
               eventStartEditable={true}
               events={getCalendarEvents()}
+              eventClick={function (info) {
+                var eventObj = info.event;
+                console.log(eventObj);
+                setShow(true);
+                setEventsObjTitle(eventObj.title);
+                if (eventObj.extendedProps.dueDate) {
+                  setHasDueDate(true);
+                  setEventsObjDate(eventObj.extendedProps.dueDate.seconds);
+                  setDescription(eventObj.extendedProps.Description);
+                } else {
+                  setHasDueDate(false);
+                  setEventsObjStartDate(
+                    eventObj.extendedProps.startDate.seconds
+                  );
+                  setEventsObjEndDate(eventObj.extendedProps.endDate.seconds);
+                }
+              }}
             />
           </div>
         </div>
@@ -129,10 +160,30 @@ export default function Calendar() {
         <AddEventModal
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
-          // events={todos}
           onEventAdded={(event) => onEventAdded(event)}
           arg={selectedDate}
         />
+        <Dialog open={show} onClose={handleClose}>
+          <h1>You have selected: {eventsObjTitle}</h1>
+          {hasDueDate ? (
+            <div>
+              <h2> Is is due on the: {eventsObjDate}</h2>
+              <h2> The Description is: {description}</h2>
+            </div>
+          ) : (
+            <h2>
+              The event takes place from: {eventsObjStartDate} to{" "}
+              {eventsObjEndDate}
+            </h2>
+          )}
+          {/* <h2>It is due on: {eventsObjDate}</h2> */}
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Dialog>
       </div>
     </div>
   );

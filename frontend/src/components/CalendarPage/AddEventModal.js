@@ -17,7 +17,7 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
   const [startDate, setStartDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const { user } = useUserAuth();
-
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     setStart(arg);
   });
@@ -49,8 +49,16 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
         endDate: end,
       });
     }
+    console.log("Title: " + title);
+    console.log("Start: " + start);
+    console.log("Type: " + typeof start);
+    console.log("End: " + end);
     setEnd("");
     onClose();
+  };
+  const openModal = () => {
+    setStart(arg);
+    setOpen(isOpen);
   };
   console.log("arg: " + arg);
   return (
@@ -79,8 +87,9 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
               value={start}
               //onChange = {date => setStart(date)}
               onChange={handleStartDate}
-              timeFormat={false}
-              className="start-date"
+              dateFormat={false}
+              //timeFormat={false}
+              // className="start-date"
             />
           </div>
 
@@ -90,7 +99,7 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
               <Datetime
                 value={end}
                 //onChange = {date => setEnd(date)}
-                timeFormat={false}
+                //timeFormat={false}
                 onChange={handleEndDate}
                 input={false}
               />
