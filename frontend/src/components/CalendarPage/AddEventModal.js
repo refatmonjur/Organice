@@ -56,23 +56,26 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
   console.log("arg: " + arg);
   return (
     <Dialog open={isOpen} onClose={onClose}>
-      <form onSubmit={onSubmit}>
-        <div className="title">
-          <DialogTitle>Event</DialogTitle>
-          <DialogContentText>
-            Create an event for this date (excl).
-            <br />
+      <form onSubmit={onSubmit} className="addEventModal_outter">
+        <div>
+          <div className="title">
+            <DialogTitle>Create an Event</DialogTitle>
+            <DialogContentText>
+              
+           
             Enter a title:
           </DialogContentText>
-          <TextField
-            autoFocus
-            fullWidth
-            id="title"
-            type="text"
-            variant="standard"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
-          />
+            <TextField
+              autoFocus
+              fullWidth
+              id="title"
+              type="text"
+              variant="standard"
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+            />
+          </div>
+          <br/>
 
           <div>
             <label>Start Date</label>
@@ -80,25 +83,67 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
               value={start}
               //onChange = {date => setStart(date)}
               onChange={handleStartDate}
-              // dateFormat={false}
-              //timeFormat={false}
-              // className="start-date"
+            // dateFormat={false}
+            //timeFormat={false}
+            // className="start-date"
             />
           </div>
+          <br/>
 
           <div>
-            <label>End Date (Exclusive)</label>
+            <label>End Date</label>
             {
               <Datetime
                 value={end}
                 //onChange = {date => setEnd(date)}
                 //timeFormat={false}
                 onChange={handleEndDate}
-                // input={false}
+              // input={false}
               />
             }
           </div>
+          <br/>
+          {/* add attachment */}
+          <div>
+            <label>Add Attachment</label>
+            <br />
+            <input
+              type="file"
+              className="file-upload-button"
+              name="attchment"
+              style={{
+                color: "blue",
+                marginBottom: 30,
+              }}
+            />
+          </div>
+          <br/>
+          {/* add description */}
+          <div>
+            <label>Add description</label>
+            <TextField
+              id="standard-multiline-flexible"
+              label="Description"
+              multiline
+              fullWidth
+              rows={4}
+              // value={value}
+              // onChange={handleChange}
+              variant="standard"
+            />
+          </div>
+          <br/>
 
+          {/* add location (zoom url) */}
+          <div>
+            <label>
+              Add Event Location
+            </label>
+            <br/>
+            <TextField id="standard-basic" label="Location" variant="standard" fullWidth multiline/>
+
+          </div>
+<br/>
           <button>Add event</button>
         </div>
       </form>
