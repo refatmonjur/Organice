@@ -2,22 +2,31 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import TextField from "@mui/material/TextField";
 import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
 import "./AddEventModal.css";
 import DialogContentText from "@mui/material/DialogContentText";
-import { db } from "../../firebase.js";
+import { db, storage } from "../../firebase.js";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { collection, addDoc } from "firebase/firestore";
+import { async } from "@firebase/util";
+import { Button } from "@mui/material";
+import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
+
 export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
   const [title, setTitle] = useState("");
   const [start, setStart] = useState(new Date());
   const [end, setEnd] = useState("");
   const [startDate, setStartDate] = useState("");
   const [startTime, setStartTime] = useState("");
+  const [description, setDescription] = useState("");
+  const [location, setLocation] = useState("");
+  const [urlAttachment, setUrlAttachment] = useState("");
   const { user } = useUserAuth();
   const [open, setOpen] = useState(false);
+  const [progress, setProgress] = useState(0);
   useEffect(() => {
     setStart(arg);
   }, [arg]);
@@ -31,17 +40,61 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
     const newEnd = new Date(date);
     setEnd(newEnd);
   };
+  const handleDescription = (newValue) => {
+    setDescription(newValue);
+  };
+  const handleLocation = (newValue) => {
+    setLocation(newValue);
+  };
+  const handleAttachment = (e) => {
+    console.log(e);
+  };
 
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    // onEventAdded({ title, start, end });
-    // call database here
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    console.log(e);
+    // handleAttachment(event);
+    const promises = [];
+    let file = e.target[3].files[0];
+    console.log(file);
+    if (!file) return;
+    const storageRef = ref(storage, `/CalendarImages/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    promises.push(uploadTask);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const prog = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setProgress(prog);
+      },
+      (err) => console.log(err),
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log(downloadURL);
+          setUrlAttachment(downloadURL);
+        });
+      }
+    );
+    Promise.all(promises).then(() => {
+      console.log("this is after the promise");
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    console.log(urlAttachment);
+    e.preventDefault();
     const eventsCollectionRef = collection(db, "user", user.uid, "events");
     if (title !== "") {
       await addDoc(eventsCollectionRef, {
         title: title,
         startDate: start,
         endDate: end,
+        Description: description,
+        Location: location,
+        Attachment: urlAttachment,
       });
     }
     console.log("Title: " + title);
@@ -60,11 +113,7 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
         <div>
           <div className="title">
             <DialogTitle>Create an Event</DialogTitle>
-            <DialogContentText>
-              
-           
-            Enter a title:
-          </DialogContentText>
+            <DialogContentText>Enter a title:</DialogContentText>
             <TextField
               autoFocus
               fullWidth
@@ -75,7 +124,7 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
               onChange={(event) => setTitle(event.target.value)}
             />
           </div>
-          <br/>
+          <br />
 
           <div>
             <label>Start Date</label>
@@ -83,12 +132,12 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
               value={start}
               //onChange = {date => setStart(date)}
               onChange={handleStartDate}
-            // dateFormat={false}
-            //timeFormat={false}
-            // className="start-date"
+              // dateFormat={false}
+              //timeFormat={false}
+              // className="start-date"
             />
           </div>
-          <br/>
+          <br />
 
           <div>
             <label>End Date</label>
@@ -98,11 +147,11 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
                 //onChange = {date => setEnd(date)}
                 //timeFormat={false}
                 onChange={handleEndDate}
-              // input={false}
+                // input={false}
               />
             }
           </div>
-          <br/>
+          <br />
           {/* add attachment */}
           <div>
             <label>Add Attachment</label>
@@ -110,14 +159,25 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
             <input
               type="file"
               className="file-upload-button"
-              name="attchment"
+              name="attachment"
               style={{
                 color: "blue",
                 marginBottom: 30,
               }}
+              // onChange={(e) => {
+              //   handleAttachment(e.target.value);
+              // }}
             />
+            <button type="submit">
+              <DriveFolderUploadIcon />
+            </button>
           </div>
-          <br/>
+          <div></div>
+
+          <br />
+          {/* <div>
+            <Button>Upload</Button>
+          </div> */}
           {/* add description */}
           <div>
             <label>Add description</label>
@@ -127,24 +187,32 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
               multiline
               fullWidth
               rows={4}
-              // value={value}
-              // onChange={handleChange}
+              // value={description}
+              onChange={(e) => {
+                handleDescription(e.target.value);
+              }}
               variant="standard"
             />
           </div>
-          <br/>
+          <br />
 
           {/* add location (zoom url) */}
           <div>
-            <label>
-              Add Event Location
-            </label>
-            <br/>
-            <TextField id="standard-basic" label="Location" variant="standard" fullWidth multiline/>
-
+            <label>Add Event Location</label>
+            <br />
+            <TextField
+              id="standard-basic"
+              label="Location"
+              variant="standard"
+              fullWidth
+              multiline
+              onChange={(e) => {
+                handleLocation(e.target.value);
+              }}
+            />
           </div>
-<br/>
-          <button>Add event</button>
+          <br />
+          <button onClick={(e) => handleSubmit(e)}>Add event</button>
         </div>
       </form>
     </Dialog>
