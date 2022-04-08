@@ -33,6 +33,8 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
     setProgress(0);
     setEnd("");
     setUrlAttachment("");
+    setLocation("");
+    setDescription("");
   }, [arg]);
 
   const handleStartDate = (date) => {
