@@ -8,19 +8,27 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { useRef } from "react";
-import { Modal } from "@mui/material";
+import { DialogContent, Modal } from "@mui/material";
 import { Button } from "@mui/material";
 import {
   collection,
   onSnapshot,
   query,
   orderBy,
+  doc,
   where,
+  deleteDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase.js";
 import "./Calendar.css";
 import Dialog from "@mui/material/Dialog";
-
+import DialogTitle from "@mui/material/DialogTitle";
+import DescriptionIcon from "@mui/icons-material/Description";
+import DialogActions from "@mui/material/DialogActions";
+import CloudDownloadOutlinedIcon from "@mui/icons-material/CloudDownloadOutlined";
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+// import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import DateRangeIcon from "@mui/icons-material/DateRange";
 export default function Calendar() {
   const [modalOpen, setModalOpen] = useState(false);
   const [open, setOpen] = useState(false);
@@ -28,6 +36,7 @@ export default function Calendar() {
   const [show, setShow] = useState(false);
   const [hasDueDate, setHasDueDate] = useState(false);
   const [description, setDescription] = useState("");
+  const [description1, setDescription1] = useState("");
   const calendarRef = useRef(null);
   const { user } = useUserAuth();
   const [todos, setTodos] = useState([]);
@@ -36,6 +45,9 @@ export default function Calendar() {
   const [eventsObjDate, setEventsObjDate] = useState(null);
   const [eventsObjStartDate, setEventsObjStartDate] = useState(null);
   const [eventsObjEndDate, setEventsObjEndDate] = useState(null);
+  const [eventsObjAttachment, setEventsObjAttachment] = useState(null);
+  const [eventsObjLocation, setEventsObjLocation] = useState(null);
+  const [id, setId] = useState("");
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -106,6 +118,13 @@ export default function Calendar() {
     setSelectedDate(arg.date);
     setModalOpen(true);
   };
+
+  const handleDelete = async (id) => {
+    const docRef = doc(db, "user", user.uid, "events", id);
+    await deleteDoc(docRef);
+    setShow(false);
+  };
+
   return (
     <div>
       <div>
@@ -143,14 +162,49 @@ export default function Calendar() {
                 setEventsObjTitle(eventObj.title);
                 if (eventObj.extendedProps.dueDate) {
                   setHasDueDate(true);
-                  setEventsObjDate(eventObj.extendedProps.dueDate.seconds);
-                  setDescription(eventObj.extendedProps.Description);
+                  console.log(eventObj);
+                  const date = new Date(
+                    eventObj.extendedProps.dueDate.toDate()
+                  );
+                  const options = {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  };
+                  const new_date = date.toLocaleDateString(undefined, options);
+                  setEventsObjDate(new_date);
+                  setDescription1(eventObj.extendedProps.Description);
                 } else {
                   setHasDueDate(false);
-                  setEventsObjStartDate(
-                    eventObj.extendedProps.startDate.seconds
+                  const StartDate = new Date(
+                    eventObj.extendedProps.startDate.toDate()
                   );
-                  setEventsObjEndDate(eventObj.extendedProps.endDate.seconds);
+                  const EndDate = new Date(
+                    eventObj.extendedProps.endDate.toDate()
+                  );
+                  const options = {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  };
+                  const new_Start_date = StartDate.toLocaleDateString(
+                    undefined,
+                    options
+                  );
+                  const new_End_date = EndDate.toLocaleDateString(
+                    undefined,
+                    options
+                  );
+                  setEventsObjStartDate(new_Start_date);
+                  setEventsObjEndDate(new_End_date);
+                  setDescription(eventObj.extendedProps.Description);
+                  setEventsObjAttachment(eventObj.extendedProps.Attachment);
+                  setEventsObjLocation(eventObj.extendedProps.Location);
+                  // setId(eventObj.publicId);
                 }
               }}
             />
@@ -164,25 +218,132 @@ export default function Calendar() {
           arg={selectedDate}
         />
         <Dialog open={show} onClose={handleClose}>
-          <h1>You have selected: {eventsObjTitle}</h1>
-          {hasDueDate ? (
-            <div>
-              <h2> Is is due on the: {eventsObjDate}</h2>
-              <h2> The Description is: {description}</h2>
-            </div>
-          ) : (
-            <h2>
-              The event takes place from: {eventsObjStartDate} to{" "}
-              {eventsObjEndDate}
-            </h2>
-          )}
-          {/* <h2>It is due on: {eventsObjDate}</h2> */}
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
+          <DialogTitle>
+            {hasDueDate ? (
+              <h5 className="text-center pt-2">
+                Reminder: <span className="text-primary">{eventsObjTitle}</span>
+              </h5>
+            ) : (
+              <h5 className="text-center pt-2">
+                Event: <span className="text-primary">{eventsObjTitle}</span>
+              </h5>
+            )}
+          </DialogTitle>
+          <DialogContent>
+            {hasDueDate ? (
+              <div>
+                <div className="card">
+                  <div className="card-body text-center">
+                    <div className="h6 mb-2">
+                      <i>
+                        <DateRangeIcon fontSize="large" color="primary" />
+                      </i>
+                    </div>
+                    <h6 className="card-title">Due Date: {eventsObjDate}</h6>
+                  </div>
+                </div>
+                {description1 != "" && (
+                  <div className="card mt-2">
+                    <div className="card-body text-center">
+                      <div className="h6 mb-2">
+                        <i>
+                          <DescriptionIcon fontSize="large" color="primary" />
+                        </i>
+                      </div>
+                      <h6 className="card-title">
+                        Description: {description1}
+                      </h6>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div>
+                <div className="card">
+                  <div className="card-body text-center">
+                    <div className="h4 mb-2">
+                      <i>
+                        <DateRangeIcon fontSize="large" color="primary" />
+                      </i>
+                    </div>
+                    <h6 className="card-title">
+                      Event: {eventsObjStartDate} - {eventsObjEndDate}
+                    </h6>
+                  </div>
+                </div>
+                {/* // show the attachment */}
+                {eventsObjAttachment != "" && (
+                  <div className="card mt-2">
+                    <div className="card-body text-center">
+                      <div className="h6 mb-2">
+                        <i className="mr-2">
+                          <CloudDownloadOutlinedIcon
+                            fontSize="large"
+                            color="primary"
+                          />
+                        </i>
+
+                        <h6 className="card-title m-2">
+                          <a href={eventsObjAttachment} target="_blank">
+                            {" "}
+                            See Attachment
+                          </a>
+                        </h6>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* // show the location */}
+                {eventsObjLocation != "" && (
+                  <div className="card mt-2">
+                    <div className="card-body text-center">
+                      <div className="h4 mb-2">
+                        <i>
+                          <LocationOnOutlinedIcon
+                            fontSize="large"
+                            color="primary"
+                          />
+                        </i>
+                      </div>
+                      <h6 className="card-title">
+                        Location: {eventsObjLocation}
+                      </h6>
+                    </div>
+                  </div>
+                )}
+                {description != "" && (
+                  <div className="card mt-2">
+                    <div className="card-body text-center">
+                      <div className="h6 mb-2">
+                        <i>
+                          <DescriptionIcon fontSize="large" color="primary" />
+                        </i>
+                      </div>
+                      <h6 className="card-title">Description: {description}</h6>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            <DialogActions>
+              <div className="d-flex justify-content-between">
+                {!hasDueDate && (
+                  <div>
+                    <Button onClick={() => handleDelete(eventsObjTitle)}>
+                      Delete
+                    </Button>
+                  </div>
+                )}
+                <div>
+                  <Button onClick={handleClose} autoFocus>
+                    Close
+                  </Button>
+                </div>
+              </div>
+            </DialogActions>
+          </DialogContent>
         </Dialog>
       </div>
     </div>

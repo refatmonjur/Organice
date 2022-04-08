@@ -10,11 +10,12 @@ import "./AddEventModal.css";
 import DialogContentText from "@mui/material/DialogContentText";
 import { db, storage } from "../../firebase.js";
 import { useUserAuth } from "../Context/UserAuthContext";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, doc, addDoc, setDoc } from "firebase/firestore";
 import { async } from "@firebase/util";
-import { Button } from "@mui/material";
+import { Button, Slide } from "@mui/material";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
-
+import CircularProgress from "@mui/material/CircularProgress";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
   const [title, setTitle] = useState("");
   const [start, setStart] = useState(new Date());
@@ -29,6 +30,9 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
   const [progress, setProgress] = useState(0);
   useEffect(() => {
     setStart(arg);
+    setProgress(0);
+    setEnd("");
+    setUrlAttachment("");
   }, [arg]);
 
   const handleStartDate = (date) => {
@@ -81,14 +85,15 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
     Promise.all(promises).then(() => {
       console.log("this is after the promise");
     });
+    // setProgress(0);
   };
 
   const handleSubmit = async (e) => {
     console.log(urlAttachment);
     e.preventDefault();
-    const eventsCollectionRef = collection(db, "user", user.uid, "events");
+    const eventsCollectionRef = doc(db, "user", user.uid, "events", title);
     if (title !== "") {
-      await addDoc(eventsCollectionRef, {
+      await setDoc(eventsCollectionRef, {
         title: title,
         startDate: start,
         endDate: end,
@@ -171,8 +176,23 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
             <button type="submit">
               <DriveFolderUploadIcon />
             </button>
+
+            {/* {progress > 0 && progress < 100 && (
+              <CircularProgress color="inherit" value={progress} />
+            )} */}
+
+            {/* <CircularProgressWithLabel value={progress} /> */}
+            {/* <h1>Progress: {progress}</h1>
+            <Slider value={progress} /> */}
           </div>
-          <div></div>
+          <div>
+            {progress == 100 && (
+              <h5>
+                <CheckCircleOutlineIcon fontSize="large" color="success" />{" "}
+                Uploaded
+              </h5>
+            )}
+          </div>
 
           <br />
           {/* <div>
