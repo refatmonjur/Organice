@@ -12,13 +12,12 @@ import { collection, onSnapshot, doc, deleteDoc } from "firebase/firestore";
 import { useHistory } from "react-router-dom";
 import deck from "./deck.svg";
 import StudyFlashCard from "./StudyFlashCards";
-import EachFlashCards from './EachFlashCards';
+import EachFlashCards from "./EachFlashCards";
 import { textAlign } from "@mui/system";
 
 //For Flipping Flashcard
-import Flippy, { FrontSide, BackSide } from 'react-flippy';
+import Flippy, { FrontSide, BackSide } from "react-flippy";
 import { red } from "@mui/material/colors";
-
 
 function Flashcard() {
   // state = {
@@ -96,9 +95,9 @@ function Flashcard() {
     <div>
       <div>
         <NewHomeNavbar />
-
-        <section className="bg-gradient text-light p-4 text-sm-start text-center">
-          <div className="container bg-dark shadow-lg ">
+        </div>
+        <section className="bg-dark shadow-lg text-light p-4 text-sm-start text-center">
+          <div className="container">
             <div className="d-sm-flex align-items-center justify-content-between p-4">
               <div>
                 <h1 className="text-sm-start">
@@ -107,10 +106,10 @@ function Flashcard() {
                   Flashcard Section
                 </h1>
                 <p className="lead my-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                  enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                  nisi
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi
                 </p>
               </div>
               <img
@@ -121,42 +120,84 @@ function Flashcard() {
             </div>
           </div>
         </section>
+    
 
-
-        
-      </div>
-
+      
+      
+      
+{/*       
       <section>
-      <div className="max-height-flashcard-section"
-        style={{
-          justifyContent: "center"
-        }}
-      >
-        {/* 1st Transparent Background that shows the list of decks and holds the Create New Deck Button */}
-        <div className="transparentBgFlashcard">
-          <h3 className="gradient__text"
-            style={{
-              justifyContent: "center",
-              textAlign: "center"
-            }}
-          >
-            Decks
-          </h3>
+        <div
+          className="max-height-flashcard-section"
+          style={{
+            justifyContent: "center",
+          }}
+        > */}
+          {/* 1st Transparent Background that shows the list of decks and holds the Create New Deck Button */}
+          {/* <div className="transparentBgFlashcard"> */}
+            {/* <h3
+              className="gradient__text"
+              style={{
+                justifyContent: "center",
+                textAlign: "center",
+              }}
+            >
+              Decks
+            </h3> */}
 
-          
+            <section className="bg-light p-5 text-sm-start text-center">
+              <div className="container text-center ">
+                <div className="each_deck">
+                    {decks.map((deck) => (
+                      // <div className="card-body text-center">
+                        <ShowDecksinPage
+                          key={deck.id}
+                          deck={deck}
+                          deleting={deleting}
+                        />
+                    ))}
+                </div>
+                <div>
+                <Button
+              className="create-new-deck-button center"
+              style={{
+                display: "block",
+                margin: "auto",
+                marginTop: 0,
+                // marginTop: -55
+              }}
+              // onClick={ }
+            >
+              <Link
+                to="/addNewDeck"
+                style={{
+                  textDecoration: "none",
+                }}
+              >
+                Create New Deck
+              </Link>
+            </Button>
+                </div>
+                
 
-          <div class="container">
-            <div class="row row-cols-4 text-center p-5 mb-2 mt-2">
-            
-            {decks.map((deck) => (
-              <div className="card-body text-center ">
-                <ShowDecksinPage key={deck.id} deck={deck} deleting={deleting} />
+
               </div>
-            ))}
-            {/* <ShowDecksinPage key={deck.id} deck={deck} deleting={deleting}/> */}
-            {/* {hasDeck ? <ShowDecksinPage /> : <NoDeckPage />} */}
-          
-               {/* <div class="card">CS103</div>
+            </section>
+
+            
+         
+        {/* </div> */}
+    </div>
+  );
+}
+
+export default Flashcard;
+
+
+                    {/* <ShowDecksinPage key={deck.id} deck={deck} deleting={deleting}/> */}
+                    {/* {hasDeck ? <ShowDecksinPage /> : <NoDeckPage />} */}
+
+                    {/* <div class="card">CS103</div>
               <div class="card">CS104</div>
               <div class="card">EE210</div>
               <div class="card">EE457</div>
@@ -165,50 +206,4 @@ function Flashcard() {
               <div class="card">CS210</div>
               <div class="card">CS332</div>
               <div class="card">Senior Design</div> */}
-            </div>
-          </div>
-
-          <Button
-            className="create-new-deck-button center"
-            style={{
-              display: "block",
-              margin: "auto",
-              marginTop: 0
-              // marginTop: -55
-            }}
-          // onClick={ }
-          >
-            <Link
-              to="/addNewDeck"
-              style={{
-                textDecoration: "none",
-              }}
-            >
-              Create New Deck
-            </Link>
-          </Button>
-          <div>
-            {decks.map((deck) => (
-              <div>
-                <ShowDecksinPage key={deck.id} deck={deck} deleting={deleting} />
-                <div>
-                  {/* {flashcard.map((flash) => (
-                  <div>
-                    <div>{flash.question}</div>
-                    <div>{flash.answer}</div>
-                  </div>
-                ))} */}
-                </div>
-              </div>
-            ))}
-            {/* <ShowDecksinPage key={deck.id} deck={deck} deleting={deleting}/> */}
-            {/* {hasDeck ? <ShowDecksinPage /> : <NoDeckPage />} */}
-          </div>
-        </div>
-      </div>
-      </section>
-    </div>
-  );
-}
-
-export default Flashcard;
+                  {/* </div> */}
