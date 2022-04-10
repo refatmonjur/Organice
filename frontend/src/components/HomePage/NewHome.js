@@ -69,7 +69,7 @@ function NewHome() {
   useEffect(() => {
     getUsers(db);
 
- const TodoCollectionRef = collection(db, "user", user.uid, "todos");
+    const TodoCollectionRef = collection(db, "user", user.uid, "todos");
     const todoQuery = query(TodoCollectionRef, orderBy("timeStamp", "desc"));
     const unsub = onSnapshot(todoQuery, (queryS) => {
       const todosArray = [];
@@ -90,7 +90,6 @@ function NewHome() {
       setDecks(decksArray);
     });
 
-    
     return () => unsub1();
     // getStudentRecords(db);
   }, []);
@@ -225,10 +224,10 @@ function NewHome() {
             <div className="col-md p-5">
               <h2 className="mb-3 text-info">To-do List</h2>
               {todos.map((todo) => (
-              <div className="card text-light bg-secondary mt-2 p-2">
-              {todo.title}
-              </div>
-            ))}
+                <div className="card text-light bg-secondary mt-2 p-2">
+                  {todo.title}
+                </div>
+              ))}
               <div className="align-items-center">
                 <Link className="btn btn-dark mt-4" to="/todo">
                   <ArrowForwardIosRoundedIcon fontSize="small" />
@@ -263,10 +262,10 @@ function NewHome() {
             <div className="col-md p-5">
               <h2 className="mb-3 text-warning">Your Decks</h2>
               {decks.map((deck) => (
-              <div className="card text-dark bg-light mt-2 p-2">
-                {deck.deckTitle}
-              </div>
-            ))}
+                <div className="card text-dark bg-light mt-2 p-2">
+                  {deck.deckTitle}
+                </div>
+              ))}
               <div className="align-items-center">
                 <Link className="btn btn-info mt-4" to="/flashcard">
                   <ArrowForwardIosRoundedIcon fontSize="small" />
@@ -295,13 +294,13 @@ function NewHome() {
                     <h4 className="text-primary">Events</h4>
                   </div>
                   <div className="card bg-secondary text-center p-2 mt-2">
-                    take out the dog at 10:00 AM
+                    take out the dog from 10:00 AM - 11:00 AM
                   </div>
                   <div className="card bg-secondary text-center p-2 mt-2">
-                    take out the dog at 10:00 AM
+                    do the science Homework from 12:00pm- 2:00pm
                   </div>
                   <div className="card bg-secondary text-center p-2 mt-2">
-                    take out the dog at 10:00 AM
+                    gym from 3:00 PM - 4:00 PM
                   </div>
                 </div>
               </div>
@@ -313,8 +312,12 @@ function NewHome() {
                     <h4 className="text-primary">Reminders</h4>
                   </div>
                   {todos.map((todo) => (
-              <div className="card bg-secondary text-center p-2 mt-2"> {todo.title} and the due date is: {todo.dueDate === "" ? "" : "⏰ " + todo.dueDate.toDate()}</div>
-            ))}
+                    <div className="card bg-secondary text-center p-2 mt-2">
+                      {" "}
+                      {todo.title}:
+                      {todo.dueDate === "" ? "" : "⏰ " + todo.dueDate.toDate()}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

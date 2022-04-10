@@ -1,6 +1,7 @@
 import React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
+import { useEffect } from "react";
 import Container from "@mui/material/Container";
 import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -16,21 +17,23 @@ import { DialogActions } from "@mui/material";
 import { DialogTitle } from "@mui/material";
 import { DialogContent } from "@mui/material";
 import { useState } from "react";
+import { db } from "../../firebase";
 import imageavatar from "./avatar.png";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { useLocation } from "react-router-dom";
-function useQuery() {
-  const location = useLocation();
-  return new URLSearchParams(location.search);
-}
+import { doc, getDoc, collection, onSnapshot } from "firebase/firestore";
+// function useQuery() {
+//   const location = useLocation();
+//   return new URLSearchParams(location.search);
+// }
 
 function Profile() {
   const [open, setOpen] = useState(false);
   const [openPass, setOpenPass] = useState(false);
   const [email, setEmail] = useState("");
-  const {user} = useUserAuth();
-  const {passwordUpdate} = useUserAuth();
-  
+  const { user } = useUserAuth();
+  const { passwordUpdate } = useUserAuth();
+  const [currentUser, setCurrentUser] = useState([]);
 
   const handleClose = () => {
     setOpen(false);
@@ -48,6 +51,21 @@ function Profile() {
   const handleClickOpenPass = () => {
     setOpenPass(true);
   };
+  async function getUsers(db) {
+    try {
+      const userDocRef = doc(db, "user", user.uid);
+      const data = await getDoc(userDocRef);
+      const fields = [];
+      fields.push(data.data());
+      setCurrentUser(fields);
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+
+  useEffect(() => {
+    getUsers(db);
+  }, []);
   return (
     <div>
       <NewHomeNavbar />
@@ -69,17 +87,21 @@ function Profile() {
           />
         </div>
         {/* name field */}
-        <div className="namefield-container">
-          <TextField
-            id="outlined-basic"
-            label="Name:"
-            variant="standard"
-            size="small"
-            InputProps={{
-              readOnly: true,
-            }}
-          />
-        </div>
+        {currentUser.map((users) => {
+          return (
+            <div className="namefield-container">
+              <TextField
+                id="outlined-basic"
+                variant="standard"
+                size="small"
+                value={"Name: " + users.firstName + " " + users.lastName}
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+            </div>
+          );
+        })}
 
         {/* update user info */}
         <div className="userinfo-container">
@@ -133,7 +155,7 @@ function Profile() {
           </DialogActions>
         </Dialog>
       </div>
-      <div >
+      <div>
         <Dialog open={openPass} onClose={handleClosePass}>
           <DialogTitle>Update Password</DialogTitle>
           <DialogContent>
@@ -143,8 +165,8 @@ function Profile() {
               variant="outlined"
               size="small"
               type="text"
-              value= {email}
-              onChange= {e => setEmail(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </DialogContent>
           <DialogActions>
