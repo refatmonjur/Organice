@@ -331,3 +331,14 @@
     -webkit-text-fill-color: transparent; 
     
   }
+
+.VideoJS {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+}
+
+.VideoJS .vjs-big-play-button {
+    background-color: gray;
+}
