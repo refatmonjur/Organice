@@ -91,7 +91,7 @@ function NewHomeNavbar() {
     // -> query where completed is false
     // order by the earliest first
     //put them into an array, and use that array like below
-    // getUsersReminder();
+    getUsersReminder();
     console.log(reminder);
     for (let i = 0; i < reminder.length; i++) {
       const date = new Date(reminder[i].dueDate.toDate());
@@ -173,7 +173,7 @@ function NewHomeNavbar() {
 
   useEffect(() => {
     getUsers(db);
-    getUsersReminder();
+    // getUsersReminder();
   }, []);
 
   return (
