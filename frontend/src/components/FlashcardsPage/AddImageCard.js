@@ -27,6 +27,7 @@ import {
 } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import AddIcon from "@mui/icons-material/Add";
+import DragHandle from "@mui/icons-material/DragHandle";
 //CSS
 import "./Flashcard.css";
 import ProgressBar from "./DeckConditionalRendering/ProgressBar.js";
@@ -140,13 +141,15 @@ const AddImageCard = () => {
 
       <div className="addnewdeck-header center-text">
         <div id="flex-containerQA">
-          <div style={{ marginBottom: 20 }}>
-            Please give your Image Deck a name
+          <div
+            className="gradient__text"
+            style={{ marginTop: -40, fontWeight: "bold" }}
+          >
+            Please give your Definition Deck a name
           </div>
           <TextField
-            label="Name of Deck"
+            label="Please enter the name of the Deck"
             className="textfield-White"
-            placeholder="Please enter the name of the Deck"
             fullWidth
             required
             style={stylField}
@@ -154,7 +157,144 @@ const AddImageCard = () => {
           />
         </div>
       </div>
-      <div>
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          backgroundColor: "#0e1a3a90",
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+        }} // #0e1a3a90
+      >
+        {inputFields.map((inputField, index) => (
+          <div key={index} style={{ marginTop: 5, marginBottom: 5 }}>
+            <div className="card">
+              <div
+                className="card-header"
+                style={{ justifyContent: "space-around", display: "flex" }}
+              >
+                <div>ith Number</div>
+                <div>
+                  <IconButton>
+                    <DragHandle />
+                  </IconButton>
+                  {index != 0 && (
+                    <IconButton onClick={() => handleRemoveFields(index)}>
+                      <DeleteOutlineIcon />
+                    </IconButton>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="card">
+              <div id="flex-containerQArow" className="card-body">
+                <div className="card-body">
+                  <TextareaAutosize
+                    placeholder=" Enter Word"
+                    className="resizeTextarea"
+                    name="word"
+                    value={inputField.word}
+                    // onChange={(e) => setQuestion(e.target.value)}
+                    onChange={(event) => handleChangeInput(index, event)}
+                  />
+                  <div className="QAfonts">Word</div>
+                </div>
+                <div className="card-body">
+                  <TextareaAutosize
+                    placeholder=" Enter Definition"
+                    className="resizeTextarea"
+                    name="definition"
+                    value={inputField.definition}
+                    // onChange={(e) => setAnswer(e.target.value)}
+                    onChange={(event) => handleChangeInput(index, event)}
+                  />
+                  <div className="QAfonts">Definition</div>
+                </div>
+                <div className="card-body">
+                  <TextareaAutosize
+                    placeholder=" Enter Purpose"
+                    className="resizeTextarea"
+                    name="purpose"
+                    value={inputField.purpose}
+                    // onChange={(e) => setAnswer(e.target.value)}
+                    onChange={(event) => handleChangeInput(index, event)}
+                  />
+                  <div className="QAfonts">Purpose</div>
+                </div>
+                
+                <div
+                    className="whiteBg center"
+                    id="flex-containerQA"
+                    style={{
+                      borderRadius: 10,
+                      maxWidth: 1000,
+                      marginTop: 35,
+                    }}
+                  >
+                    <div id="flex-containerQA">
+                      <input
+                        type="file"
+                        className="file-upload-button"
+                        name="url"
+                        style={{
+                          color: "blue",
+                          marginBottom: 30,
+                        }}
+                      />
+                      <h1> the file is uploading {progress}</h1>
+                      <img src={inputField.url}></img>
+
+                      <button type="submit">Upload</button>
+                    </div>
+                    <div>
+                      <h4
+                        style={{
+                          fontWeight: "normal",
+                          marginTop: 15,
+                          color: "black",
+                        }}
+                      ></h4>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            {index == 0 && (
+              <div className="card">
+                <IconButton
+                  style={{ color: "teal" }}
+                  onClick={() => handleAddFields(index)}
+                >
+                  <AddIcon />
+                </IconButton>
+              </div>
+            )}
+          </div>
+        ))}
+      </form>
+
+      <div id="flex-containerbtns">
+        {/* <Button className="add-card-btn" style={{ marginTop: 20 }}>
+          Add Card
+        </Button> */}
+
+        <Button
+          className="finish-deck-btn"
+          style={{ marginTop: 20 }}
+          onClick={createDeck}
+        >
+          <Link
+            style={{ textDecoration: "none", color: "white" }}
+            to="/flashcard"
+          >
+            Finish & Save
+          </Link>
+        </Button>
+      </div>
+
+
+
+
+      {/* <div>
         {inputFields.map((inputField, index) => (
           <form onSubmit={(e) => handleSubmit(index, e)}>
             <div key={index}>
@@ -230,8 +370,8 @@ const AddImageCard = () => {
             </div>
           </form>
         ))}
-      </div>
-      <div id="flex-containerbtns">
+      </div> */}
+      {/* <div id="flex-containerbtns">
         <Button
           className="finish-deck-btn"
           style={{ marginTop: 20 }}
@@ -239,7 +379,12 @@ const AddImageCard = () => {
         >
           <Link to="/flashcard"> Finish & Save</Link>
         </Button>
-      </div>
+      </div> */}
+
+
+
+
+
     </div>
   );
 };
