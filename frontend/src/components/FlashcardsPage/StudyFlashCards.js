@@ -9,6 +9,7 @@ import StudyEachCard from "./StudyEachCard.js";
 import EachFlashCardsWDE from "./EachFlashCardsWDE.js";
 import { useHistory } from "react-router-dom";
 import AddMoreCardQA from "./AddMoreCardQA.js";
+import EachFlashCardsImage from "./EachFlashCardsImage.js";
 
 export default function StudyFlashCards({ deckName, isOpen, onClose }) {
   const [decks1, setDecks1] = useState([]);
@@ -97,7 +98,18 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
     );
     await updateDoc(docRef, { question: newQuestion, answer: newAnswer });
   };
-
+  const handleEdit3 = async (flash, newQuestion, newAnswer) => {
+    const docRef = doc(
+      db,
+      "user",
+      user.uid,
+      "flashcard",
+      deckName,
+      "deck",
+      flash.id
+    );
+    await updateDoc(docRef, { question: newQuestion, answer: newAnswer });
+  };
 
   // const toggleComplete = async (flash) => {
   //   const docRef5 = doc(db, "user",
@@ -158,6 +170,9 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
                 )}
                 {Object.keys(flash).length == 4 && (
                   <EachFlashCardsWDE flash={flash} handleDelete={handleDelete} handleEdit={handleEdit} />
+                )}
+                {Object.keys(flash).length == 5 && (
+                  <EachFlashCardsImage flash={flash} handleDelete={handleDelete} handleEdit2={handleEdit} />
                 )}
               </div>
               // {/* // here call another component for each flashcards  */}
