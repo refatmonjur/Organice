@@ -65,11 +65,11 @@ const AddMoreImage = () => {
 
   const createDeck = async (e) => {
     e.preventDefault();
-    const FlashCardRefs = doc(db, "user", user.uid, "flashcard", deckName);
+    const FlashCardRefs = doc(db, "user", user.uid, "flashcard", prevDeckName);
     var data = {
-      deckTitle: deckName,
+      deckTitle: prevDeckName,
     };
-    if (deckName !== "") {
+    if (prevDeckName !== "") {
       await setDoc(FlashCardRefs, data);
       console.log("check firebase");
     }

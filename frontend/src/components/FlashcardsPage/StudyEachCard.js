@@ -85,8 +85,8 @@ function StudyEachCard({ deckName }) {
             {flashCards.length > 0 && <p>{flashCards[currentCard].answer}</p>}
             {flashCards.length > 0 && <p>{flashCards[currentCard].definition}</p>}
             {flashCards.length > 0 && <p>{flashCards[currentCard].example}</p>}
-            {flashCards.length > 0 && <img className="photo" src={flashCards[currentCard].url}></img>}
             {flashCards.length > 0 && <p>{flashCards[currentCard].purpose}</p>}
+            {flashCards.length > 0 && <img className="photo" src={flashCards[currentCard].url}></img>}
           </BackSide>
         </Flippy>
       </div>
