@@ -98,7 +98,7 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
     );
     await updateDoc(docRef, { question: newQuestion, answer: newAnswer });
   };
-  const handleEdit3 = async (flash, newQuestion, newAnswer) => {
+  const handleEdit3 = async (flash, newWord, newDefinition, newPurpose, newUrl) => {
     const docRef = doc(
       db,
       "user",
@@ -108,7 +108,7 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
       "deck",
       flash.id
     );
-    await updateDoc(docRef, { question: newQuestion, answer: newAnswer });
+    await updateDoc(docRef, { word: newWord, definition: newDefinition, purpose: newPurpose, url: newUrl });
   };
 
   // const toggleComplete = async (flash) => {
@@ -134,8 +134,11 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
         pathname: "/addMoreCardWDE",
         state: { decksName: deckName },
       });
-    } else {
-      //push it to the page that takes the word, definition, purpose and image
+    } else if(Object.keys(decks1[0]).length == 5) {
+      history.push({
+        pathname: "/addMoreCardImage",
+        state: { decksName: deckName },
+      });
     }
   };
 
@@ -172,7 +175,7 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
                   <EachFlashCardsWDE flash={flash} handleDelete={handleDelete} handleEdit={handleEdit} />
                 )}
                 {Object.keys(flash).length == 5 && (
-                  <EachFlashCardsImage flash={flash} handleDelete={handleDelete} handleEdit2={handleEdit} />
+                  <EachFlashCardsImage flash={flash} handleDelete={handleDelete} handleEdit3={handleEdit3} />
                 )}
               </div>
               // {/* // here call another component for each flashcards  */}
