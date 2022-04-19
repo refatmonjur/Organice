@@ -88,119 +88,115 @@ function AddMoreCardQA() {
       <div>
         <NewHomeNavbar />
       </div>
-
-      <div className="addnewdeck-header center-text">
-        <div id="flex-containerQA">
-          <div
-            className="gradient__text"
-            style={{ marginTop: -40, fontWeight: "bold" }}
-          >
-            Add more cards
+      <section className="bg-dark text-light">
+        <div className="addnewdeck-header center-text">
+          <div id="flex-containerQA">
+            <div
+              className="gradient__text"
+              style={{ marginTop: -40, marginBottom: -40, fontWeight: "bold" }}
+            >
+              Add more cards
+            </div>
           </div>
-          {/* <TextField
-            label="Please enter the name of the Deck"
-            className="textfield-White"
-            fullWidth
-            required
-            style={stylField}
-            onChange={(e) => setDeckName(e.target.value)}
-          /> */}
         </div>
-      </div>
+      </section>
+
 
       {/* Question Answer Add Cards Div */}
-      <form
-        onSubmit={handleSubmit}
-        style={{
-          backgroundColor: "#0e1a3a90",
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "column",
-        }} // #0e1a3a90
-      >
-        {/* PLEASE CHECK THIS LINE, I did this to make there only be ONE Plus sign */}
-        {/* <div className="card">
+      <section className="card-body bg-light ">
+        <form
+          onSubmit={handleSubmit}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            paddingBottom: "40%"
+            // margin: "20px 20px 20px 20px"
+          }} // #0e1a3a90
+        >
+          {/* PLEASE CHECK THIS LINE, I did this to make there only be ONE Plus sign */}
+          {/* <div className="card">
           <IconButton onClick={() => handleAddFields(0)}>
             <AddIcon />
           </IconButton>
         </div> */}
-        {inputFields.map((inputField, index) => (
-          <div key={index} style={{ marginTop: 5, marginBottom: 5 }}>
-            <div className="card">
-              <div
-                className="card-header"
-                style={{ justifyContent: "space-around", display: "flex" }}
-              >
-                <div>ith Number</div>
-                <div>
-                  <IconButton>
-                    <DragHandle />
-                  </IconButton>
-                  {index != 0 && (
-                    <IconButton onClick={() => handleRemoveFields(index)}>
-                      <DeleteOutlineIcon />
-                    </IconButton>
-                  )}
-                </div>
-              </div>
-            </div>
-            <div className="card">
-              <div id="flex-containerQArow" className="card-body">
-                <div className="card-body">
-                  <TextareaAutosize
-                    placeholder=" Enter Question"
-                    className="resizeTextarea"
-                    name="question"
-                    value={inputField.question}
-                    // onChange={(e) => setQuestion(e.target.value)}
-                    onChange={(event) => handleChangeInput(index, event)}
-                  />
-                  <div className="QAfonts">QUESTION</div>
-                </div>
-                <div className="card-body">
-                  <TextareaAutosize
-                    placeholder=" Enter Answer"
-                    className="resizeTextarea"
-                    name="answer"
-                    value={inputField.answer}
-                    // onChange={(e) => setAnswer(e.target.value)}
-                    onChange={(event) => handleChangeInput(index, event)}
-                  />
-                  <div className="QAfonts">ANSWER</div>
-                </div>
-              </div>
-            </div>
-            {index == 0 && (
+          {inputFields.map((inputField, index) => (
+            <div key={index} style={{ marginTop: 5, marginBottom: 5 }}>
               <div className="card">
-                <IconButton
-                  style={{ color: "teal" }}
-                  onClick={() => handleAddFields(index)}
+                <div
+                  className="card-header"
+                  style={{ justifyContent: "space-around", display: "flex" }}
                 >
-                  <AddIcon />
-                </IconButton>
+                  <div>ith Number</div>
+                  <div>
+                    <IconButton>
+                      <DragHandle />
+                    </IconButton>
+                    {index != 0 && (
+                      <IconButton onClick={() => handleRemoveFields(index)}>
+                        <DeleteOutlineIcon />
+                      </IconButton>
+                    )}
+                  </div>
+                </div>
               </div>
-            )}
-          </div>
-        ))}
-      </form>
-      <div id="flex-containerbtns">
-        {/* <Button className="add-card-btn" style={{ marginTop: 20 }}>
+              <div className="card">
+                <div id="flex-containerQArow" className="card-body">
+                  <div className="card-body">
+                    <TextareaAutosize
+                      placeholder=" Enter Question"
+                      className="resizeTextarea"
+                      name="question"
+                      value={inputField.question}
+                      // onChange={(e) => setQuestion(e.target.value)}
+                      onChange={(event) => handleChangeInput(index, event)}
+                    />
+                    <div className="QAfonts">QUESTION</div>
+                  </div>
+                  <div className="card-body">
+                    <TextareaAutosize
+                      placeholder=" Enter Answer"
+                      className="resizeTextarea"
+                      name="answer"
+                      value={inputField.answer}
+                      // onChange={(e) => setAnswer(e.target.value)}
+                      onChange={(event) => handleChangeInput(index, event)}
+                    />
+                    <div className="QAfonts">ANSWER</div>
+                  </div>
+                </div>
+              </div>
+              {index == 0 && (
+                <div className="card">
+                  <IconButton
+                    style={{ color: "teal" }}
+                    onClick={() => handleAddFields(index)}
+                  >
+                    <AddIcon />
+                  </IconButton>
+                </div>
+              )}
+            </div>
+          ))}
+        </form>
+        <div id="flex-containerbtns" className="finish-deck-btn-position">
+          {/* <Button className="add-card-btn" style={{ marginTop: 20 }}>
           Add Card
         </Button> */}
-
-        <Button
-          className="finish-deck-btn"
-          style={{ marginTop: 20 }}
-          onClick={createDeck}
-        >
-          <Link
-            style={{ textDecoration: "none", color: "white" }}
-            to="/flashcard"
+          <Button
+            className="finish-deck-btn"
+            onClick={createDeck}
           >
-            Finish & Save
-          </Link>
-        </Button>
-      </div>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to="/flashcard"
+            >
+              Finish & Save
+            </Link>
+          </Button>
+        </div>
+
+      </section>
     </div>
   );
 }

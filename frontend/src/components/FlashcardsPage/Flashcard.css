@@ -1,4 +1,10 @@
 /* Background Setting Colors */
+
+.white{
+  background-color: white !important;
+}
+
+
 .transparentBg {
   background-color: hsla(221, 40%, 63%, 0.445);
   margin: 40px;
@@ -137,8 +143,7 @@
 /* header for add new deck */
 
 .addnewdeck-header {
-  background: rgba(119, 142, 163, 0.247);
-  margin: 20px 0 0 0;
+  /* background: rgba(119, 142, 163, 0.247); */
   padding: 40px;
   color: white;
   font-size: 24px;
@@ -188,12 +193,18 @@
 }
 
 /* BUTTONS */
-.finish-deck-btn {
-  background-color: #3261e28f !important;
+.finish-deck-btn-position {
+  color: #ffffff;
+  font-weight: bold;
+  padding: 2rem;
+  position: sticky;
+  bottom: 0;
+}
+.finish-deck-btn{
+  background-color: #1976d2 !important;
   color: #ffffff !important;
   font-weight: bold !important;
-  padding: 10px !important;
-  font-size: 20px !important;
+  padding: 1.5rem !important;
 }
 .add-card-btn {
   background-color: rgb(165, 231, 209) !important;
