@@ -3,9 +3,13 @@
     color: black;
     text-decoration:none;
 }
+.nabBarOptions{
+    font-size: medium;
+}
 
 .menuOptions:hover {
-    color: hsl(240, 98%, 63%);
+    /* color: hsl(240, 98%, 63%); */
+    color: #0275d8;
 }
 
 .nabBarOptions:link,
@@ -15,5 +19,6 @@
 }
 
 .nabBarOptions:hover {
-    color: rgb(156, 155, 240);
+    /* color: rgb(156, 155, 240); */
+    color: #0275d8;
 }

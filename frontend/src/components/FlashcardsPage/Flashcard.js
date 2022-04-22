@@ -99,7 +99,7 @@ function Flashcard() {
   // console.log(decks.id);
   return (
     <div>
-      <div>
+      <div className="flashcard__navbar">
         <NewHomeNavbar />
       </div>
       <section className="bg-dark shadow-lg text-light p-4 text-sm-start text-center">

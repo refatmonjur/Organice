@@ -95,21 +95,20 @@ function NewHome() {
     // getStudentRecords(db);
   }, []);
 
-  const handleDate= (todo) =>
-  { 
-    const date = new Date(todo.dueDate.toDate())
-      const options ={
-        year: "numeric",
-        month : "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      }
-      const new_date = date.toLocaleDateString(undefined, options)
-      return new_date;
-  } 
+  const handleDate = (todo) => {
+    const date = new Date(todo.dueDate.toDate());
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+    const new_date = date.toLocaleDateString(undefined, options);
+    return new_date;
+  };
   return (
-    <div>
+    <div className="bg-dark">
       <div>
         <NewHomeNavbar />
       </div>
@@ -142,7 +141,7 @@ function NewHome() {
 
       {/* Boxes */}
 
-      <section className="p-5">
+      <section className="p-5 bg-light">
         <div className="container">
           <div className="row text-center gap-4">
             <div className="col-md">
@@ -213,7 +212,7 @@ function NewHome() {
 
       <section className="p-5">
         <div className="container shadow-lg">
-          <div className="row align-items-center justify-content-between bg-light">
+          <div className="row align-items-center justify-content-between">
             <div className="col-md p-5">
               <h2 className="mb-3 text-info">To-do List</h2>
               {todos.map((todo) => (
@@ -222,7 +221,7 @@ function NewHome() {
                 </div>
               ))}
               <div className="align-items-center">
-                <Link className="btn btn-dark mt-4" to="/todo">
+                <Link className="btn btn-info mt-4" to="/todo">
                   <ArrowForwardIosRoundedIcon fontSize="small" />
                   TO DO
                 </Link>
@@ -242,12 +241,12 @@ function NewHome() {
       {/* Flashcard */}
 
       <section className="p-5">
-        <div className="container">
+        <div className="container p-2 border-top border-light">
           <div className="row align-items-center justify-content-between">
             {/* <h2 className="text-warning p-5">Flashcards</h2> */}
-            <div className="col-md">
+            <div className="col-md pt-2">
               <img
-                className="img-fluid d-none d-sm-block"
+                className="img-fluid w-79 d-none d-sm-block"
                 src={flashcardImg}
                 alt=""
               />
@@ -272,40 +271,42 @@ function NewHome() {
 
       {/* Events */}
 
-      <section className="p-5">
-        <div className="container bg-dark shadow-lg">
-          <h2 className="text-center text-danger p-3">Reminders and Events</h2>
-          <p className="lead text-center text-light mb-5">
+      <section className="p-5 bg-light shadow-md">
+        <div className="container shadow-lg">
+          <h2 className="text-center text-danger p-3 pt-5">
+            Reminders and Events
+          </h2>
+          <p className="lead text-center text-dark mb-5">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
           <div className="row g-4">
             <div className="col-md-12 col-lg-6">
-              <div className="card bg-light shadow-lg">
+              <div className="card bg-dark shadow-lg">
                 <div className="card-body text-center">
                   <div className="card-title">
-                    <h4 className="text-primary">Events</h4>
+                    <h4 className="text-info">Events</h4>
                   </div>
-                  <div className="card bg-secondary text-center p-2 mt-2">
+                  <div className="card bg-light text-center p-2 mt-2">
                     take out the dog from 10:00 AM - 11:00 AM
                   </div>
-                  <div className="card bg-secondary text-center p-2 mt-2">
+                  <div className="card bg-light text-center p-2 mt-2">
                     do the science Homework from 12:00pm- 2:00pm
                   </div>
-                  <div className="card bg-secondary text-center p-2 mt-2">
+                  <div className="card bg-light text-center p-2 mt-2">
                     gym from 3:00 PM - 4:00 PM
                   </div>
                 </div>
               </div>
             </div>
             <div className="col-md-12 col-lg-6">
-              <div className="card bg-light shadow-lg">
+              <div className="card bg-dark shadow-lg">
                 <div className="card-body text-center">
                   <div className="card-title">
-                    <h4 className="text-primary">Reminders</h4>
+                    <h4 className="text-info">Reminders</h4>
                   </div>
                   {todos.map((todo) => (
-                    <div className="card bg-secondary text-center p-2 mt-2">
+                    <div className="card bg-light text-center p-2 mt-2">
                       {" "}
                       {todo.title}
                       {todo.dueDate === "" ? "" : " at " + handleDate(todo)}
@@ -328,7 +329,8 @@ function NewHome() {
       <footer className="p-5 bg-dark text-light text-center position-relative shadow-lg">
         <div className="container">
           <p className="lead">
-            Copyright &copy; Senior Design Project Spring 2022
+            Copyright <span className="text-primary">&copy;</span> Senior Design
+            Project Spring 2022
           </p>
         </div>
       </footer>
