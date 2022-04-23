@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -18,7 +18,6 @@ import Logo from "./test_logo.png";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { useHistory } from "react-router-dom";
 import Flashcard from "../FlashcardsPage/Flashcard";
-
 
 const useStyles = makeStyles({
   header: {
@@ -64,9 +63,8 @@ function Navbar() {
     }
   };
 
-
   return (
-    <AppBar position="static" className={classes.header}>
+    <AppBar position="static" className="bg-dark">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* <div>

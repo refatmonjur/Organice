@@ -33,8 +33,8 @@ import "react-notifications-component/dist/theme.css";
 import { where } from "firebase/firestore";
 const useStyles = makeStyles({
   header: {
-    // backgroundColor: "blue",
-    color: "black",
+    background: "black",
+    // color: "black",
     boxShadow: "0px 0px 0px 0px",
   },
 });
@@ -176,8 +176,9 @@ function NewHomeNavbar() {
     // getUsersReminder();
   }, []);
 
+  // sx={{ bgcolor: "#292b2c" }}
   return (
-    <AppBar position="static" className={classes.header}>
+    <AppBar position="static" className="bg-dark">
       <ReactNotifications />
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -261,11 +262,11 @@ function NewHomeNavbar() {
               key="To-do List"
               onClick={handlenewUserTodo}
               sx={{ my: 2, color: "white", display: "block" }}
-              // path="/todo"
+              path="/todo"
             >
-              {/* <Link to="/todo" className="nabBarOptions"> */}
-              To-do List
-              {/* </Link> */}
+              <Link to="/todo" className="nabBarOptions">
+                To-do List
+              </Link>
             </Button>
             <Button
               key="Calendar"
@@ -327,14 +328,18 @@ function NewHomeNavbar() {
                   Account
                 </Link>
               </MenuItem>
-              <MenuItem onClick={handleNotification}>Notifications</MenuItem>
+              <MenuItem onClick={handleNotification} className="menuOptions">
+                Notifications
+              </MenuItem>
 
               {/* <MenuItem key="logout" onClick={(Logout, handleCloseNavMenu)}>
                 <Link to="/" className="menuOptions" textAlign="center">
                   Logout
                 </Link>
               </MenuItem> */}
-              <MenuItem onClick={Logout}>Log Out</MenuItem>
+              <MenuItem onClick={Logout} className="menuOptions">
+                Log Out
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

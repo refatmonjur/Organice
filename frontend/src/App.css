@@ -34,7 +34,7 @@ h1 {
 
 form, .todo {
   border: 1px solid rgb(255, 255, 255, 50%);
-  background-color: rgb(26, 34, 46);
+  /* background-color: rgb(26, 34, 46); */
   border-radius: 20px;
   padding: 10px 20px;
   margin-bottom: 20px;

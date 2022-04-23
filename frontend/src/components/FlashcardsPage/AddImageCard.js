@@ -27,6 +27,7 @@ import {
 } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import AddIcon from "@mui/icons-material/Add";
+import DragHandle from "@mui/icons-material/DragHandle";
 //CSS
 import "./Flashcard.css";
 import ProgressBar from "./DeckConditionalRendering/ProgressBar.js";
@@ -101,7 +102,7 @@ const AddImageCard = () => {
   async function handleSubmit(index, e) {
     e.preventDefault();
     const promises = [];
-    let file = e.target[6].files[0];
+    let file = e.target[8].files[0];
     if (!file) return;
     const storageRef = ref(storage, `/files/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
@@ -121,7 +122,7 @@ const AddImageCard = () => {
           console.log(downloadURL);
           const values1 = [...inputFields];
           setLoading(!loading);
-          values1[index][e.target[6].name] = downloadURL;
+          values1[index][e.target[8].name] = downloadURL;
           setInputField(values1);
         });
       }
@@ -138,52 +139,93 @@ const AddImageCard = () => {
         <NewHomeNavbar />
       </div>
 
-      <div className="addnewdeck-header center-text">
-        <div id="flex-containerQA">
-          <div style={{ marginBottom: 20 }}>
-            Please give your Image Deck a name
+      {/* Enter name of deck */}
+      <section className="bg-dark text-light">
+        <div className="addnewdeck-header center-text">
+          <div id="flex-containerQA">
+            <div
+              className="gradient__text"
+              style={{ marginTop: -40, fontWeight: "bold" }}
+            >
+              Please give your Image Deck a name
+            </div>
+            <TextField
+              label="Please enter the name of the Deck"
+              className="textfield-White"
+              fullWidth
+              required
+              style={stylField}
+              onChange={(e) => setDeckName(e.target.value)}
+            />
           </div>
-          <TextField
-            label="Name of Deck"
-            className="textfield-White"
-            placeholder="Please enter the name of the Deck"
-            fullWidth
-            required
-            style={stylField}
-            onChange={(e) => setDeckName(e.target.value)}
-          />
         </div>
-      </div>
-      <div>
+      </section>
+
+      <section className="card-body bg-light ">
         {inputFields.map((inputField, index) => (
-          <form onSubmit={(e) => handleSubmit(index, e)}>
-            <div key={index}>
-              <div className="addnewdeck-header center-text">
-                <div id="flex-containerQA">
-                  <div>Fill in your Word, Image, Definition, and Purpose</div>
-                  <TextareaAutosize
-                    className="textfield-White fields-spacing "
-                    placeholder="Enter Word"
-                    name="word"
-                    value={inputField.word}
-                    onChange={(event) => handleChangeInput(index, event)}
-                  />
+          <form
+            onSubmit={(e) => handleSubmit(index, e)}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              paddingBottom: "20%",
+              marginBottom: "-60px",
+            }} // #0e1a3a90
+          >
+            <div key={index} style={{ marginTop: 5, marginBottom: 5 }}>
+              <div className="card">
+                <div
+                  className="card-header"
+                  style={{ justifyContent: "space-around", display: "flex" }}
+                >
+                  <div>ith Number</div>
+                  <div>
+                    <IconButton>
+                      <DragHandle />
+                    </IconButton>
 
-                  <TextareaAutosize
-                    className="textfield-White fields-spacing "
-                    placeholder="Enter Definition"
-                    name="definition"
-                    value={inputField.definition}
-                    onChange={(event) => handleChangeInput(index, event)}
-                  />
-
-                  <TextareaAutosize
-                    className="textfield-White fields-spacing "
-                    placeholder="Enter Purpose/Use"
-                    name="purpose"
-                    value={inputField.purpose}
-                    onChange={(event) => handleChangeInput(index, event)}
-                  />
+                    <IconButton onClick={() => handleRemoveFields(index)}>
+                      <DeleteOutlineIcon />
+                    </IconButton>
+                  </div>
+                </div>
+              </div>
+              <div className="card">
+                <div id="flex-containerQArow" className="card-body">
+                  <div className="card-body">
+                    <TextareaAutosize
+                      placeholder=" Enter Word"
+                      className="resizeTextarea"
+                      name="word"
+                      value={inputField.word}
+                      // onChange={(e) => setQuestion(e.target.value)}
+                      onChange={(event) => handleChangeInput(index, event)}
+                    />
+                    <div className="QAfonts">Word</div>
+                  </div>
+                  <div className="card-body">
+                    <TextareaAutosize
+                      placeholder=" Enter Definition"
+                      className="resizeTextarea"
+                      name="definition"
+                      value={inputField.definition}
+                      // onChange={(e) => setAnswer(e.target.value)}
+                      onChange={(event) => handleChangeInput(index, event)}
+                    />
+                    <div className="QAfonts">Definition</div>
+                  </div>
+                  <div className="card-body">
+                    <TextareaAutosize
+                      placeholder=" Enter Purpose"
+                      className="resizeTextarea"
+                      name="purpose"
+                      value={inputField.purpose}
+                      // onChange={(e) => setAnswer(e.target.value)}
+                      onChange={(event) => handleChangeInput(index, event)}
+                    />
+                    <div className="QAfonts">Purpose</div>
+                  </div>
 
                   <div
                     className="whiteBg center"
@@ -191,7 +233,6 @@ const AddImageCard = () => {
                     style={{
                       borderRadius: 10,
                       maxWidth: 1000,
-                      marginTop: 35,
                     }}
                   >
                     <div id="flex-containerQA">
@@ -221,25 +262,31 @@ const AddImageCard = () => {
                   </div>
                 </div>
               </div>
-              <IconButton onClick={() => handleRemoveFields(index)}>
-                <DeleteOutlineIcon />
-              </IconButton>
-              <IconButton onClick={() => handleAddFields(index)}>
-                <AddIcon />
-              </IconButton>
+              {index == 0 && (
+                <div className="card">
+                  <IconButton
+                    style={{ color: "teal" }}
+                    onClick={() => handleAddFields(index)}
+                  >
+                    <AddIcon />
+                  </IconButton>
+                </div>
+              )}
             </div>
           </form>
         ))}
-      </div>
-      <div id="flex-containerbtns">
-        <Button
-          className="finish-deck-btn"
-          style={{ marginTop: 20 }}
-          onClick={(e) => createDeck(e)}
-        >
-          <Link to="/flashcard"> Finish & Save</Link>
-        </Button>
-      </div>
+
+        <div id="flex-containerbtns" className="finish-deck-btn-position">
+          <Button className="finish-deck-btn" onClick={createDeck}>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to="/flashcard"
+            >
+              Finish & Save
+            </Link>
+          </Button>
+        </div>
+      </section>
     </div>
   );
 };

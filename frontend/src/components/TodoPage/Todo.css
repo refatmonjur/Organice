@@ -14,7 +14,8 @@ a {
 
 #root > div {
   min-height: 100vh;
-  background: radial-gradient(
+  background: 
+  radial-gradient(
     circle at 3% 25%,
     #419dff 0%,
     #0756aa 25%,
