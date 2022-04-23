@@ -147,10 +147,12 @@ function Flashcard() {
               Decks
             </h3> */}
 
-      <section className="bg-light p-5 text-sm-start text-center">
-        <div className="container text-center ">
-          <div className="textcolor1">
-            <h1>Decks</h1>
+      <section className="bg-light text-sm-start p-5 text-center">
+        <div className="container text-center p-3 shadow-lg">
+          <div>
+            <h2 className="border-bottom border-dark text-warning p-2">
+              Decks
+            </h2>
           </div>
 
           <div className="each_deck">
@@ -160,35 +162,25 @@ function Flashcard() {
             ))}
           </div>
           <div>
-            <Button
-              className="create-new-deck-button center mb-5"
-              style={{
-                display: "block",
-                margin: "auto",
-                marginTop: 0,
-                // marginTop: -55
-              }}
-              // onClick={ }
+            <Link
+              className="btn btn-dark btn-lg p-2 mb-3"
+              to="/addNewDeck"
+              // style={{
+              //   textDecoration: "none",
+              // }}
             >
-              <Link
-                to="/addNewDeck"
-                style={{
-                  textDecoration: "none",
-                }}
-              >
-                Create New Deck
-              </Link>
-            </Button>
+              Create New Deck
+            </Link>
           </div>
         </div>
       </section>
 
       <section className="bg-dark shadow-lg text-light p-4 text-sm-start text-center">
         <div className="container text-center">
-          <div className="d-sm-flex align-items-center p-4">
+          <div className="d-sm-flex align-items-center p-3">
             <div className="VideoJS">
-              <h1 className="text-sm-start textcolor1 text-center">
-                Get A Preview of Organice Flashcards
+              <h1 className="text-danger text-center mb-2">
+                Preview
                 <VideoPlayer
                   src={videoSrc}
                   poster={poster}
@@ -200,6 +192,16 @@ function Flashcard() {
           </div>
         </div>
       </section>
+
+      {/* footer */}
+      <footer className="p-2 bg-dark text-light text-center position-relative shadow-lg">
+        <div className="container">
+          <p className="lead">
+            Copyright <span className="text-primary">&copy;</span> Senior Design
+            Project Spring 2022
+          </p>
+        </div>
+      </footer>
 
       {/* </div> */}
     </div>

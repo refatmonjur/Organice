@@ -20,18 +20,25 @@ export default function ShowDecksinPage({ deck, deleting }) {
 
   return (
     <div>
-      <div className="decksinpage card bg-dark">
-        <div className="text-light"> {deck.deckTitle} </div>
-        <div>
-          <Button
-            onClick={() => {
-              setClicked(true);
-            }}
-          >
-            {" "}
-            Study{" "}
-          </Button>
-          <Button onClick={() => deleting(deck.id)}>Delete</Button>
+      <div className="card bg-dark decksinpage ">
+        <h4 className="card-title text-light">{deck.deckTitle}</h4>
+        {/* <div className="text-light lead"> {deck.deckTitle} </div> */}
+        <div className="d-sm-flex mt-3">
+          <div className="m-2">
+            <Button
+              variant="outlined"
+              onClick={() => {
+                setClicked(true);
+              }}
+            >
+              Study
+            </Button>
+          </div>
+          <div className="m-2">
+            <Button variant="outlined" onClick={() => deleting(deck.id)}>
+              Delete
+            </Button>
+          </div>
         </div>
       </div>
 

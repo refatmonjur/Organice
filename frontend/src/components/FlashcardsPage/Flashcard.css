@@ -86,13 +86,14 @@
     flex: 50%;
     display: flex;
     flex-direction: column;
-    flex-grow: 4;
     align-items: center;
     justify-content: center;
-    min-width: 200px;
+    min-width: 300px;
+    min-height: 150px;
     padding: 20px;
     margin: 10px;
 }
+
 
 /* Create New Deck Button */
 

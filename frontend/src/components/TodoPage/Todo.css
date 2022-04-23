@@ -12,7 +12,7 @@ a {
   text-decoration: none;
 }
 
-#root > div {
+/* #root > div {
   min-height: 100vh;
   background: 
   radial-gradient(
@@ -23,7 +23,7 @@ a {
     rgb(3, 35, 68) 75%,
     rgba(4, 12, 24, 1) 100%
   );
-}
+} */
 
 
 .gradient__text {
