@@ -101,36 +101,35 @@ const AddImageCard = () => {
   };
   async function handleSubmit(index, e) {
     e.preventDefault();
-    console.log(e.target[2]);
-    // const promises = [];
-    // let file = e.target[6].files[0];
-    // if (!file) return;
-    // const storageRef = ref(storage, `/files/${file.name}`);
-    // const uploadTask = uploadBytesResumable(storageRef, file);
-    // promises.push(uploadTask);
+    const promises = [];
+    let file = e.target[8].files[0];
+    if (!file) return;
+    const storageRef = ref(storage, `/files/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    promises.push(uploadTask);
 
-    // uploadTask.on(
-    //   "state_changed",
-    //   (snapshot) => {
-    //     const prog = Math.round(
-    //       (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-    //     );
-    //     setProgress(prog);
-    //   },
-    //   (err) => console.log(err),
-    //   () => {
-    //     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-    //       console.log(downloadURL);
-    //       const values1 = [...inputFields];
-    //       setLoading(!loading);
-    //       values1[index][e.target[6].name] = downloadURL;
-    //       setInputField(values1);
-    //     });
-    //   }
-    // );
-    // Promise.all(promises).then(() => {
-    //   console.log("this is after the promise");
-    // });
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const prog = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setProgress(prog);
+      },
+      (err) => console.log(err),
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log(downloadURL);
+          const values1 = [...inputFields];
+          setLoading(!loading);
+          values1[index][e.target[8].name] = downloadURL;
+          setInputField(values1);
+        });
+      }
+    );
+    Promise.all(promises).then(() => {
+      console.log("this is after the promise");
+    });
   }
   console.log(inputFields);
 
@@ -171,7 +170,7 @@ const AddImageCard = () => {
               justifyContent: "center",
               flexDirection: "column",
               paddingBottom: "20%",
-              marginBottom: "-60px"
+              marginBottom: "-60px",
             }} // #0e1a3a90
           >
             <div key={index} style={{ marginTop: 5, marginBottom: 5 }}>
@@ -185,11 +184,10 @@ const AddImageCard = () => {
                     <IconButton>
                       <DragHandle />
                     </IconButton>
-                    {index != 0 && (
-                      <IconButton onClick={() => handleRemoveFields(index)}>
-                        <DeleteOutlineIcon />
-                      </IconButton>
-                    )}
+
+                    <IconButton onClick={() => handleRemoveFields(index)}>
+                      <DeleteOutlineIcon />
+                    </IconButton>
                   </div>
                 </div>
               </div>
@@ -235,7 +233,6 @@ const AddImageCard = () => {
                     style={{
                       borderRadius: 10,
                       maxWidth: 1000,
-
                     }}
                   >
                     <div id="flex-containerQA">
@@ -274,18 +271,13 @@ const AddImageCard = () => {
                     <AddIcon />
                   </IconButton>
                 </div>
-
               )}
             </div>
           </form>
-
         ))}
 
         <div id="flex-containerbtns" className="finish-deck-btn-position">
-          <Button
-            className="finish-deck-btn"
-            onClick={createDeck}
-          >
+          <Button className="finish-deck-btn" onClick={createDeck}>
             <Link
               style={{ textDecoration: "none", color: "white" }}
               to="/flashcard"
