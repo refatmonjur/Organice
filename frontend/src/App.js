@@ -28,6 +28,8 @@ import Profile from "./components/Profile/Profile";
 
 import AddMoreCardQA from "./components/FlashcardsPage/AddMoreCardQA";
 import AddMoreCardWDE from "./components/FlashcardsPage/AddMoreCardWDE";
+import AddMoreImage from "./components/FlashcardsPage/AddMoreImage";
+
 function App() {
   return (
     <div className="app">
@@ -62,6 +64,9 @@ function App() {
             </ProtectedRoute>
             <ProtectedRoute path="/addMoreCardWDE">
               <AddMoreCardWDE />
+            </ProtectedRoute>
+            <ProtectedRoute path="/addMoreCardImage">
+              <AddMoreImage />
             </ProtectedRoute>
 
             {/* ToDoList Routes */}

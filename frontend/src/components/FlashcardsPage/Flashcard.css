@@ -354,3 +354,7 @@
 .VideoJS .vjs-big-play-button {
     background-color: gray;
 }
+.photo{
+  height: 100px;
+      width: auto; 
+}

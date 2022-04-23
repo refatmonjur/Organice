@@ -16,6 +16,7 @@ import {
 } from "firebase/firestore";
 import { Button } from "@mui/material";
 import { handleBreakpoints } from "@mui/system";
+import "./Flashcard.css";
 
 function StudyEachCard({ deckName }) {
   // this is the component for studying flashcards and changing to next card
@@ -84,7 +85,8 @@ function StudyEachCard({ deckName }) {
             {flashCards.length > 0 && <p>{flashCards[currentCard].answer}</p>}
             {flashCards.length > 0 && <p>{flashCards[currentCard].definition}</p>}
             {flashCards.length > 0 && <p>{flashCards[currentCard].example}</p>}
-            {/* <p>{flashCards[currentCard].answer}</p> */}
+            {flashCards.length > 0 && <p>{flashCards[currentCard].purpose}</p>}
+            {flashCards.length > 0 && <img className="photo" src={flashCards[currentCard].url}></img>}
           </BackSide>
         </Flippy>
       </div>
