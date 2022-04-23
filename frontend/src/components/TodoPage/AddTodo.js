@@ -49,18 +49,20 @@ export default function AddTodo() {
   // };
   return (
     <form onSubmit={handleSubmit}>
-      <div className="input_container">
-        <input
-          type="text"
-          className="task-input"
-          placeholder="Enter new task"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
-      </div>
-      <div></div>
-      <div>
-        {/* the dialog  */}
+      <input
+        type="text"
+        className="task-input"
+        placeholder="Enter new task"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
+
+
+      <div className="right-input-component">
+        <div className="btn_container">
+          <button>SAVE</button>
+        </div>
+        {/* MoreProperties.js LOCATED in Dialog Folder*/}
         <MoreProperties
           className="moreColor"
           dateTime={dateTime}
@@ -68,17 +70,7 @@ export default function AddTodo() {
           setDescription={setDescription}
         />
       </div>
-      <div className="btn_container">
-        <button> Add</button>
-      </div>
-      <div>
-        {/* <div>
-          <OpenDialog dateTime={dateTime} setDateTime={setDateTime} />
-        </div>
-        <div>
-          <DescriptionDialog setDescription = {setDescription} />
-        </div> */}
-      </div>
+
     </form>
   );
 }
