@@ -100,34 +100,18 @@ export default function Todo() {
 
         {/* RIGHT SIDE BAR */}
         <div className="right_container">
-          <div className="todo_container">
-            <div id="todo-list">
-              {/* <h1 className="gradient__text">Todo List</h1> */}
-              <div className="button_align">
-                <AddTodo />
-              </div>
 
-              {/* Will implement a scroll bar instead of tiny-slider */}
-              {/* <TinySlider settings={settings} onClick={clickEvent}>
-                  {todos.map((todo) => (
-                    <EachTodo
-                      key={todo.id}
-                      todo={todo}
-                      toggleComplete={toggleComplete}
-                      handleDelete={handleDelete}
-                      handleEdit={handleEdit}
-                    />
-                  ))}
-                </TinySlider> */}
-              <ScrollBars horizontal autoHide={false} style={scrollBarStyle}>
-                {todoArray}
-              </ScrollBars>
+          <div id="todo-list">
+            <div className="button_align">
+              <AddTodo />
             </div>
+            <ScrollBars horizontal autoHide={false} style={scrollBarStyle}>
+              {todoArray}
+            </ScrollBars>
           </div>
         </div>
       </div>
-
-      {/* <Footer/> */}
     </div>
+      
   );
 }

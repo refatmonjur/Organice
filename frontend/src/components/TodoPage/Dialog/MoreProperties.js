@@ -35,12 +35,12 @@ function MoreProperties({ setDescription, dateTime, setDateTime }) {
   return (
     <div>
       <div>
-        <Button variant="outlined" onClick={handleClickOpen}>
-          <AddCircleOutlinedIcon color="secondary" fontSize="medium" />
+        <Button variant="" onClick={handleClickOpen}>
+          <AddCircleOutlinedIcon color="primary" fontSize="medium" />
         </Button>
 
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>choose due date and time</DialogTitle>
+          <DialogTitle>Enter Date/Time and Description</DialogTitle>
           <DialogContent>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker

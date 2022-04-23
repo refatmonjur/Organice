@@ -29,7 +29,7 @@ export default function EachTodo({
   const handleChange = (e) => {
     e.preventDefault();
     if (todo.complete === true) {
-      
+
       setNewInput(todo.title);
     } else {
       todo.title = "";
@@ -38,37 +38,35 @@ export default function EachTodo({
     }
   };
 
-  const handleDate= () =>
-  {
-    
-      const date = new Date(todo.dueDate.toDate())
-      const options ={
-        year: "numeric",
-        month : "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      }
-     const new_date = date.toLocaleDateString(undefined, options)
+  const handleDate = () => {
+
+    const date = new Date(todo.dueDate.toDate())
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    }
+    const new_date = date.toLocaleDateString(undefined, options)
     return new_date;
-  } 
+  }
 
   return (
     <div className="todo" style={{}}>
-      <input
-        style={{ textDecoration: todo.completed && "line-through" }}
-        type="text"
-        value={todo.title === "" ? newInput : todo.title}
-        className="list"
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        readOnly
-        value={todo.dueDate === "" ? "" : "Date: " + handleDate()}
-        className="list"
-      />
-
+        <input
+          style={{ textDecoration: todo.completed && "line-through" }}
+          type="text"
+          value={todo.title === "" ? newInput : todo.title}
+          className="list"
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          readOnly
+          value={todo.dueDate === "" ? "" : "Date: " + handleDate()}
+          className="list"
+        />
       <div className="todo-options">
         {/* this is the checked button  */}
         {/* <MoreOptions/> */}
@@ -95,7 +93,7 @@ export default function EachTodo({
           <EditIcon />
         </button>
         {/* this is the delete button  */}
-        <button 
+        <button
           className="button-delete"
           style={{
             height: 10,
@@ -122,7 +120,7 @@ export default function EachTodo({
                 value={todo.dueDate === "" ? "" : "⏰ " + todo.dueDate.toDate()}
                 className="list"
               />
-                <br/>
+              <br />
               {/* this is the description */}
               <input
                 type="text"
