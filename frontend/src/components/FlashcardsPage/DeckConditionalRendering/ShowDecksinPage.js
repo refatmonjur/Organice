@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@mui/material";
-import "../Flashcard.css";
+// import "../Flashcard.css";
 import { useState, useEffect } from "react";
 import { useUserAuth } from "../../Context/UserAuthContext";
 import { db } from "../../../firebase.js";
@@ -20,8 +20,8 @@ export default function ShowDecksinPage({ deck, deleting }) {
 
   return (
     <div>
-      <div className="newUser-text center" style={{ marginBottom: 50 }}>
-        <div className="deck-title"> {deck.deckTitle} </div>
+      <div className="decksinpage card bg-dark">
+        <div className="text-light"> {deck.deckTitle} </div>
         <div>
           <Button
             onClick={() => {

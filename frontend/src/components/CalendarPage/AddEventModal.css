@@ -1,6 +1,17 @@
-.title {
-padding: 100px;
-    height: 100px;
-    width: 100px;
-    margin: 0;
+.addEventModal_outter{
+    background-color: white;
+}
+.title { 
+    /* height: 20em;
+    width: 30em;
+    align-content: center;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto; */
+  
+}
+
+.start-date {
+    pointer-events: none;
+    cursor: default;
 }

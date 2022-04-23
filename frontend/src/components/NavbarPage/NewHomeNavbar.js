@@ -18,10 +18,19 @@ import "./Navbar.css";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { useHistory } from "react-router-dom";
 import Logo from "./test_logo.png";
-import { doc, getDoc, collection, onSnapshot } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  collection,
+  onSnapshot,
+  query,
+  orderBy,
+} from "firebase/firestore";
 import { db } from "../../firebase";
 import { userData } from "../Context/UserData";
-
+import { ReactNotifications, Store } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import { where } from "firebase/firestore";
 const useStyles = makeStyles({
   header: {
     // backgroundColor: "blue",
@@ -40,6 +49,8 @@ function NewHomeNavbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [currentUser, setCurrentUser] = useState([]);
+  const [reminder, setReminder] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -54,6 +65,61 @@ function NewHomeNavbar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  async function getUsersReminder() {
+    const TodoCollectionRef = collection(db, "user", user.uid, "todos");
+    const todoQuery1 = query(
+      TodoCollectionRef,
+      orderBy("dueDate", "asc"),
+      where("dueDate", "!=", "")
+    );
+    const unsub = onSnapshot(todoQuery1, (queryS) => {
+      const todosArray1 = [];
+      queryS.forEach((doc) => {
+        todosArray1.push({ ...doc.data(), id: doc.id });
+      });
+      setReminder(todosArray1);
+    });
+    setLoading(true);
+    return () => unsub();
+  }
+
+  const handleNotification = () => {
+    // first get the todos from the users collection (maybe write a function getUserReminder) and call it here
+    // -> querty them and take only the ones with the (dueDate != "")
+    // -> query where completed is false
+    // order by the earliest first
+    //put them into an array, and use that array like below
+    getUsersReminder();
+    console.log(reminder);
+    for (let i = 0; i < reminder.length; i++) {
+      const date = new Date(reminder[i].dueDate.toDate());
+      const options = {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      };
+      const new_date = date.toLocaleDateString(undefined, options);
+
+      Store.addNotification({
+        title: reminder[i].title,
+        message: "⏰" + " " + new_date,
+        type: "warning",
+        insert: "bottom",
+        container: "bottom-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          showIcon: true,
+          onScreen: true,
+          pauseOnHover: true,
+        },
+      });
+    }
   };
   const { logOut } = useUserAuth();
 
@@ -107,10 +173,12 @@ function NewHomeNavbar() {
 
   useEffect(() => {
     getUsers(db);
+    // getUsersReminder();
   }, []);
 
   return (
     <AppBar position="static" className={classes.header}>
+      <ReactNotifications />
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -119,7 +187,7 @@ function NewHomeNavbar() {
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
             <Link to="/home">
-              <img src={Logo} width="100" height="80" />
+              <img src={Logo} width="85" height="68" />
             </Link>
             {/* <img src={Logo} width="100" height="80" /> */}
 
@@ -255,10 +323,12 @@ function NewHomeNavbar() {
               onClose={handleCloseUserMenu}
             >
               <MenuItem key="account" onClick={handleCloseNavMenu}>
-                <Link to="/" className="menuOptions" textAlign="center">
+                <Link to="/profile" className="menuOptions" textAlign="center">
                   Account
                 </Link>
               </MenuItem>
+              <MenuItem onClick={handleNotification}>Notifications</MenuItem>
+
               {/* <MenuItem key="logout" onClick={(Logout, handleCloseNavMenu)}>
                 <Link to="/" className="menuOptions" textAlign="center">
                   Logout

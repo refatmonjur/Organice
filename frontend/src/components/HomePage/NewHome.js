@@ -11,6 +11,7 @@ import {
   onSnapshot,
   orderBy,
   query,
+  where,
 } from "firebase/firestore";
 import "./NewHome.css";
 import { Link } from "react-router-dom";
@@ -69,8 +70,8 @@ function NewHome() {
   useEffect(() => {
     getUsers(db);
 
- const TodoCollectionRef = collection(db, "user", user.uid, "todos");
-    const todoQuery = query(TodoCollectionRef, orderBy("timeStamp", "desc"));
+    const TodoCollectionRef = collection(db, "user", user.uid, "todos");
+    const todoQuery = query(TodoCollectionRef, where("dueDate", "!=", ""));
     const unsub = onSnapshot(todoQuery, (queryS) => {
       const todosArray = [];
       queryS.forEach((doc) => {
@@ -81,41 +82,32 @@ function NewHome() {
     });
 
     const DecksCollectionRef = collection(db, "user", user.uid, "flashcard");
-    const unsub1 = onSnapshot(DecksCollectionRef, (queryS) => {
+    const unsub1 = onSnapshot(DecksCollectionRef, (queryS1) => {
       const decksArray = [];
-      queryS.forEach((doc) => {
+      queryS1.forEach((doc) => {
         decksArray.push({ ...doc.data(), id: doc.id });
       });
       // console.log(decksArray);
       setDecks(decksArray);
     });
 
-    
     return () => unsub1();
     // getStudentRecords(db);
   }, []);
 
-  //  /// this is scrapwork
-  //  async function getStudentRecords(db) {
-  //   const recordCol = collection(db, 'user', user.uid, "todos");
-  //   // setLoading(true);
-  //   onSnapshot(recordCol, (querySnapshot) => {
-  //       const record = [];
-  //       querySnapshot.forEach((doc) => {
-  //           record.push(doc.data());
-  //       });
-  //       console.log(record);
-  //       // setStudentRecord(record);
-  //   });
-  //   // setLoading(false);
-  // }
-  // var userImage = "";
-  // if (user) {
-  //   if (user.emailVerified == true) {
-  //     userImage = user.photoURL;
-  //   }
-  // }
-
+  const handleDate= (todo) =>
+  { 
+    const date = new Date(todo.dueDate.toDate())
+      const options ={
+        year: "numeric",
+        month : "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }
+      const new_date = date.toLocaleDateString(undefined, options)
+      return new_date;
+  } 
   return (
     <div>
       <div>
@@ -225,10 +217,10 @@ function NewHome() {
             <div className="col-md p-5">
               <h2 className="mb-3 text-info">To-do List</h2>
               {todos.map((todo) => (
-              <div className="card text-light bg-secondary mt-2 p-2">
-              {todo.title}
-              </div>
-            ))}
+                <div className="card text-light bg-secondary mt-2 p-2">
+                  {todo.title}
+                </div>
+              ))}
               <div className="align-items-center">
                 <Link className="btn btn-dark mt-4" to="/todo">
                   <ArrowForwardIosRoundedIcon fontSize="small" />
@@ -263,10 +255,10 @@ function NewHome() {
             <div className="col-md p-5">
               <h2 className="mb-3 text-warning">Your Decks</h2>
               {decks.map((deck) => (
-              <div className="card text-dark bg-light mt-2 p-2">
-                {deck.deckTitle}
-              </div>
-            ))}
+                <div className="card text-dark bg-light mt-2 p-2">
+                  {deck.deckTitle}
+                </div>
+              ))}
               <div className="align-items-center">
                 <Link className="btn btn-info mt-4" to="/flashcard">
                   <ArrowForwardIosRoundedIcon fontSize="small" />
@@ -295,13 +287,13 @@ function NewHome() {
                     <h4 className="text-primary">Events</h4>
                   </div>
                   <div className="card bg-secondary text-center p-2 mt-2">
-                    take out the dog at 10:00 AM
+                    take out the dog from 10:00 AM - 11:00 AM
                   </div>
                   <div className="card bg-secondary text-center p-2 mt-2">
-                    take out the dog at 10:00 AM
+                    do the science Homework from 12:00pm- 2:00pm
                   </div>
                   <div className="card bg-secondary text-center p-2 mt-2">
-                    take out the dog at 10:00 AM
+                    gym from 3:00 PM - 4:00 PM
                   </div>
                 </div>
               </div>
@@ -313,8 +305,12 @@ function NewHome() {
                     <h4 className="text-primary">Reminders</h4>
                   </div>
                   {todos.map((todo) => (
-              <div className="card bg-secondary text-center p-2 mt-2"> {todo.title} and the due date is: {todo.dueDate === "" ? "" : "⏰ " + todo.dueDate.toDate()}</div>
-            ))}
+                    <div className="card bg-secondary text-center p-2 mt-2">
+                      {" "}
+                      {todo.title}
+                      {todo.dueDate === "" ? "" : " at " + handleDate(todo)}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -336,73 +332,6 @@ function NewHome() {
           </p>
         </div>
       </footer>
-
-      {/* these are the old stuff */}
-
-      {/* <div>
-        <img src={todoGif} alt="loading..." />
-      </div> */}
-      {/* <div className="mt-3">
-        {user.emailVerified == true && user.photoURL}
-        <br />
-        {user && user.uid}
-        {user && user.email}
-
-        {currentUser.map((users) => {
-          return (
-            <div>
-              <br />
-              <h1>Welcome back,{users.firstName}</h1>
-              <h1>lastName: {users.lastName}</h1>
-            </div>
-          );
-        })}
-      </div> */}
-      {/* <div>
-        <div className="box_container">
-          <h1 className="gradient__text">Todo</h1>
-          <div className="todo_container">
-            this is the content in the todo
-            <br />
-            <br />
-            container what are the other things
-          </div>
-          <div className="button_container">
-            <Link to="/todo">
-              <button className="finish-deck-btn1">To-Do</button>
-            </Link>
-          </div>
-        </div>
-
-    
-        <div className="box_container">
-          <h1 className="gradient__text">Flashcards</h1>
-          <div className="flashcard_container">
-            <div>this is flashcard 1</div>
-            <div>this ist flashcard 2</div>
-          </div>
-          <div>
-            <Button
-              className="finish-deck-btn"
-        
-            >
-              <Link to="/flashcard"> Go to Flashcards</Link>
-            </Button>
-          </div>
-        </div>
-       
-
-        <div className="box_container">
-          <h1 className="gradient__text">Events</h1>
-          <div className="todo_container"></div>
-          <Button
-            className="finish-deck-btn"
-            style={{ marginTop: 220, marginLeft: 600 }}
-          >
-            <Link to="/calendar"> Go to Calendar</Link>
-          </Button>
-        </div>
-      </div> */}
     </div>
   );
 }
