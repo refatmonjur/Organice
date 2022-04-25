@@ -25,8 +25,14 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
     },
-    
   };
+
+  const bg = {
+    overlay: {
+      background: "black"
+    }
+  };
+
   useEffect(() => {
     // setLoading(true);
     console.log(deckName);
@@ -149,22 +155,23 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
         isOpen={isOpen}
         onRequestClose={onClose}
         center
-        styles={customStyles}
+        portalClassName={customStyles}
+        // style={{background: {background: "black"} }}
       >
-        <div>
+        <div className="bg-light ">
           {/* here have the study Flashcard component which will flip onClick */}
           <StudyEachCard deckName={deckName} />
         </div>
         {/* <h1>CARDS ON {deckName}: </h1> */}
+        
+        <section className="dark-bg">
         <div 
-          className="transparentBg-Deck"
+          className="bg-dark pt-2 pb-2 mb-3"
+          style={{
+            width: "75%",
+            margin: "0 auto",
+          }}
         >
-          <div
-            className="deck-cards-title center"
-            style={{ justifyContent: "center", fontSize: 22, fontWeight: "bold" }}
-          >
-            Cards in "{deckName}":
-          </div>
           <div>
             {decks1.map((flash) => (
               <div>
@@ -182,6 +189,7 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
             ))}
           </div>
         </div>
+        </section>
         <div>
           <button 
           className="center"
