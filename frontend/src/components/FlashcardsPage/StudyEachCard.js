@@ -52,21 +52,30 @@ function StudyEachCard({ deckName }) {
       >
         {deckName}
       </div>
-      <div>
+
+      <div className="mb-3">
         <Flippy
           flipOnClick={true} // default false
           flipDirection="vertical"
           ref={ref}
-          style={{ minWidth: "200px", height: "200px" }} /// these are optional style, it is not necessary
+          style={{ 
+            minWidth: "200px", 
+            height: "350px",
+            maxWidth: "50%",
+            maxHeight: "50%",
+            margin: "0 auto",
+            width: "50%"
+            }} /// these are optional style, it is not necessary
         >
           <FrontSide
             style={{ 
               color: "white",
-              backgroundColor: "#2a3785",
+              backgroundColor: "rgb(33, 37, 41)",
               fontSize: 20,
               display: "flex",
               justifyContent: 'center', 
-              alignItems: 'center'
+              alignItems: 'center',
+            
             }}
           >
             {flashCards.length > 0 && <p>{flashCards[currentCard].question}</p>}
@@ -75,7 +84,7 @@ function StudyEachCard({ deckName }) {
 
           <BackSide 
             style={{ 
-              backgroundColor: "#dcdff18e",
+              backgroundColor: "white",
               fontSize: 20,
               display: "flex",
               justifyContent: 'center', 
