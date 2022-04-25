@@ -44,11 +44,12 @@ function StudyEachCard({ deckName }) {
     return () => unsub();
   }, []);
 
+  // console.log(Object.keys(flashCards[0]).length);
   return (
     <div>
-      <div 
+      <div
         className="deck-cards-title center"
-        style={{ justifyContent: "center", fontSize: 22, fontWeight: "bold"}}
+        style={{ justifyContent: "center", fontSize: 25, fontWeight: "bold" }}
       >
         {deckName}
       </div>
@@ -58,44 +59,53 @@ function StudyEachCard({ deckName }) {
           flipOnClick={true} // default false
           flipDirection="vertical"
           ref={ref}
-          style={{ 
-            minWidth: "200px", 
+          style={{
+            minWidth: "200px",
             height: "350px",
             maxWidth: "50%",
             maxHeight: "50%",
             margin: "0 auto",
-            width: "50%"
-            }} /// these are optional style, it is not necessary
+            width: "50%",
+          }} /// these are optional style, it is not necessary
         >
           <FrontSide
-            style={{ 
-              color: "white",
+            style={{
+              // color: "white",
               backgroundColor: "rgb(33, 37, 41)",
-              fontSize: 20,
-              display: "flex",
-              justifyContent: 'center', 
-              alignItems: 'center',
-            
+              // fontSize: 20,
+              // display: "flex",
+              // justifyContent: "space-between",
+              // alignItems: "center",
             }}
           >
-            {flashCards.length > 0 && <p>{flashCards[currentCard].question}</p>}
-            {flashCards.length > 0 && <p>{flashCards[currentCard].word}</p>}
+            <h4 className="text-muted"> Question: </h4>
+            <div className=" d-flex justify-content-center text-light showFront">
+              {flashCards.length > 0 && (
+                <h4>{flashCards[currentCard].question}</h4>
+              )}
+              {flashCards.length > 0 && <p>{flashCards[currentCard].word}</p>}
+            </div>
           </FrontSide>
 
-          <BackSide 
-            style={{ 
+          <BackSide
+            style={{
               backgroundColor: "white",
               fontSize: 20,
               display: "flex",
-              justifyContent: 'center', 
-              alignItems: 'center'
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             {flashCards.length > 0 && <p>{flashCards[currentCard].answer}</p>}
-            {flashCards.length > 0 && <p>{flashCards[currentCard].definition}</p>}
+
+            {flashCards.length > 0 && (
+              <p>{flashCards[currentCard].definition}</p>
+            )}
             {flashCards.length > 0 && <p>{flashCards[currentCard].example}</p>}
             {flashCards.length > 0 && <p>{flashCards[currentCard].purpose}</p>}
-            {flashCards.length > 0 && <img className="photo" src={flashCards[currentCard].url}></img>}
+            {flashCards.length > 0 && (
+              <img className="photo" src={flashCards[currentCard].url}></img>
+            )}
           </BackSide>
         </Flippy>
       </div>
@@ -105,7 +115,7 @@ function StudyEachCard({ deckName }) {
       >
         <button
           className="background-button"
-          style={{marginRight: 10, flexGrow: 2,  maxWidth: 300}}
+          style={{ marginRight: 10, flexGrow: 2, maxWidth: 300 }}
           onClick={() => {
             if (currentCard > 0) {
               setCurrentCard(currentCard - 1);
@@ -116,7 +126,7 @@ function StudyEachCard({ deckName }) {
         </button>
         <button
           className="background-button"
-          style={{flexGrow: 2, maxWidth: 300}}
+          style={{ flexGrow: 2, maxWidth: 300 }}
           onClick={() => {
             if (currentCard + 1 < flashCards.length) {
               setCurrentCard(currentCard + 1);

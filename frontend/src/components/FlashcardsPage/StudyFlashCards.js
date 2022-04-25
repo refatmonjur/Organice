@@ -1,7 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { db } from "../../firebase.js";
-import { collection, onSnapshot, doc, deleteDoc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  doc,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { useUserAuth } from "../Context/UserAuthContext";
 import Modal from "react-modal";
 import EachFlashCards from "./EachFlashCards.js";
@@ -29,8 +35,8 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
 
   const bg = {
     overlay: {
-      background: "black"
-    }
+      background: "black",
+    },
   };
 
   useEffect(() => {
@@ -83,13 +89,20 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
     await deleteDoc(docRef3);
   };
   const handleEdit = async (flash, newWord, newDefinition, newExample) => {
-    const docRef4 = doc(db, "user",
+    const docRef4 = doc(
+      db,
+      "user",
       user.uid,
       "flashcard",
       deckName,
       "deck",
-      flash.id);
-    await updateDoc(docRef4, { definition: newDefinition, example: newExample, word: newWord });
+      flash.id
+    );
+    await updateDoc(docRef4, {
+      definition: newDefinition,
+      example: newExample,
+      word: newWord,
+    });
   };
 
   const handleEdit2 = async (flash, newQuestion, newAnswer) => {
@@ -104,7 +117,13 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
     );
     await updateDoc(docRef, { question: newQuestion, answer: newAnswer });
   };
-  const handleEdit3 = async (flash, newWord, newDefinition, newPurpose, newUrl) => {
+  const handleEdit3 = async (
+    flash,
+    newWord,
+    newDefinition,
+    newPurpose,
+    newUrl
+  ) => {
     const docRef = doc(
       db,
       "user",
@@ -114,7 +133,12 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
       "deck",
       flash.id
     );
-    await updateDoc(docRef, { word: newWord, definition: newDefinition, purpose: newPurpose, url: newUrl });
+    await updateDoc(docRef, {
+      word: newWord,
+      definition: newDefinition,
+      purpose: newPurpose,
+      url: newUrl,
+    });
   };
 
   // const toggleComplete = async (flash) => {
@@ -140,7 +164,7 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
         pathname: "/addMoreCardWDE",
         state: { decksName: deckName },
       });
-    } else if(Object.keys(decks1[0]).length == 5) {
+    } else if (Object.keys(decks1[0]).length == 5) {
       history.push({
         pathname: "/addMoreCardImage",
         state: { decksName: deckName },
@@ -156,44 +180,60 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
         onRequestClose={onClose}
         center
         portalClassName={customStyles}
-        // style={{background: {background: "black"} }}
+        // styles={{ overlay: { background: "#000000" } }}
       >
-        <div className="bg-light ">
+        <div className="bg-light">
           {/* here have the study Flashcard component which will flip onClick */}
           <StudyEachCard deckName={deckName} />
         </div>
         {/* <h1>CARDS ON {deckName}: </h1> */}
-        
-        <section className="dark-bg">
-        <div 
-          className="bg-dark pt-2 pb-2 mb-3"
-          style={{
-            width: "75%",
-            margin: "0 auto",
-          }}
-        >
-          <div>
-            {decks1.map((flash) => (
-              <div>
-                {Object.keys(flash).length == 3 && (
-                  <EachFlashCards flash={flash} handleDelete={handleDelete} handleEdit2={handleEdit2} />
-                )}
-                {Object.keys(flash).length == 4 && (
-                  <EachFlashCardsWDE flash={flash} handleDelete={handleDelete} handleEdit={handleEdit} />
-                )}
-                {Object.keys(flash).length == 5 && (
-                  <EachFlashCardsImage flash={flash} handleDelete={handleDelete} handleEdit3={handleEdit3} />
-                )}
-              </div>
-              // {/* // here call another component for each flashcards  */}
-            ))}
+
+        <section className="bg-dark mt-3 pt-2">
+          {/* <h4 className="mt-2 text-danger text-center">Cards in this deck</h4> */}
+          <div
+            className="pt-2 pb-2 mb-3"
+            style={{
+              width: "80%",
+              margin: "0 auto",
+            }}
+          >
+            <h4 className="border-bottom border-secondary m-3 text-danger">
+              Cards in this deck
+            </h4>
+            <div>
+              {decks1.map((flash) => (
+                <div>
+                  {Object.keys(flash).length == 3 && (
+                    <EachFlashCards
+                      flash={flash}
+                      handleDelete={handleDelete}
+                      handleEdit2={handleEdit2}
+                    />
+                  )}
+                  {Object.keys(flash).length == 4 && (
+                    <EachFlashCardsWDE
+                      flash={flash}
+                      handleDelete={handleDelete}
+                      handleEdit={handleEdit}
+                    />
+                  )}
+                  {Object.keys(flash).length == 5 && (
+                    <EachFlashCardsImage
+                      flash={flash}
+                      handleDelete={handleDelete}
+                      handleEdit3={handleEdit3}
+                    />
+                  )}
+                </div>
+                // {/* // here call another component for each flashcards  */}
+              ))}
+            </div>
           </div>
-        </div>
         </section>
         <div>
-          <button 
-          className="center"
-          style={{ justifyContent: "center"}}
+          <button
+            className="btn btn-dark btn-lg center"
+            style={{ justifyContent: "center" }}
             onClick={handleAdd}
           >
             ADD NEW CARDS

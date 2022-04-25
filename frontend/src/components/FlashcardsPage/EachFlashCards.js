@@ -30,10 +30,7 @@ function EachFlashCards({ flash, handleDelete, handleEdit2 }) {
   };
 
   return (
-    <div 
-      className="card"
-      style={{margin: 10}}
-    >
+    <div className="card" style={{ margin: 10 }}>
       {/* SHOW THIS DIV IF User has no decks in their data */}
       <div className="flashcard-container">
         <div className="flashcard-prompt">
@@ -54,12 +51,18 @@ function EachFlashCards({ flash, handleDelete, handleEdit2 }) {
           />
         </div>
         <div>
-          <button onClick={() => handleEdit2(flash, newQuestion, newAnswer)}>
+          <button
+            className="btn btn-info"
+            onClick={() => handleEdit2(flash, newQuestion, newAnswer)}
+          >
             <EditIcon />
           </button>
         </div>
         <div>
-          <button onClick={() => handleDelete(flash.id)}>
+          <button
+            className="btn btn-danger"
+            onClick={() => handleDelete(flash.id)}
+          >
             <DeleteIcon />
           </button>
         </div>

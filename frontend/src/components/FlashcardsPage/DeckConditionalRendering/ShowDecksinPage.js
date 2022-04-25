@@ -7,7 +7,8 @@ import { db } from "../../../firebase.js";
 import { color } from "@mui/system";
 import { decomposeColor } from "@mui/lab/node_modules/@mui/system";
 import { useHistory } from "react-router-dom";
-import StudyFlashCard from "../StudyFlashCards";
+// import StudyFlashCard from "../StudyFlashCards";
+import StudyFlashCards from "../StudyFlashCards";
 
 export default function ShowDecksinPage({ deck, deleting }) {
   let history = useHistory();
@@ -42,7 +43,7 @@ export default function ShowDecksinPage({ deck, deleting }) {
         </div>
       </div>
 
-      <StudyFlashCard
+      <StudyFlashCards
         key={deck.id}
         deckName={deck.id}
         isOpen={clicked}
