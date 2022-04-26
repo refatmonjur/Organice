@@ -48,7 +48,7 @@ function StudyEachCard({ deckName }) {
   return (
     <div>
       <div
-        className="deck-cards-title center"
+        className="text-danger p-3 text-center"
         style={{ justifyContent: "center", fontSize: 25, fontWeight: "bold" }}
       >
         {deckName}
@@ -71,7 +71,7 @@ function StudyEachCard({ deckName }) {
           <FrontSide
             style={{
               // color: "white",
-              backgroundColor: "rgb(33, 37, 41)",
+              backgroundColor: "#00203FFF",
               // fontSize: 20,
               // display: "flex",
               // justifyContent: "space-between",
@@ -89,7 +89,7 @@ function StudyEachCard({ deckName }) {
 
           <BackSide
             style={{
-              backgroundColor: "white",
+              backgroundColor: "#9CC3D5FF",
               fontSize: 20,
               display: "flex",
               justifyContent: "center",

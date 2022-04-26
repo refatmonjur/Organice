@@ -174,21 +174,28 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
 
   // console.log(Object.keys(decks1[0]).length); // this is how we get length of the object
   return (
-    <div>
+    <div className="bg-dark">
       <Modal
         isOpen={isOpen}
         onRequestClose={onClose}
         center
-        portalClassName={customStyles}
-        // styles={{ overlay: { background: "#000000" } }}
+        style={{
+          overlay: {
+            backgroundColor: "#292b2c",
+          },
+          content: {
+            background: "##292b2c",
+            borderRadius: "4px",
+          },
+        }}
       >
-        <div className="bg-light">
+        <div className="bg-dark">
           {/* here have the study Flashcard component which will flip onClick */}
           <StudyEachCard deckName={deckName} />
         </div>
         {/* <h1>CARDS ON {deckName}: </h1> */}
 
-        <section className="bg-dark mt-3 pt-2">
+        <section className="bg-dark p-2">
           {/* <h4 className="mt-2 text-danger text-center">Cards in this deck</h4> */}
           <div
             className="pt-2 pb-2 mb-3"
@@ -232,7 +239,7 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
         </section>
         <div>
           <button
-            className="btn btn-dark btn-lg center"
+            className="btn btn-secondary mt-4 btn-lg center"
             style={{ justifyContent: "center" }}
             onClick={handleAdd}
           >

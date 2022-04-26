@@ -57,6 +57,10 @@
   border: none;
 }
 
+.list2{
+
+}
+
 .whiteBg {
   background-color: white;
   padding: 30px;
@@ -307,6 +311,32 @@
   padding: 20px;
   margin: 0 auto;
 }
+.flashcard-definition{
+  padding: 20px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: hsla(221, 62%, 55%, 0) rgb(0, 43, 136) hsla(221, 62%, 55%, 0)
+    hsla(221, 62%, 55%, 0);
+  margin-right: 2%;
+}
+.flashcard-example{
+  padding: 20px;
+  margin: 0 auto;
+}
+.flashcard-image{
+  padding: 20px;
+  margin-right: 4%;
+  border-width: 1px;
+  border-style: solid;
+  border-color: hsla(221, 62%, 55%, 0) rgb(0, 43, 136) hsla(221, 62%, 55%, 0)
+    hsla(221, 62%, 55%, 0);
+
+}
+.image_buttons{
+  display: flex;
+  padding: 20px;
+  margin-left: auto;
+}
 
 /* flashcard deck title */
 .deck-title {
@@ -318,13 +348,14 @@
   padding: 0px 10px;
 }
 
-.deck-cards-title {
+/* .deck-cards-title {
   background: var(--gradient-deck-text);
   background-clip: text;
-  -webkit-text-fill-color: transparent; /* THIS ALLOWS FOR DIFFERENT BROWSERS*/
+  -webkit-text-fill-color: transparent; 
+  THIS ALLOWS FOR DIFFERENT BROWSERS
   padding: 20px;
   margin: 20px 0px;
-}
+} */
 
 /* Study Each Card CSS */
 .background-button {
@@ -364,7 +395,7 @@
 }
 .photo{
   height: 100px;
-      width: auto; 
+  width: auto;
 }
 
 /* Footer */

@@ -52,7 +52,7 @@ function EachFlashCards({ flash, handleDelete, handleEdit2 }) {
         </div>
         <div>
           <button
-            className="btn btn-info"
+            className="btn btn-info m-1"
             onClick={() => handleEdit2(flash, newQuestion, newAnswer)}
           >
             <EditIcon />
@@ -60,7 +60,7 @@ function EachFlashCards({ flash, handleDelete, handleEdit2 }) {
         </div>
         <div>
           <button
-            className="btn btn-danger"
+            className="btn btn-danger m-1"
             onClick={() => handleDelete(flash.id)}
           >
             <DeleteIcon />
