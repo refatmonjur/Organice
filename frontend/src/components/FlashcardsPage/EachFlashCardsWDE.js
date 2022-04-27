@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { Input, InputBase } from "@mui/material";
 
 // Justin -> added prompt and answer for testing,
 //  feel free to get rid of it since it is not needed and is extra
@@ -52,27 +53,27 @@ function EachFlashCardsWDE({ flash, handleDelete, handleEdit }) {
       <div className="flashcard-container">
         {/* <form> */}
         <div className="flashcard-prompt">
-          <input
-            type="text"
+          <InputBase
+            fullWidth
+            multiline
             value={flash.word === "" ? newWord : flash.word}
-            className="list"
             onChange={handleChangeWord}
           />
         </div>
         <div className="flashcard-definition">
-          <input
-            type="text"
+          <InputBase
+            fullWidth
+            multiline
             value={flash.definition === "" ? newDefinition : flash.definition}
-            className="list"
             onChange={handleChangeDefinition}
           />
         </div>
 
         <div className="flashcard-example">
-          <input
-            type="text"
+          <InputBase
+            fullWidth
+            multiline
             value={flash.example === "" ? newExample : flash.example}
-            className="list"
             onChange={handleChangeExample}
           />
         </div>

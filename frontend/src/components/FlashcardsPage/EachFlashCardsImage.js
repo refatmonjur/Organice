@@ -15,11 +15,12 @@ import {
 } from "firebase/firestore";
 import { db, storage } from "../../firebase.js";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { InputBase } from "@mui/material";
 
 function EachFlashCardsImage({ flash, handleDelete, handleEdit3 }) {
   const [newWord, setNewWord] = useState(flash.word);
   const [newPurpose, setNewPurpose] = useState(flash.purpose);
-  const [newDefinition, setNewDefinition] = useState(flash.defintion);
+  const [newDefinition, setNewDefinition] = useState(flash.definition);
   const [newUrl, setNewUrl] = useState(flash.url);
   const [progress, setProgress] = useState("");
   const handleChangeWord = (e) => {
@@ -100,34 +101,34 @@ function EachFlashCardsImage({ flash, handleDelete, handleEdit3 }) {
       {/* SHOW THIS DIV IF User has no decks in their data */}
       <div className="flashcard-container">
         {/* <form> */}
-        <div className="flashcard-prompt">
-          <input
-            type="text"
+        <div className="flashcard-word">
+          <InputBase
+            fullWidth
+            multiline
             value={flash.word === "" ? newWord : flash.word}
-            className="list"
             onChange={handleChangeWord}
           />
         </div>
 
         <div className="flashcard-definition">
-          <input
-            type="text"
+          <InputBase
+            fullWidth
+            multiline
             value={flash.definition === "" ? newDefinition : flash.definition}
-            className="list"
             onChange={handleChangeDefinition}
           />
         </div>
 
         <div className="flashcard-image">
-          <input
-            type="text"
+          <InputBase
+            fullWidth
+            multiline
             value={flash.purpose === "" ? newPurpose : flash.purpose}
-            className="list"
             onChange={handleChangePurpose}
           />
         </div>
 
-        <div>
+        <div className="p-2">
           <img className="photo" src={flash.url}></img>
         </div>
         <div className="image_buttons">
