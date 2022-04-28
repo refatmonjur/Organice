@@ -163,44 +163,35 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
           <div>
             <label>Add Attachment</label>
             <br />
-            <input
-              type="file"
-              className="file-upload-button"
-              name="attachment"
-              style={{
-                color: "blue",
-                marginBottom: 30,
-              }}
-              // onChange={(e) => {
-              //   handleAttachment(e.target.value);
-              // }}
-            />
-            <button type="submit">
-              <DriveFolderUploadIcon />
-            </button>
-
-            {/* {progress > 0 && progress < 100 && (
-              <CircularProgress color="inherit" value={progress} />
-            )} */}
-
-            {/* <CircularProgressWithLabel value={progress} /> */}
-            {/* <h1>Progress: {progress}</h1>
-            <Slider value={progress} /> */}
-          </div>
-          <div>
-            {progress == 100 && (
-              <h5>
-                <CheckCircleOutlineIcon fontSize="large" color="success" />{" "}
-                Uploaded
-              </h5>
-            )}
+            <div className="d-flex justify-content-between">
+              <input
+                type="file"
+                className="file-upload-button"
+                name="attachment"
+                style={{
+                  color: "blue",
+                  marginBottom: 30,
+                }}
+                // onChange={(e) => {
+                //   handleAttachment(e.target.value);
+                // }}
+              />
+              <div>
+                {progress == 100 ? (
+                  <div className="d-flex">
+                    <CheckCircleOutlineIcon fontSize="large" color="success" />
+                    <h5 className="p-2 text-muted">Uploaded</h5>
+                  </div>
+                ) : (
+                  <button type="submit" className="bg-dark mb-4">
+                    <DriveFolderUploadIcon />
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
 
           <br />
-          {/* <div>
-            <Button>Upload</Button>
-          </div> */}
-          {/* add description */}
           <div>
             <label>Add description</label>
             <TextField
@@ -234,7 +225,9 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
             />
           </div>
           <br />
-          <button onClick={(e) => handleSubmit(e)}>Add event</button>
+          <button className="bg-dark" onClick={(e) => handleSubmit(e)}>
+            Add event
+          </button>
         </div>
       </form>
     </Dialog>

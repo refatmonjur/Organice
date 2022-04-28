@@ -129,12 +129,13 @@ function AddDefinitionCard() {
       {/* Question Answer Add Cards Div */}
       <section className="card-body bg-light ">
         <form
+          className="bg-light"
           onSubmit={handleSubmit}
           style={{
             display: "flex",
             justifyContent: "center",
             flexDirection: "column",
-            paddingBottom: "40%"
+            paddingBottom: "40%",
           }} // #0e1a3a90
         >
           {inputFields.map((inputField, index) => (
@@ -211,10 +212,7 @@ function AddDefinitionCard() {
           {/* <Button className="add-card-btn" style={{ marginTop: 20 }}>
           Add Card
         </Button> */}
-          <Button
-            className="finish-deck-btn"
-            onClick={createDeck}
-          >
+          <Button className="finish-deck-btn" onClick={createDeck}>
             <Link
               style={{ textDecoration: "none", color: "white" }}
               to="/flashcard"

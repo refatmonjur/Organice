@@ -42,7 +42,9 @@ function AddMoreCardWDE() {
   const [deckName, setDeckName] = useState("");
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
-  const [inputFields, setInputField] = useState([{ word: "", definition: "", example: "" }]);
+  const [inputFields, setInputField] = useState([
+    { word: "", definition: "", example: "" },
+  ]);
 
   // call firebase to add flashcard to deck with the deckName as prevDeckName
 
@@ -92,25 +94,26 @@ function AddMoreCardWDE() {
         <div className="addnewdeck-header center-text">
           <div id="flex-containerQA">
             <div
-              className="gradient__text"
-              style={{ marginTop: -40, marginBottom: -40, fontWeight: "bold" }}
+              className="p-2"
+              style={{ marginTop: -20, marginBottom: -20, fontWeight: "bold" }}
             >
-              Add more cards
+              Add more cards to
+              <span className="text-warning"> {prevDeckName}</span>
             </div>
           </div>
         </div>
       </section>
 
-
       {/* Question Answer Add Cards Div */}
       <section className="card-body bg-light ">
         <form
+          className="bg-light"
           onSubmit={handleSubmit}
           style={{
             display: "flex",
             justifyContent: "center",
             flexDirection: "column",
-            paddingBottom: "40%"
+            paddingBottom: "40%",
           }} // #0e1a3a90
         >
           {inputFields.map((inputField, index) => (
@@ -187,10 +190,7 @@ function AddMoreCardWDE() {
           {/* <Button className="add-card-btn" style={{ marginTop: 20 }}>
           Add Card
         </Button> */}
-          <Button
-            className="finish-deck-btn"
-            onClick={createDeck}
-          >
+          <Button className="finish-deck-btn" onClick={createDeck}>
             <Link
               style={{ textDecoration: "none", color: "white" }}
               to="/flashcard"
@@ -200,7 +200,6 @@ function AddMoreCardWDE() {
           </Button>
         </div>
       </section>
-
     </div>
   );
 }

@@ -129,12 +129,13 @@ function AddQACard() {
       {/* Question Answer Add Cards Div */}
       <section className="card-body bg-light ">
         <form
+          className="bg-light"
           onSubmit={handleSubmit}
           style={{
             display: "flex",
             justifyContent: "center",
             flexDirection: "column",
-            paddingBottom: "40%"
+            paddingBottom: "40%",
             // margin: "20px 20px 20px 20px"
           }} // #0e1a3a90
         >
@@ -207,10 +208,7 @@ function AddQACard() {
           {/* <Button className="add-card-btn" style={{ marginTop: 20 }}>
           Add Card
         </Button> */}
-          <Button
-            className="finish-deck-btn"
-            onClick={createDeck}
-          >
+          <Button className="finish-deck-btn" onClick={createDeck}>
             <Link
               style={{ textDecoration: "none", color: "white" }}
               to="/flashcard"
@@ -219,12 +217,8 @@ function AddQACard() {
             </Link>
           </Button>
         </div>
-
       </section>
-
-      
     </div>
-    
   );
 }
 
