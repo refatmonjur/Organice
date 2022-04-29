@@ -12,6 +12,8 @@ import DateRangeIcon from "@mui/icons-material/DateRange";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import Datetime from "react-datetime";
+import "./MoreProperties.css";
 
 function MoreProperties({ setDescription, dateTime, setDateTime }) {
   const [open, setOpen] = useState(false);
@@ -42,25 +44,41 @@ function MoreProperties({ setDescription, dateTime, setDateTime }) {
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Enter Date/Time and Description</DialogTitle>
           <DialogContent>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <div className="picker-container">
+              {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                 label="Date Time picker"
                 value={dateTime}
                 onChange={handleChange}
                 renderInput={(params) => <TextField {...params} />}
               />
-            </LocalizationProvider>
+            </LocalizationProvider> */}
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <label>Pick Date/Time</label>
+                <Datetime
+              value={dateTime}
+              onChange={handleChange}
+            />
 
-            <TextField
-              id="outlined-basic"
-              label="Description"
-              variant="outlined"
-              placeholder="Ex. Work on assignment as a team"
-              // value={description}
-              onChange={(e) => {
-                handleChange2(e.target.value);
-              }}
-            ></TextField>
+              </LocalizationProvider>
+            </div>
+            <div className="desc-container">
+              <TextField
+                //id="outlined-basic"
+                id="standard-multiline-flexible"
+                label="Description"
+                multiline
+                fullWidth
+                rows={4}
+                //variant="outlined"
+                variant="standard"
+                placeholder="Ex. Work on assignment as a team"
+                // value={description}
+                onChange={(e) => {
+                  handleChange2(e.target.value);
+                }}
+              ></TextField>
+            </div>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>

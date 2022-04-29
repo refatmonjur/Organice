@@ -112,10 +112,10 @@ function Flashcard() {
                 Flashcard Section
               </h1>
               <p className="lead my-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi
+              One of Organice's most important characteristics. It has all of the standard flashcard functions, 
+              including the ability to create a deck of flashcards, add/remove flashcards from the deck, and study the flashcard deck. 
+              The variety of flashcards available for customers to add to their decks is what sets us apart from the competition. 
+              This is to attract a bigger user base, since more diversity leads to a wider range of applications for the flashcards.
               </p>
             </div>
             <img
