@@ -59,7 +59,7 @@
     border-bottom-left-radius: 5px;
 }
 
-.organice__header-content__input button {
+/* .organice__header-content__input button {
     flex: 0.2;
     width: 100%;
     min-height: 50px;
@@ -76,7 +76,7 @@
 
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-}
+} */
 
 
 .organice__header-image {

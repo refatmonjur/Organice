@@ -7,7 +7,7 @@ import { useHistory, Link } from "react-router-dom";
 function Header() {
   const history = useHistory();
   return (
-    <div className="organice__header section__padding" id="home">
+    <div className="bg-dark organice__header section__padding" id="home">
       <div className="organice__header-content">
         <h1 className="gradient__text">Welcome to Organice</h1>
         <p>
@@ -18,16 +18,14 @@ function Header() {
           There will be additional components such as a calendar and to-do list
           for the user to further organize their academic journey.
         </p>
-        <div className="organice__header-content__input">
-          <Button
+        <div className="text-white">
+          <button
             key="get started"
             path="/signup"
-            style={{ textTransform: "none" }}
-            variant="contained"
-            type="button"
+            class="btn btn-success btn-lg "
           >
             <Link to="/signup">Get Started</Link>
-          </Button>
+          </button>
         </div>
       </div>
 
