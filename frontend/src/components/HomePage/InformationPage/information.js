@@ -4,7 +4,7 @@ import './information.css';
 
 function Information() {
     return (
-        <div className='organice__info section__margin'>
+        <div className='organice__info section__margin bg-light'>
             <div className='organice__info-feature'>
                 <Features title = "What is Organice" text = "We want to create an efficient medium for studying/learning/memorizing using flashcards. Providing the users with a variety of flashcard templates for different scenarios. With additional features that assists with time management, using to-do lists and calendar reminders. We want to create a website that helps students study. Using flashcards and timely reminders of to-do lists and calendars, students can achieve academic success. We have looked through different works that already exists such as Quizlet and some aspects of Notion, and have taken inspiration from them. Using Figma, we created a rough foundation of how our website would operate, along with an early rendition of our UI/UX. We plan to develop our application throughout the Spring term, and aim to deploy by April 22, 2022. "/>
             </div>
