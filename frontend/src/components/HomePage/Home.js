@@ -30,11 +30,11 @@ function Home() {
         <div className="container">
           <div className="d-sm-flex align-items-center justify-content-between ">
             <div>
-            <h1 className="text-sm-start">
+              <h1 className="text-sm-start">
                 Welcome to
                 <span className="text-warning"> Organice</span>
               </h1>
-              <p className="lead my-4">
+              <p className="lead my-4 text-justify">
                 Given a semester long period, we will be creating a flashcard-based
                 website that will aid students of all ages. Studying is a key
                 component in order to succeed in academic life, and flashcards are an
@@ -42,20 +42,24 @@ function Home() {
                 There will be additional components such as a calendar and to-do list
                 for the user to further organize their academic journey.
               </p>
-            </div>             
-             <img
-                className="img-fluid w-50 d-none d-sm-block"
-                src={image}
-                alt=""
-              ></img>
+              <a
+                href="/signup"
+                class="btn btn-warning"
+                role="button"
+              >
+                Get Started
+              </a>
+            </div>
+            <img
+              className="img-fluid w-50 d-none d-sm-block"
+              src={image}
+              alt=""
+            ></img>
           </div>
         </div>
       </section>
 
-
       {/* INFORMATION ABOUT WEBSITE */}
-
-
       <section className="p-5 bg-light">
         <div className="container">
           <div className="row text-center gap-4">
@@ -69,10 +73,10 @@ function Home() {
                   </div>
                   <h3 className="card-title">To do List</h3>
                   <p className="card-text">
-                  This is the main feature of our website. 
-                  It will be fully responsive with the core flashcard 
-                  features such as creating a deck of flashcards, 
-                  adding/deleting flashcards from the deck, and studying the flashcard deck.
+                    This is the main feature of our website.
+                    It will be fully responsive with the core flashcard
+                    features such as creating a deck of flashcards,
+                    adding/deleting flashcards from the deck, and studying the flashcard deck.
                   </p>
                 </div>
               </div>
@@ -87,10 +91,10 @@ function Home() {
                   </div>
                   <h3 className="card-title">Flashcard</h3>
                   <p className="card-text">
-                  The To-do feature is an add-on feature that allows for a user to 
-                  plan out what they are going to be doing in the coming days or weeks. 
-                  When adding a to-do you have the option of uploading any files that are associated with that to do. 
-          
+                    The To-do feature is an add-on feature that allows for a user to
+                    plan out what they are going to be doing in the coming days or weeks.
+                    When adding a to-do you have the option of uploading any files that are associated with that to do.
+
                   </p>
                 </div>
               </div>
@@ -105,8 +109,8 @@ function Home() {
                   </div>
                   <h3 className="card-title">Calendar</h3>
                   <p className="card-text">
-                  The calendar feature of the website will remind the user of all their upcoming tasks/assignments. 
-                  The user can add reminders to each day of the week accompanied by comments and descriptions along with attaching/uploading file(s). 
+                    The calendar feature of the website will remind the user of all their upcoming tasks/assignments.
+                    The user can add reminders to each day of the week accompanied by comments and descriptions along with attaching/uploading file(s).
                   </p>
                 </div>
               </div>
@@ -115,29 +119,27 @@ function Home() {
         </div>
       </section>
 
-
-
       <section className="p-5 bg-light">
         <div className="container bg-dark text-white p-5">
           <div className="">
             <h1 className="text-sm-start">
               What is Organice?
             </h1>
-            <p class="text-justify">
-            We want to create an efficient medium for 
-            studying/learning/memorizing using flashcards. 
-            Providing the users with a variety of flashcard 
-            templates for different scenarios. With additional 
-            features that assists with time management, using to-do 
-            lists and calendar reminders. We want to create a website that 
-            helps students study. Using flashcards and timely reminders of to-do 
-            lists and calendars, students can achieve academic success. We have 
-            looked through different works that already exists such as Quizlet 
-            and some aspects of Notion, and have taken inspiration from them. 
-            Using Figma, we created a rough foundation of how our 
-            website would operate, along with an early rendition of our UI/UX. 
-            We plan to develop our application throughout the Spring term, 
-            and aim to deploy by April 22, 2022.
+            <p className="text-justify">
+              We want to create an efficient medium for
+              studying/learning/memorizing using flashcards.
+              Providing the users with a variety of flashcard
+              templates for different scenarios. With additional
+              features that assists with time management, using to-do
+              lists and calendar reminders. We want to create a website that
+              helps students study. Using flashcards and timely reminders of to-do
+              lists and calendars, students can achieve academic success. We have
+              looked through different works that already exists such as Quizlet
+              and some aspects of Notion, and have taken inspiration from them.
+              Using Figma, we created a rough foundation of how our
+              website would operate, along with an early rendition of our UI/UX.
+              We plan to develop our application throughout the Spring term,
+              and aim to deploy by April 22, 2022.
             </p>
           </div>
 
@@ -148,7 +150,7 @@ function Home() {
       <section className="bg-dark">
         <div className='organice__mtt_container section_margin'>
           <div className='organice__mtt-heading'>
-            <h1 className='gradient__text'>The Organice Team</h1>
+            <h5 className="text-warning p-5"> The Organice Team</h5>
           </div>
           <div className='organice__team'>
             {/* JUSTIN */}
@@ -222,8 +224,6 @@ function Home() {
 
 
       </section>
-
-
 
       {/* FOOTER */}
       <div className="">

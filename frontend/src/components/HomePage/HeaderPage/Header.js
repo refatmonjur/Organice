@@ -7,6 +7,12 @@ import { useHistory, Link } from "react-router-dom";
 function Header() {
   const history = useHistory();
   return (
+
+
+    
+
+
+
     <div className="bg-dark organice__header section__padding" id="home">
       <div className="organice__header-content">
         <h1 className="gradient__text">Welcome to Organice</h1>
@@ -24,7 +30,7 @@ function Header() {
             path="/signup"
             class="btn btn-success btn-lg "
           >
-            <Link to="/signup">Get Started</Link>
+            <link href="/signup">Get Started</link>
           </button>
         </div>
       </div>
