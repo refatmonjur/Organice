@@ -73,7 +73,7 @@ function Profile() {
       <div className="welcome">Welcome Back,</div>
 
       {/* everything goes inside here */}
-      <div className="container_1">
+      <div className="container_1 bg-dark">
         {/* image container */}
         <div className="avatar--container">
           <img
@@ -89,7 +89,7 @@ function Profile() {
         {/* name field */}
         {currentUser.map((users) => {
           return (
-            <div className="namefield-container">
+            <div className="namefield-container bg-light">
               <TextField
                 id="outlined-basic"
                 variant="standard"
