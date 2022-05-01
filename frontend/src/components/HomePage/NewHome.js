@@ -12,7 +12,9 @@ import {
   orderBy,
   query,
   where,
+  limitToLast
 } from "firebase/firestore";
+
 import "./NewHome.css";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
@@ -42,6 +44,9 @@ function NewHome() {
   const [decks, setDecks] = useState([]);
   const [flashcard, setFlashcard] = useState([]);
   const [currentUser, setCurrentUser] = useState([]);
+  const [notification, setNotification] = useState([]);
+  const [notification1, setNotification1] = useState([]);
+  const [ events, setEvents] = useState([]);
 
   async function getUsers(db) {
     const userDocRef = doc(db, "user", user.uid);
@@ -52,25 +57,12 @@ function NewHome() {
     console.log(fields);
     setCurrentUser(fields);
   }
-  // async function getStudentRecords(db) {
-  //   const recordCol = collection(db, "user", user.uid, "todos");
-  //   // setLoading(true);
-  //   onSnapshot(recordCol, (querySnapshot) => {
-  //     const record = [];
-  //     querySnapshot.forEach((doc) => {
-  //       record.push(doc.data());
-  //     });
-  //     console.log(record);
-  //     setTodos(record);
-  //     // setStudentRecord(record);
-  //   });
-  //   // setLoading(false);
-  // }
 
   useEffect(() => {
     getUsers(db);
 
     const TodoCollectionRef = collection(db, "user", user.uid, "todos");
+    const EventCollectionRef = collection(db, "user", user.uid, "events");
     const todoQuery = query(TodoCollectionRef, where("dueDate", "!=", ""));
     const unsub = onSnapshot(todoQuery, (queryS) => {
       const todosArray = [];
@@ -91,7 +83,70 @@ function NewHome() {
       setDecks(decksArray);
     });
 
-    return () => unsub1();
+    const unsubevents = onSnapshot(EventCollectionRef, (queryS1) => {
+      const eventsArray = [];
+      queryS1.forEach((doc) => {
+        eventsArray.push({ ...doc.data(), id: doc.id });
+      });
+      console.log(eventsArray);
+      setEvents(eventsArray);
+    });
+
+    // Notification Functionality
+    console.log(Date.now());
+    var today = new Date();
+    console.log(today);
+    // set range
+    var beginningDateObject = new Date();
+    beginningDateObject.setHours(0, 0, 0, 0);
+
+    var endDate = new Date(new Date().setHours(23, 59, 59, 999));
+    console.log(beginningDateObject);
+    console.log(endDate);
+    // display todays query
+    const notifquery = query(
+      TodoCollectionRef,
+      where("dueDate", ">", beginningDateObject),
+      where("dueDate", "<", endDate),
+      where("completed", "==", false),
+      orderBy("dueDate","asc"),
+      limitToLast(1),
+    );
+
+    const unsubs = onSnapshot(notifquery, (queryS) => {
+      const noti = [];
+      queryS.forEach((doc) => {
+        noti.push({ ...doc.data(), id: doc.id });
+      });
+
+      
+
+      // console.log(Timestamp.now().toDate());
+      console.log(noti);
+      setNotification(noti);
+    });
+    console.log(notification);
+
+    // event notifcation 
+    const eventquery = query(
+      EventCollectionRef,
+      where("startDate", ">", beginningDateObject),
+      where("startDate", "<", endDate),
+      orderBy("startDate","asc"),
+      limitToLast(1),
+    );
+
+    const unsubs1 = onSnapshot(eventquery, (queryS) => {
+      const events = [];
+      queryS.forEach((doc) => {
+        events.push({ ...doc.data(), id: doc.id });
+      });
+
+      console.log(events);
+      setNotification1(events);
+    });
+
+    return () => [unsub1(), unsubs(), unsubs1, unsubevents];
     // getStudentRecords(db);
   }, []);
 
@@ -107,6 +162,33 @@ function NewHome() {
     const new_date = date.toLocaleDateString(undefined, options);
     return new_date;
   };
+
+  const handleDate1 = (events) => {
+    const date = new Date(events.startDate.toDate());
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+    const new_date = date.toLocaleDateString(undefined, options);
+    return new_date;
+  };
+  const handleDate2 = (events) => {
+    const date = new Date(events.endDate.toDate());
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+    const new_date = date.toLocaleDateString(undefined, options);
+    return new_date;
+  };
+
+
   return (
     <div className="bg-dark">
       <div>
@@ -135,6 +217,26 @@ function NewHome() {
               src={showcase}
               alt=""
             ></img>
+          </div>
+          <p>Todays Notifications:</p>
+          <div>
+            {notification.map((notif) => (
+              <div className="card text-light bg-secondary mt-2 p-2">
+                {notif.title}
+                <small class="italicize">{handleDate(notif)}</small>
+              </div>
+            ))}
+          </div>
+
+          <p>Todays Events:</p>
+          <div>
+            {notification1.map((events) => (
+              <div className="card text-light bg-secondary mt-2 p-2">
+                {events.title}
+                <small class="italicize"> Start Date: {handleDate1(events)}</small>
+                <small class="italicize"> End Date: {handleDate2(events)} </small>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -287,18 +389,20 @@ function NewHome() {
                   <div className="card-title">
                     <h4 className="text-info">Events</h4>
                   </div>
-                  <div className="card bg-light text-center p-2 mt-2">
-                    take out the dog from 10:00 AM - 11:00 AM
-                  </div>
-                  <div className="card bg-light text-center p-2 mt-2">
-                    do the science Homework from 12:00pm- 2:00pm
-                  </div>
-                  <div className="card bg-light text-center p-2 mt-2">
-                    gym from 3:00 PM - 4:00 PM
+                  <div>
+                  {events.map((events) => (
+                    <div className="card bg-light text-center p-2 mt-2">
+                      {" "}
+                      {events.title} {" "}
+                      {handleDate1(events)} {" "}
+                      - {handleDate2(events)}
+                    </div>
+                  ))}
                   </div>
                 </div>
               </div>
             </div>
+
             <div className="col-md-12 col-lg-6">
               <div className="card bg-dark shadow-lg">
                 <div className="card-body text-center">

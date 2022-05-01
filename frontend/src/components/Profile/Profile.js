@@ -21,7 +21,7 @@ import { db } from "../../firebase";
 import imageavatar from "./avatar.png";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { useLocation } from "react-router-dom";
-import { doc, getDoc, collection, onSnapshot } from "firebase/firestore";
+import { doc, getDoc, collection, onSnapshot, updateDoc, } from "firebase/firestore";
 // function useQuery() {
 //   const location = useLocation();
 //   return new URLSearchParams(location.search);
@@ -31,11 +31,15 @@ function Profile() {
   const [open, setOpen] = useState(false);
   const [openPass, setOpenPass] = useState(false);
   const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const { user } = useUserAuth();
   const { passwordUpdate } = useUserAuth();
   const [currentUser, setCurrentUser] = useState([]);
 
   const handleClose = () => {
+    //add update name function here
+    handleNameUpdate(firstName, lastName);
     setOpen(false);
   };
 
@@ -61,10 +65,17 @@ function Profile() {
     } catch (e) {
       console.log(e.message);
     }
-  }
-
+  };
+  const handleNameUpdate = async(firstName, lastName) => {
+    const docRef = doc(db, "user", user.uid);
+      await updateDoc(docRef, { firstName: firstName, lastName: lastName});
+    };
+    
   useEffect(() => {
     getUsers(db);
+    setFirstName("");  
+    setLastName("");
+
   }, []);
   return (
     <div>
@@ -140,12 +151,18 @@ function Profile() {
                 label=" Enter New First Name"
                 variant="outlined"
                 size="small"
+                type= "text"
+                value= {firstName}
+                onChange={(e) => setFirstName(e.target.value)}
               />
               <TextField
                 id="outlined-basic"
                 label=" Enter New Last Name"
                 variant="outlined"
                 size="small"
+                type= "text"
+                value= {lastName}
+                onChange={(e) => setLastName(e.target.value)}
               />
             </div>
           </DialogContent>
@@ -155,6 +172,9 @@ function Profile() {
           </DialogActions>
         </Dialog>
       </div>
+
+
+
       <div>
         <Dialog open={openPass} onClose={handleClosePass}>
           <DialogTitle>Update Password</DialogTitle>
