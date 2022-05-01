@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { Input, InputBase } from "@mui/material";
+
 // Justin -> added prompt and answer for testing,
 //  feel free to get rid of it since it is not needed and is extra
 //    prompt was meant to imitate flash.question
@@ -45,59 +47,58 @@ function EachFlashCardsWDE({ flash, handleDelete, handleEdit }) {
     }
   };
 
-    return (
-      <div className="transparentBg2">
-        {/* SHOW THIS DIV IF User has no decks in their data */}
-        <div className="flashcard-container">
-          {/* <form> */}
-          <div className="flashcard-prompt">
-            <input
-              type="text"
-              value={flash.word === "" ? newWord : flash.word}
-              className="list"
-              onChange={handleChangeWord}
-            />
-          </div>
-          <div className="flashcard-answer">
-            <input
-              type="text"
-              value={flash.definition === "" ? newDefinition : flash.definition}
-              className="list"
-              onChange={handleChangeDefinition}
-            />
-          </div>
+  return (
+    <div className="card " style={{ margin: 10 }}>
+      {/* SHOW THIS DIV IF User has no decks in their data */}
+      <div className="flashcard-container">
+        {/* <form> */}
+        <div className="flashcard-prompt">
+          <InputBase
+            fullWidth
+            multiline
+            value={flash.word === "" ? newWord : flash.word}
+            onChange={handleChangeWord}
+          />
+        </div>
+        <div className="flashcard-definition">
+          <InputBase
+            fullWidth
+            multiline
+            value={flash.definition === "" ? newDefinition : flash.definition}
+            onChange={handleChangeDefinition}
+          />
+        </div>
 
-          <div>
-            <input
-              type="text"
-              value={flash.example === "" ? newExample : flash.example}
-              className="list"
-              onChange={handleChangeExample}
-            />
-          </div>
-          <div>
-            <button
-              className="button-edit"
-              style={{
-                height: 10,
-                width: 10,
-              }}
-              onClick={() =>
-                handleEdit(flash, newWord, newDefinition, newExample)
-              }
-            >
-              <EditIcon />
-            </button>
-          </div>
+        <div className="flashcard-example">
+          <InputBase
+            fullWidth
+            multiline
+            value={flash.example === "" ? newExample : flash.example}
+            onChange={handleChangeExample}
+          />
+        </div>
+        <div>
+          <button
+            className="btn btn-info m-1"
+            onClick={() =>
+              handleEdit(flash, newWord, newDefinition, newExample)
+            }
+          >
+            <EditIcon />
+          </button>
+        </div>
 
-          <div>
-            <button onClick={() => handleDelete(flash.id)}>
-              <DeleteIcon />
-            </button>
-          </div>
+        <div>
+          <button
+            className="btn btn-danger m-1"
+            onClick={() => handleDelete(flash.id)}
+          >
+            <DeleteIcon />
+          </button>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
 export default EachFlashCardsWDE;
