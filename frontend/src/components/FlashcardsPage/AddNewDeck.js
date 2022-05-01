@@ -2,6 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import './Flashcard.css';
 
+import deckType1 from './CARDType1.png';
+import deckType2 from './CARDType2.png';
+import deckType3 from './CARDType3.png';
+
 // Backend
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase.js";
@@ -37,9 +41,8 @@ function AddNewDeck() {
       </section>
 
       {/* Middle Section of Page */}
-      <div className="bg-light row"
+      <div className="bg-light row p-5"
         style={{
-          padding: "5%",
           margin: "auto",
           justifyContent:"space-between",
           paddingBottom: "auto",
@@ -51,7 +54,7 @@ function AddNewDeck() {
             width: "20%",
             height: "50%"
           }}>
-          <img src="..." class="card-img-top" alt="IMAGE PREVIEW OF CARD HERE"></img>
+          <img src={deckType1} class="card-img-top" alt=""></img>
           <h5 class="card-title">Q/A Deck</h5>
           <p class="card-text">A Deck that contains two fields, usually for question and answer cards.</p>
           <a href="/addQACard" class="btn btn-success">Select</a>
@@ -63,7 +66,7 @@ function AddNewDeck() {
             width: "20%",            
             height: "50%"
           }}>
-          <img src="..." class="card-img-top" alt="IMAGE PREVIEW OF CARD HERE"></img>
+          <img src={deckType2} class="card-img-top" alt="IMAGE PREVIEW OF CARD HERE"></img>
           <h5 class="card-title">Definition Deck</h5>
           <p class="card-text">A Deck that contains three fields for word, definition, and exmaple cards.</p>
           <a href="/addDefinitionCard" class="btn btn-success">Select</a>
@@ -75,7 +78,7 @@ function AddNewDeck() {
             width: "20%",
             height: "50%"
           }}>
-          <img src="..." class="card-img-top" alt="IMAGE PREVIEW OF CARD HERE"></img>
+          <img src={deckType3} class="card-img-top" alt="IMAGE PREVIEW OF CARD HERE"></img>
           <h5 class="card-title">Image Deck</h5>
           <p class="card-text">A Deck that contains four fields for word, definition, image and example cards.</p>
           <a href="/addImageCard" class="btn btn-success">Select</a>
