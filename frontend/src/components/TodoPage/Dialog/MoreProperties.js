@@ -45,22 +45,23 @@ function MoreProperties({ setDescription, dateTime, setDateTime }) {
           <DialogTitle>Enter Date/Time and Description</DialogTitle>
           <DialogContent>
             <div className="picker-container">
-              {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                 label="Date Time picker"
                 value={dateTime}
                 onChange={handleChange}
                 renderInput={(params) => <TextField {...params} />}
               />
-            </LocalizationProvider> */}
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
+            </LocalizationProvider>
+              {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <label>Pick Date/Time</label>
                 <Datetime
               value={dateTime}
               onChange={handleChange}
+              renderInput={(params) => <TextField {...params} />}
             />
 
-              </LocalizationProvider>
+              </LocalizationProvider> */}
             </div>
             <div className="desc-container">
               <TextField
