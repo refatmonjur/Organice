@@ -28,6 +28,8 @@ import {
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import AddIcon from "@mui/icons-material/Add";
 import DragHandle from "@mui/icons-material/DragHandle";
+import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 //CSS
 import "./Flashcard.css";
 import ProgressBar from "./DeckConditionalRendering/ProgressBar.js";
@@ -88,6 +90,7 @@ const AddImageCard = () => {
     setInputField(values);
   };
   const handleAddFields = (index) => {
+    setProgress(0);
     setInputField([
       ...inputFields,
       { word: "", definition: "", purpose: "", url: "" },
@@ -101,6 +104,7 @@ const AddImageCard = () => {
   };
   async function handleSubmit(index, e) {
     e.preventDefault();
+    console.log(e);
     const promises = [];
     let file = e.target[8].files[0];
     if (!file) return;
@@ -131,8 +135,8 @@ const AddImageCard = () => {
       console.log("this is after the promise");
     });
   }
-  console.log(inputFields);
 
+  // const len = inputFields.length - 1;
   return (
     <div>
       <div>
@@ -164,22 +168,23 @@ const AddImageCard = () => {
       <section className="card-body bg-light ">
         {inputFields.map((inputField, index) => (
           <form
+            className="bg-light"
             onSubmit={(e) => handleSubmit(index, e)}
             style={{
               display: "flex",
               justifyContent: "center",
               flexDirection: "column",
-              paddingBottom: "20%",
-              marginBottom: "-60px",
+              // paddingBottom: "20%",
+              // marginBottom: "-60px",
             }} // #0e1a3a90
           >
             <div key={index} style={{ marginTop: 5, marginBottom: 5 }}>
               <div className="card">
                 <div
                   className="card-header"
-                  style={{ justifyContent: "space-around", display: "flex" }}
+                  style={{ justifyContent: "space-between", display: "flex" }}
                 >
-                  <div>ith Number</div>
+                  <div className=" mt-2 h5 text-secondary">{index + 1}</div>
                   <div>
                     <IconButton>
                       <DragHandle />
@@ -235,7 +240,7 @@ const AddImageCard = () => {
                       maxWidth: 1000,
                     }}
                   >
-                    <div id="flex-containerQA">
+                    <div className="d-flex">
                       <input
                         type="file"
                         className="file-upload-button"
@@ -245,10 +250,22 @@ const AddImageCard = () => {
                           marginBottom: 30,
                         }}
                       />
-                      <h1> the file is uploading {progress}</h1>
-                      <img src={inputField.url}></img>
+                      {/* <h1> the file is uploading {progress}</h1> */}
+                      {/* <img src={inputField.url}></img> */}
 
-                      <button type="submit">Upload</button>
+                      <div>
+                        {inputField.url != "" && (
+                          <div>
+                            <img className="photo3" src={inputField.url}></img>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        type="submit"
+                        className="bg-dark m-3 upload_button"
+                      >
+                        <DriveFolderUploadIcon />
+                      </button>
                     </div>
                     <div>
                       <h4
@@ -262,7 +279,7 @@ const AddImageCard = () => {
                   </div>
                 </div>
               </div>
-              {index == 0 && (
+              {index == inputFields.length - 1 && (
                 <div className="card">
                   <IconButton
                     style={{ color: "teal" }}

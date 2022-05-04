@@ -143,9 +143,9 @@ function AddDefinitionCard() {
               <div className="card">
                 <div
                   className="card-header"
-                  style={{ justifyContent: "space-around", display: "flex" }}
+                  style={{ justifyContent: "space-between", display: "flex" }}
                 >
-                  <div>ith Number</div>
+                  <div className=" mt-2 h5 text-secondary">{index + 1}</div>
                   <div>
                     <IconButton>
                       <DragHandle />
@@ -195,7 +195,7 @@ function AddDefinitionCard() {
                   </div>
                 </div>
               </div>
-              {index == 0 && (
+              {index == inputFields.length - 1 && (
                 <div className="card">
                   <IconButton
                     style={{ color: "teal" }}
