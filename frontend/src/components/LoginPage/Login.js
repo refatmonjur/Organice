@@ -193,7 +193,7 @@ function Login() {
           <Typography>
             {" "}
             Don't have an Account?
-            <Link href="./signup" underline="hover">
+            <Link href="/signup" underline="hover">
               {"Sign Up"}
             </Link>
           </Typography>
