@@ -14,6 +14,8 @@ import {
 import { db } from "../../firebase.js";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useHistory } from "react-router-dom";
 // Front end
 import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
 import {
@@ -37,6 +39,7 @@ function AddQACard() {
   const stylButn = { margin: "8px 0" };
   const stylField = { margin: "8px 0" };
   const { user } = useUserAuth();
+  let history = useHistory();
 
   const [deckName, setDeckName] = useState("");
   const [question, setQuestion] = useState("");
@@ -46,31 +49,37 @@ function AddQACard() {
   // const FlashCardRefs = collection(db, "user", user.uid, "flashcard");
   const createDeck = async (e) => {
     e.preventDefault();
-    const FlashCardRefs = doc(db, "user", user.uid, "flashcard", deckName);
-    var data = {
-      deckTitle: deckName,
-    };
-
-    if (deckName !== "") {
+    if (deckName == ""){
+      Swal.fire({ icon: "error", title: "Deck Name is Required" });
+    }
+    // if (deckName !== "") {
+      else{
+      const FlashCardRefs = doc(db, "user", user.uid, "flashcard", deckName);
+      var data = {
+        deckTitle: deckName,
+      };
       await setDoc(FlashCardRefs, data);
       console.log("check firebase");
+      const decksrefs = collection(
+        db,
+        "user",
+        user.uid,
+        "flashcard",
+        deckName,
+        "deck"
+      );
+      for (let i = 0; i < inputFields.length; i++) {
+        await addDoc(decksrefs, inputFields[i]);
+        console.log("check firebase");
+      }
+      history.push("/flashcard")
     }
+    
     // var data1 = {
     //   question: question,
     //   answer: answer,
     // };
-    const decksrefs = collection(
-      db,
-      "user",
-      user.uid,
-      "flashcard",
-      deckName,
-      "deck"
-    );
-    for (let i = 0; i < inputFields.length; i++) {
-      await addDoc(decksrefs, inputFields[i]);
-      console.log("check firebase");
-    }
+    
   };
 
   const handleChangeInput = (index, event) => {
@@ -209,12 +218,12 @@ function AddQACard() {
           Add Card
         </Button> */}
           <Button className="finish-deck-btn" onClick={createDeck}>
-            <Link
+            {/* <Link
               style={{ textDecoration: "none", color: "white" }}
               to="/flashcard"
-            >
+            > */}
               Finish & Save
-            </Link>
+            {/* </Link> */}
           </Button>
         </div>
       </section>

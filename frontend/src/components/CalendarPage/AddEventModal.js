@@ -4,6 +4,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import TextField from "@mui/material/TextField";
+import Swal from "sweetalert2";
 import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
 import "./AddEventModal.css";
@@ -93,8 +94,17 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
   const handleSubmit = async (e) => {
     console.log(urlAttachment);
     e.preventDefault();
+    if(title == ""){
+      //show an alert 
+      onClose();
+      return Swal.fire({ icon: "error", title: "MUST give a title" });
+    }
+    else if(end == ""){
+      onClose();
+      return Swal.fire({ icon: "error", title: "MUST give a end Date" });
+    }
+    else{
     const eventsCollectionRef = doc(db, "user", user.uid, "events", title);
-    if (title !== "") {
       await setDoc(eventsCollectionRef, {
         title: title,
         startDate: start,
@@ -104,10 +114,7 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
         Attachment: urlAttachment,
       });
     }
-    console.log("Title: " + title);
-    console.log("Start: " + start);
-    console.log("Type: " + typeof start);
-    console.log("End: " + end);
+   
     setEnd("");
     setTitle("");
     onClose();
