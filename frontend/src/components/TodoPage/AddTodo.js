@@ -21,8 +21,9 @@ export default function AddTodo() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("i am here ");
-    const todosCollec = collection(db, "user", user.uid, "todos");
+
     if (input !== "") {
+      const todosCollec = collection(db, "user", user.uid, "todos");
       await addDoc(todosCollec, {
         title: input,
         completed: false,
@@ -57,7 +58,6 @@ export default function AddTodo() {
         onChange={(e) => setInput(e.target.value)}
       />
 
-
       <div className="right-input-component">
         <div className="btn_container">
           <button>SAVE</button>
@@ -70,7 +70,6 @@ export default function AddTodo() {
           setDescription={setDescription}
         />
       </div>
-
     </form>
   );
 }

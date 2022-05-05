@@ -68,7 +68,7 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
     });
     return () => unsub2();
   }, []);
-  console.log(decks1.length)
+  console.log(decks1.length);
   // now decks has all the
   // console.log(decks1.length);
   // console.log(flashcard);
@@ -78,18 +78,22 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
 
   console.log(isOpen);
   const handleDelete = async (id) => {
-    
-    const docRef3 = doc(
-      db,
-      "user",
-      user.uid,
-      "flashcard",
-      deckName,
-      "deck",
-      id
-    );
-    await deleteDoc(docRef3);
-    console.log(decks1.length)
+    console.log(decks1.length);
+    if (decks1.length == 1) {
+      const docRef5 = doc(db, "user", user.uid, "flashcard", deckName);
+      await deleteDoc(docRef5);
+    } else {
+      const docRef3 = doc(
+        db,
+        "user",
+        user.uid,
+        "flashcard",
+        deckName,
+        "deck",
+        id
+      );
+      await deleteDoc(docRef3);
+    }
   };
   const handleEdit = async (flash, newWord, newDefinition, newExample) => {
     const docRef4 = doc(
@@ -155,12 +159,11 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
   // };
 
   const handleAdd = () => {
-    if (decks1.length == 0){
-      history.push("/addNewDeck")
+    if (decks1.length == 0) {
+      history.push("/addNewDeck");
 
       //or the other solution is: when you delete last card the deck is deleted
-    }
-    else if (Object.keys(decks1[0]).length == 3) {
+    } else if (Object.keys(decks1[0]).length == 3) {
       // push it to the page with word and definition
       history.push({
         pathname: "/addMoreCardQA",
