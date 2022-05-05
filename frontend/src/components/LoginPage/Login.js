@@ -115,7 +115,7 @@ function Login() {
   const signInWithGoogle = async (e) => {
     e.preventDefault();
     try {
-      console.log("i am herer");
+      console.log("i am here");
       const userid = await googleSignIn();
       console.log(userid);
       var data = {
@@ -129,6 +129,7 @@ function Login() {
       console.log(error.code);
     }
   };
+
   return (
     <div className="login">
       <Navbar />
@@ -184,12 +185,14 @@ function Login() {
           >
             Sign in with Google
           </GoogleButton> */}
-
+{/* 
           <GoogleButton
             type="dark" // can be light or dark
             onClick={signInWithGoogle}
-          />
-
+          /> */}
+          <button>
+          onClick={signInWithGoogle}
+          </button>
           <Typography>
             {" "}
             Don't have an Account?
