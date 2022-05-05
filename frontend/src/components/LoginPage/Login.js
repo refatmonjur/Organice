@@ -185,14 +185,14 @@ function Login() {
           >
             Sign in with Google
           </GoogleButton> */}
-{/* 
+
           <GoogleButton
             type="dark" // can be light or dark
             onClick={signInWithGoogle}
-          /> */}
-          <button>
+          />
+          {/* <button>
           onClick={signInWithGoogle}
-          </button>
+          </button> */}
           <Typography>
             {" "}
             Don't have an Account?
