@@ -4,6 +4,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import TextField from "@mui/material/TextField";
+import Swal from "sweetalert2";
 import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
 import "./AddEventModal.css";
@@ -93,8 +94,15 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
   const handleSubmit = async (e) => {
     console.log(urlAttachment);
     e.preventDefault();
-    const eventsCollectionRef = doc(db, "user", user.uid, "events", title);
-    if (title !== "") {
+    if (title == "") {
+      //show an alert
+      onClose();
+      return Swal.fire({ icon: "error", title: "MUST give a title" });
+    } else if (end == "") {
+      onClose();
+      return Swal.fire({ icon: "error", title: "MUST give a end Date" });
+    } else {
+      const eventsCollectionRef = doc(db, "user", user.uid, "events", title);
       await setDoc(eventsCollectionRef, {
         title: title,
         startDate: start,
@@ -104,10 +112,7 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
         Attachment: urlAttachment,
       });
     }
-    console.log("Title: " + title);
-    console.log("Start: " + start);
-    console.log("Type: " + typeof start);
-    console.log("End: " + end);
+
     setEnd("");
     setTitle("");
     onClose();
@@ -119,12 +124,14 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
       <form onSubmit={onSubmit} className="addEventModal_outter">
         <div>
           <div className="title">
-            <DialogTitle>Create an Event</DialogTitle>
-            <DialogContentText>Enter a title:</DialogContentText>
+            <DialogTitle className="text-center">Create an Event</DialogTitle>
+            {/* <DialogContentText>Enter a title:</DialogContentText> */}
+            <label>Event Title*</label>
             <TextField
               autoFocus
               fullWidth
               id="title"
+              label="Title"
               type="text"
               variant="standard"
               value={title}
@@ -134,7 +141,7 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
           <br />
 
           <div>
-            <label>Start Date</label>
+            <label>Start Date*</label>
             <Datetime
               value={start}
               //onChange = {date => setStart(date)}
@@ -147,7 +154,7 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
           <br />
 
           <div>
-            <label>End Date</label>
+            <label>End Date*</label>
             {
               <Datetime
                 value={end}
@@ -172,21 +179,24 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
                   color: "blue",
                   marginBottom: 30,
                 }}
-                // onChange={(e) => {
-                //   handleAttachment(e.target.value);
-                // }}
+                // onClick={setProgress(0)}
+                // onChange={setProgress(0)}
               />
-              <div>
-                {progress == 100 ? (
-                  <div className="d-flex">
-                    <CheckCircleOutlineIcon fontSize="large" color="success" />
-                    <h5 className="p-2 text-muted">Uploaded</h5>
-                  </div>
-                ) : (
-                  <button type="submit" className="bg-dark mb-4">
-                    <DriveFolderUploadIcon />
-                  </button>
-                )}
+              <div className="d-flex">
+                <div className="p-2">
+                  {progress == 100 && (
+                    <div>
+                      <CheckCircleOutlineIcon
+                        fontSize="large"
+                        color="success"
+                      />
+                      {/* <h5 className="p-2 text-muted">Uploaded</h5> */}
+                    </div>
+                  )}
+                </div>
+                <button type="submit" className="bg-dark mb-4">
+                  <DriveFolderUploadIcon />
+                </button>
               </div>
             </div>
           </div>

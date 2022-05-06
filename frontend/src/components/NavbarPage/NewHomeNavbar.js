@@ -66,23 +66,38 @@ function NewHomeNavbar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  async function getUsers(db) {
+    try {
+      const userDocRef = doc(db, "user", `${user?.uid}`);
+      const data = await getDoc(userDocRef);
+      const fields = [];
+      fields.push(data.data());
+      setCurrentUser(fields);
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
 
   async function getUsersReminder() {
-    const TodoCollectionRef = collection(db, "user", user.uid, "todos");
-    const todoQuery1 = query(
-      TodoCollectionRef,
-      orderBy("dueDate", "asc"),
-      where("dueDate", "!=", "")
-    );
-    const unsub = onSnapshot(todoQuery1, (queryS) => {
-      const todosArray1 = [];
-      queryS.forEach((doc) => {
-        todosArray1.push({ ...doc.data(), id: doc.id });
+    try {
+      const TodoCollectionRef = collection(db, "user", `${user?.uid}`, "todos");
+      const todoQuery1 = query(
+        TodoCollectionRef,
+        orderBy("dueDate", "asc"),
+        where("dueDate", "!=", "")
+      );
+      const unsub = onSnapshot(todoQuery1, (queryS) => {
+        const todosArray1 = [];
+        queryS.forEach((doc) => {
+          todosArray1.push({ ...doc.data(), id: doc.id });
+        });
+        setReminder(todosArray1);
       });
-      setReminder(todosArray1);
-    });
-    setLoading(true);
-    return () => unsub();
+      setLoading(true);
+      return () => unsub();
+    } catch (e) {
+      console.log(e.message);
+    }
   }
 
   const handleNotification = () => {
@@ -91,8 +106,8 @@ function NewHomeNavbar() {
     // -> query where completed is false
     // order by the earliest first
     //put them into an array, and use that array like below
-    getUsersReminder();
-    console.log(reminder);
+    // getUsersReminder();
+    // setLoading(!loading);
     for (let i = 0; i < reminder.length; i++) {
       const date = new Date(reminder[i].dueDate.toDate());
       const options = {
@@ -133,18 +148,6 @@ function NewHomeNavbar() {
     }
   };
 
-  async function getUsers(db) {
-    try {
-      const userDocRef = doc(db, "user", user.uid);
-      const data = await getDoc(userDocRef);
-      const fields = [];
-      fields.push(data.data());
-      setCurrentUser(fields);
-    } catch (e) {
-      console.log(e.message);
-    }
-  }
-
   const handlenewUserTodo = async (e) => {
     // const docRef = collection(db, "user", user.uid, "todos");
     // const docSnap = await getDoc(docRef);
@@ -173,7 +176,10 @@ function NewHomeNavbar() {
 
   useEffect(() => {
     getUsers(db);
-    // getUsersReminder();
+    console.log("i am the useEffect");
+    if (user) {
+      getUsersReminder();
+    }
   }, []);
 
   // sx={{ bgcolor: "#292b2c" }}
@@ -298,9 +304,9 @@ function NewHomeNavbar() {
                     <img
                       src={
                         "https://ui-avatars.com/api/?rounded=true&name=" +
-                        users.firstName +
+                        `${users?.firstName}` +
                         "+" +
-                        users.lastName
+                        `${users?.lastName}`
                       }
                     ></img>
                   );

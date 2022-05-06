@@ -12,12 +12,11 @@ import { db } from "../../firebase.js";
 
 //react icons
 import * as BsIcons from "react-icons/bs";
-import { IconContext } from 'react-icons';
-import SidebarToDo from './Sidebar/SidebarTodo';
+import { IconContext } from "react-icons";
+import SidebarToDo from "./Sidebar/SidebarTodo";
 
 //css
 import "./WindowTodo.css";
-
 
 function MonthlyTodo() {
   const { user } = useUserAuth();
@@ -73,34 +72,39 @@ function MonthlyTodo() {
       <div className="content_todo">
         {/* LEFT SIDE BAR */}
         <SidebarToDo />
-        <div className="right_container">
-          <h1 className="gradient__text">Monthly</h1>
+        <div className="pt-1 right_container">
+          <h1 className="p-3 shadow-lg text-secondary">Monthly</h1>
+          <br />
           <div className="listing-spacing ">
             {todos.map((todo) => (
-              <div class="card card-spacing">
+              <div class="card bg-light card-spacing shadow">
                 <div className="card-body listing-bullets">
-                  <p class=""> {todo.title}</p>
+                  <p class="text-dark"> {todo.title}</p>
                   <small class="text-muted italicize">{todo.Description}</small>
                 </div>
               </div>
             ))}
 
             {todos1.map((todo) => (
-              <div class="card card-spacing">
+              <div class="card bg-light card-spacing shadow">
                 <div className="card-body listing-bullets">
-                <p class=""> {todo.title}</p>
-                {console.log("Show me name and desc: ", todo.title, ": ", todo.Description)}
+                  <p class="text-dark"> {todo.title}</p>
+                  {console.log(
+                    "Show me name and desc: ",
+                    todo.title,
+                    ": ",
+                    todo.Description
+                  )}
                   <small class="text-muted">
-                    {todo.Description === "" ? 
+                    {todo.Description === "" ? (
                       <i> No Description </i>
-                      : 
+                    ) : (
                       <i class="text-muted">{todo.Description}</i>
-                    }
+                    )}
                   </small>
                 </div>
               </div>
             ))}
-
           </div>
         </div>
       </div>
