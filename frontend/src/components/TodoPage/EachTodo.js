@@ -4,14 +4,12 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "./Todo.css";
-import ShowDesc from "./ShowDesc";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { InputBase } from "@mui/material";
 
@@ -70,8 +68,6 @@ export default function EachTodo({
         className="list"
       />
       <div className="todo-options">
-        {/* this is the checked button  */}
-        {/* <MoreOptions/> */}
         <button
           className="button-complete"
           style={{
@@ -83,7 +79,6 @@ export default function EachTodo({
           <CheckCircleIcon id="i" />
         </button>
 
-        {/* this is the Edit button  */}
         <button
           className="button-edit"
           style={{
@@ -94,7 +89,7 @@ export default function EachTodo({
         >
           <EditIcon />
         </button>
-        {/* this is the delete button  */}
+
         <button
           className="button-delete"
           style={{
@@ -106,63 +101,42 @@ export default function EachTodo({
           <DeleteIcon id="i" />
         </button>
 
-        {/* this is the more info button  */}
         <div>
-          {/* <ShowDesc Todo={todo} /> */}
           <Button variant="outlined" onClick={handleClickOpen}>
             <MoreHorizOutlinedIcon color="primary" fontSize="medium" />
           </Button>
           <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>Details</DialogTitle>
+            <DialogTitle className="text-center text-primary">
+              Details
+            </DialogTitle>
             <DialogContent>
-              {/* show the due date */}
               <div className="desc1">
-                {/* <input
-                type="text"
-                readOnly
-                value={todo.dueDate === "" ? "" : "⏰ " + todo.dueDate.toDate()}
-                className="list"
-              /> */}
+                <h6 className="text-warning">Due Date:</h6>
                 <InputBase
-                  //id="outlined-read-only-input"
                   label="Date"
                   fullWidth
-                  value={todo.dueDate === "" ? "" : "⏰ " + todo.dueDate.toDate()}
+                  value={todo.dueDate === "" ? "" : handleDate(todo)}
                   InputProps={{
                     readOnly: true,
                   }}
                 />
               </div>
-              <br />
-              {/* this is the description */}
               <div className="desc-container">
-                {/* <input
-                type="text"
-                readOnly
-                value={todo.Description}
-                className="list"
-              /> */}
+                <h6 className="text-warning">Description: </h6>
                 <TextField
                   id="outlined-multiline-static"
-                  label="Description"
+                  variant="standard"
                   multiline
                   fullWidth
-                  rows={4}
                   value={todo.Description}
                 />
               </div>
-
-              {/* show file that is added */}
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Close</Button>
             </DialogActions>
           </Dialog>
         </div>
-
-        {/* <button className="button-moreInfo" onClick={() => handleInfo(todo.id)}>
-          <MoreHorizOutlinedIcon id="i" />
-        </button> */}
       </div>
     </div>
   );

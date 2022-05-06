@@ -8,13 +8,12 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { useRef } from "react";
-import { DialogContent, Modal } from "@mui/material";
+import { DialogContent } from "@mui/material";
 import { Button } from "@mui/material";
 import {
   collection,
   onSnapshot,
   query,
-  orderBy,
   doc,
   where,
   deleteDoc,
@@ -27,11 +26,10 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import DialogActions from "@mui/material/DialogActions";
 import CloudDownloadOutlinedIcon from "@mui/icons-material/CloudDownloadOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-// import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import DateRangeIcon from "@mui/icons-material/DateRange";
+
 export default function Calendar() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [show, setShow] = useState(false);
   const [hasDueDate, setHasDueDate] = useState(false);
@@ -47,12 +45,10 @@ export default function Calendar() {
   const [eventsObjEndDate, setEventsObjEndDate] = useState(null);
   const [eventsObjAttachment, setEventsObjAttachment] = useState(null);
   const [eventsObjLocation, setEventsObjLocation] = useState(null);
-  const [id, setId] = useState("");
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   useEffect(() => {
-    const TodoCollectionRef = collection(db, "user", user.uid, "todos");
+    const TodoCollectionRef = collection(db, "user", `${user.uid}`, "todos");
     const todoQuery = query(TodoCollectionRef, where("dueDate", "!=", ""));
     const unsub = onSnapshot(todoQuery, (queryS) => {
       let todosArray = [];
@@ -62,7 +58,7 @@ export default function Calendar() {
       setTodos(todosArray);
     });
 
-    const eventsCollectionRef = collection(db, "user", user.uid, "events");
+    const eventsCollectionRef = collection(db, "user", `${user.uid}`, "events");
     const unsub1 = onSnapshot(eventsCollectionRef, (queryS1) => {
       let eventsArray = [];
       queryS1.forEach((doc) => {
@@ -75,14 +71,6 @@ export default function Calendar() {
     return () => [unsub(), unsub1()];
   }, []);
 
-  // startDate.seconds == "129381239213"
-  // Convert startDate.seconds into the format above
-  // const demoArray = {
-  //   title: "event3",
-  //   start: "2022-04-03T12:30:00",
-  //   end: "2022-04-03T12:55:00", // will make the time show
-  // };
-
   const getCalendarEvents = () => {
     for (let i = 0; i < todos.length; i++) {
       const epochTime = todos[i].dueDate.seconds;
@@ -94,13 +82,11 @@ export default function Calendar() {
     for (let i = 0; i < events.length; i++) {
       const epochEventTime = events[i].startDate.seconds;
       const d2 = new Date(epochEventTime * 1000);
-      //const justEventDate = new Date(d2).toISOString().substring(0, 10);
       const justEventDate = new Date(d2).toISOString();
 
       events[i].start = justEventDate;
       const epochEventTimeEnd = events[i].endDate.seconds;
       const d1 = new Date(epochEventTimeEnd * 1000);
-      //const justEventDate1 = new Date(d1).toISOString().substring(0, 10);
       const justEventDate1 = new Date(d1).toISOString();
       events[i].end = justEventDate1;
     }
@@ -120,7 +106,7 @@ export default function Calendar() {
   };
 
   const handleDelete = async (id) => {
-    const docRef = doc(db, "user", user.uid, "events", id);
+    const docRef = doc(db, "user", `${user.uid}`, "events", id);
     await deleteDoc(docRef);
     setShow(false);
   };
@@ -149,7 +135,6 @@ export default function Calendar() {
                 right: "dayGridMonth,timeGridWeek,timeGridDay",
               }}
               aspectRatio="2.4"
-              // defaultAllDay="true"
               selectable={true}
               dateClick={handleDateClick}
               weekends={true}
@@ -204,7 +189,6 @@ export default function Calendar() {
                   setDescription(eventObj.extendedProps.Description);
                   setEventsObjAttachment(eventObj.extendedProps.Attachment);
                   setEventsObjLocation(eventObj.extendedProps.Location);
-                  // setId(eventObj.publicId);
                 }
               }}
             />

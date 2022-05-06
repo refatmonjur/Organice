@@ -14,18 +14,8 @@ import deck from "./deck.svg";
 import VideoPlayer from "react-video-js-player";
 import video from "./video.mp4";
 import posterpic from "./poster.png";
-import StudyFlashCard from "./StudyFlashCards";
-import EachFlashCards from "./EachFlashCards";
-import { textAlign } from "@mui/system";
-
-//For Flipping Flashcard
-import Flippy, { FrontSide, BackSide } from "react-flippy";
-import { red } from "@mui/material/colors";
 
 function Flashcard() {
-  // state = {
-  //   hasDeck: true
-  // }
   let history = useHistory();
   const [hasDeck, sethasDeck] = useState(true);
   const { user } = useUserAuth();
@@ -34,18 +24,15 @@ function Flashcard() {
 
   const videoSrc = video;
   const poster = posterpic;
-
-  //for Flippy package
   const ref = useRef();
-  // const [Loading, setLoading] = useState(false);
-  // Testing variable - delete after implementing backend code for this page
-  // var hasDecksinData = this.state.hasDeck; //takes in a Boolean
-  // if false, it will say user has no deck
-  // if true, it will say user HAS a deck
-  // either way User can still create a new deck always to add to their collection
   useEffect(() => {
     // setLoading(true);
-    const DecksCollectionRef = collection(db, "user", user.uid, "flashcard");
+    const DecksCollectionRef = collection(
+      db,
+      "user",
+      `${user.uid}`,
+      "flashcard"
+    );
     // const todoQuery = query(DecksCollectionRef, orderBy("timeStamp", "desc"));
     const unsub1 = onSnapshot(DecksCollectionRef, (queryS) => {
       const decksArray = [];
@@ -81,7 +68,7 @@ function Flashcard() {
     // return () => unsub2();
   }, []);
   const deleting = async (id) => {
-    const docRef = doc(db, "user", user.uid, "flashcard", id);
+    const docRef = doc(db, "user", `${user.uid}`, "flashcard", id);
     await deleteDoc(docRef);
   };
   // const editing = async (id) => {
@@ -112,10 +99,14 @@ function Flashcard() {
                 Flashcard Section
               </h1>
               <p className="lead my-4">
-              One of Organice's most important characteristics. It has all of the standard flashcard functions, 
-              including the ability to create a deck of flashcards, add/remove flashcards from the deck, and study the flashcard deck. 
-              The variety of flashcards available for customers to add to their decks is what sets us apart from the competition. 
-              This is to attract a bigger user base, since more diversity leads to a wider range of applications for the flashcards.
+                One of Organice's most important characteristics. It has all of
+                the standard flashcard functions, including the ability to
+                create a deck of flashcards, add/remove flashcards from the
+                deck, and study the flashcard deck. The variety of flashcards
+                available for customers to add to their decks is what sets us
+                apart from the competition. This is to attract a bigger user
+                base, since more diversity leads to a wider range of
+                applications for the flashcards.
               </p>
             </div>
             <img

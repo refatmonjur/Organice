@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Modal from "react-modal";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
@@ -8,26 +7,19 @@ import Swal from "sweetalert2";
 import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
 import "./AddEventModal.css";
-import DialogContentText from "@mui/material/DialogContentText";
 import { db, storage } from "../../firebase.js";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { collection, doc, addDoc, setDoc } from "firebase/firestore";
-import { async } from "@firebase/util";
-import { Button, Slide } from "@mui/material";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
-import CircularProgress from "@mui/material/CircularProgress";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
   const [title, setTitle] = useState("");
   const [start, setStart] = useState(new Date());
   const [end, setEnd] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [startTime, setStartTime] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const [urlAttachment, setUrlAttachment] = useState("");
   const { user } = useUserAuth();
-  const [open, setOpen] = useState(false);
   const [progress, setProgress] = useState(0);
   useEffect(() => {
     setStart(arg);
@@ -60,7 +52,6 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
   const onSubmit = async (e) => {
     e.preventDefault();
     console.log(e);
-    // handleAttachment(event);
     const promises = [];
     let file = e.target[3].files[0];
     console.log(file);
@@ -102,7 +93,13 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
       onClose();
       return Swal.fire({ icon: "error", title: "MUST give a end Date" });
     } else {
-      const eventsCollectionRef = doc(db, "user", user.uid, "events", title);
+      const eventsCollectionRef = doc(
+        db,
+        "user",
+        `${user.uid}`,
+        "events",
+        title
+      );
       await setDoc(eventsCollectionRef, {
         title: title,
         startDate: start,
@@ -125,7 +122,6 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
         <div>
           <div className="title">
             <DialogTitle className="text-center">Create an Event</DialogTitle>
-            {/* <DialogContentText>Enter a title:</DialogContentText> */}
             <label>Event Title*</label>
             <TextField
               autoFocus
@@ -142,28 +138,13 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
 
           <div>
             <label>Start Date*</label>
-            <Datetime
-              value={start}
-              //onChange = {date => setStart(date)}
-              onChange={handleStartDate}
-              // dateFormat={false}
-              //timeFormat={false}
-              // className="start-date"
-            />
+            <Datetime value={start} onChange={handleStartDate} />
           </div>
           <br />
 
           <div>
             <label>End Date*</label>
-            {
-              <Datetime
-                value={end}
-                //onChange = {date => setEnd(date)}
-                //timeFormat={false}
-                onChange={handleEndDate}
-                // input={false}
-              />
-            }
+            {<Datetime value={end} onChange={handleEndDate} />}
           </div>
           <br />
           {/* add attachment */}
@@ -179,8 +160,6 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
                   color: "blue",
                   marginBottom: 30,
                 }}
-                // onClick={setProgress(0)}
-                // onChange={setProgress(0)}
               />
               <div className="d-flex">
                 <div className="p-2">
@@ -190,7 +169,6 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
                         fontSize="large"
                         color="success"
                       />
-                      {/* <h5 className="p-2 text-muted">Uploaded</h5> */}
                     </div>
                   )}
                 </div>

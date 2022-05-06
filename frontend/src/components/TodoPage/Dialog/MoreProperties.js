@@ -42,24 +42,20 @@ function MoreProperties({ setDescription, dateTime, setDateTime }) {
         </Button>
 
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Enter Date/Time and Description</DialogTitle>
+          <DialogTitle className="text-center text-primary">
+            Add More Properties
+          </DialogTitle>
           <DialogContent>
+            {/* <h6>date & Time: </h6> */}
             <div className="picker-container">
               <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DateTimePicker
-                label="Date Time picker"
-                value={dateTime}
-                onChange={handleChange}
-                renderInput={(params) => <TextField {...params} />}
-              />
-               {/* <MobileDateTimePicker
-          value={value}
-          onChange={(newValue) => {
-            setValue(newValue);
-          }}
-          renderInput={(params) => <TextField {...params} />}
-        /> */}
-            </LocalizationProvider>
+                <DateTimePicker
+                  label="Date & Time"
+                  value={dateTime}
+                  onChange={handleChange}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
               {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <label>Pick Date/Time</label>
                 <Datetime
