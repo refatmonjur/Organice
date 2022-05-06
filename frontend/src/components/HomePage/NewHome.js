@@ -206,10 +206,11 @@ function NewHome() {
                 <span className="text-warning"> Organice</span>
               </h1>
               <p className="lead my-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi
+                Organice's goal was to create an efficient medium for
+                studying/learning/memorizing using flashcards. Providing the
+                users with a variety of flashcard templates for different
+                scenarios. With additional features that assists with time
+                management, using to-do lists and calendar reminders.
               </p>
             </div>
             <img
@@ -256,9 +257,7 @@ function NewHome() {
                   </div>
                   <h3 className="card-title">To do List</h3>
                   <p className="card-text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua
+                  The To-do feature is an add-on tool that allowing users to plan out their activities for the next few days or weeks.
                   </p>
                   <Link className="btn btn-primary" to="/todo">
                     To do
@@ -276,9 +275,7 @@ function NewHome() {
                   </div>
                   <h3 className="card-title">Flashcard</h3>
                   <p className="card-text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua
+                  Flashcards may be used to create a flashcard deck, add/remove flashcards from the deck, and study the flashcard deck. 
                   </p>
                   <Link className="btn btn-dark" to="/flashcard">
                     Flashcard
@@ -296,9 +293,7 @@ function NewHome() {
                   </div>
                   <h3 className="card-title">Calendar</h3>
                   <p className="card-text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua
+                  The Calendar function will remind users of all impending tasks/assignments along with comments and descriptions.
                   </p>
                   <Link className="btn btn-primary" to="/calendar">
                     Calendar
@@ -379,8 +374,7 @@ function NewHome() {
             Reminders and Events
           </h2>
           <p className="lead text-center text-dark mb-5">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Here are your upcoming To-do Events and Calendar Reminders:
           </p>
           <div className="row g-4">
             <div className="col-md-12 col-lg-6">

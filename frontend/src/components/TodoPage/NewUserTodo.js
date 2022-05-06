@@ -24,10 +24,10 @@ function NewUserTodo() {
                 To-do Section
               </h1>
               <p className="lead my-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi
+              The To-do feature is an add-on tool that allows users to plan out their activities for the next few days or weeks. 
+              This feature contains a page that displays all of your tasks. When you add a to-do, you may choose to upload any files 
+              that are linked with it. This can also help you stay organized by allowing you to keep all of the files you need for a 
+              specific work on one page rather than having to search through many folders.
               </p>
             </div>
             <img
