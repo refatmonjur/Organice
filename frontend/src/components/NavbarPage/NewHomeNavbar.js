@@ -81,9 +81,11 @@ function NewHomeNavbar() {
   async function getUsersReminder() {
     try {
       const TodoCollectionRef = collection(db, "user", `${user?.uid}`, "todos");
+
       const todoQuery1 = query(
         TodoCollectionRef,
         orderBy("dueDate", "asc"),
+        where("dueDate", ">=", new Date()),
         where("dueDate", "!=", "")
       );
       const unsub = onSnapshot(todoQuery1, (queryS) => {
