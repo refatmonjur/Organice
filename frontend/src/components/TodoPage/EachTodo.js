@@ -11,6 +11,10 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import { InputBase } from "@mui/material";
+
 export default function EachTodo({
   todo,
   toggleComplete,
@@ -29,44 +33,42 @@ export default function EachTodo({
   const handleChange = (e) => {
     e.preventDefault();
     if (todo.complete === true) {
-
       setNewInput(todo.title);
     } else {
       todo.title = "";
-      console.log(todo)
+      console.log(todo);
       setNewInput(e.target.value);
     }
   };
 
   const handleDate = () => {
-
-    const date = new Date(todo.dueDate.toDate())
+    const date = new Date(todo.dueDate.toDate());
     const options = {
       year: "numeric",
       month: "long",
       day: "numeric",
       hour: "2-digit",
       minute: "2-digit",
-    }
-    const new_date = date.toLocaleDateString(undefined, options)
+    };
+    const new_date = date.toLocaleDateString(undefined, options);
     return new_date;
-  }
+  };
 
   return (
     <div className="todo" style={{}}>
-        <input
-          style={{ textDecoration: todo.completed && "line-through" }}
-          type="text"
-          value={todo.title === "" ? newInput : todo.title}
-          className="list"
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          readOnly
-          value={todo.dueDate === "" ? "" : "Date: " + handleDate()}
-          className="list"
-        />
+      <input
+        style={{ textDecoration: todo.completed && "line-through" }}
+        type="text"
+        value={todo.title === "" ? newInput : todo.title}
+        className="list"
+        onChange={handleChange}
+      />
+      <input
+        type="text"
+        readOnly
+        value={todo.dueDate === "" ? "" : "Date: " + handleDate()}
+        className="list"
+      />
       <div className="todo-options">
         {/* this is the checked button  */}
         {/* <MoreOptions/> */}
@@ -74,7 +76,7 @@ export default function EachTodo({
           className="button-complete"
           style={{
             height: 10,
-            width: 10
+            width: 10,
           }}
           onClick={() => toggleComplete(todo)}
         >
@@ -86,7 +88,7 @@ export default function EachTodo({
           className="button-edit"
           style={{
             height: 10,
-            width: 10
+            width: 10,
           }}
           onClick={() => handleEdit(todo, newInput)}
         >
@@ -97,7 +99,7 @@ export default function EachTodo({
           className="button-delete"
           style={{
             height: 10,
-            width: 10
+            width: 10,
           }}
           onClick={() => handleDelete(todo.id)}
         >
@@ -111,23 +113,44 @@ export default function EachTodo({
             <MoreHorizOutlinedIcon color="primary" fontSize="medium" />
           </Button>
           <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>Description</DialogTitle>
+            <DialogTitle>Details</DialogTitle>
             <DialogContent>
               {/* show the due date */}
-              <input
+              <div className="desc1">
+                {/* <input
                 type="text"
                 readOnly
                 value={todo.dueDate === "" ? "" : "⏰ " + todo.dueDate.toDate()}
                 className="list"
-              />
+              /> */}
+                <InputBase
+                  //id="outlined-read-only-input"
+                  label="Date"
+                  fullWidth
+                  value={todo.dueDate === "" ? "" : "⏰ " + todo.dueDate.toDate()}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                />
+              </div>
               <br />
               {/* this is the description */}
-              <input
+              <div className="desc-container">
+                {/* <input
                 type="text"
                 readOnly
                 value={todo.Description}
                 className="list"
-              />
+              /> */}
+                <TextField
+                  id="outlined-multiline-static"
+                  label="Description"
+                  multiline
+                  fullWidth
+                  rows={4}
+                  value={todo.Description}
+                />
+              </div>
 
               {/* show file that is added */}
             </DialogContent>

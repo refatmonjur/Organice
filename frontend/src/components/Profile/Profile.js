@@ -73,7 +73,7 @@ function Profile() {
       <div className="welcome">Welcome Back,</div>
 
       {/* everything goes inside here */}
-      <div className="container_1 bg-dark">
+      <div className="container_1 bg-dark shadow-lg p-5 mb-5 rounded border-primary">
         {/* image container */}
         <div className="avatar--container">
           <img
@@ -90,7 +90,7 @@ function Profile() {
         {currentUser.map((users) => {
           return (
             <div className="namefield-container bg-light">
-              <TextField
+              {/* <TextField
                 id="outlined-basic"
                 variant="standard"
                 size="small"
@@ -98,6 +98,15 @@ function Profile() {
                 InputProps={{
                   readOnly: true,
                 }}
+              /> */}
+              <TextField
+                id="outlined-read-only-input"
+                label="Name:"
+                value={ users.firstName + " " + users.lastName}
+                InputProps={{
+                  readOnly: true,
+                }}
+                variant="filled"
               />
             </div>
           );
@@ -106,7 +115,8 @@ function Profile() {
         {/* update user info */}
         <div className="userinfo-container">
           <button
-            style={{ height: "40px", width: "280px" }}
+            style={{ height: "50px", width: "280px" }}
+            className="btn btn-light btn-lg"
             onClick={handleClickOpen}
           >
             Update User Info
@@ -116,7 +126,8 @@ function Profile() {
         {/* update password */}
         <div className="password-container">
           <button
-            style={{ height: "40px", width: "280px" }}
+            style={{ height: "50px", width: "280px" }}
+            className="btn btn-light btn-lg"
             onClick={handleClickOpenPass}
           >
             Update Password

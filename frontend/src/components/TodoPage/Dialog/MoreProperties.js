@@ -66,13 +66,13 @@ function MoreProperties({ setDescription, dateTime, setDateTime }) {
             <div className="desc-container">
               <TextField
                 //id="outlined-basic"
-                id="standard-multiline-flexible"
+                id="outlined-multiline-static"
                 label="Description"
                 multiline
                 fullWidth
                 rows={4}
                 //variant="outlined"
-                variant="standard"
+                //variant="standard"
                 placeholder="Ex. Work on assignment as a team"
                 // value={description}
                 onChange={(e) => {
