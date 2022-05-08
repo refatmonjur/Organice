@@ -3,23 +3,10 @@ import Flippy, { FrontSide, BackSide } from "react-flippy";
 import { useState, useEffect, useRef } from "react";
 import { db } from "../../firebase";
 import { useUserAuth } from "../Context/UserAuthContext";
-import {
-  collection,
-  getDoc,
-  doc,
-  onSnapshot,
-  addDoc,
-  query,
-  updateDoc,
-  deleteDoc,
-  orderBy,
-} from "firebase/firestore";
-import { Button } from "@mui/material";
-import { handleBreakpoints } from "@mui/system";
+import { collection, onSnapshot } from "firebase/firestore";
 import "./Flashcard.css";
 
 function StudyEachCard({ deckName }) {
-  // this is the component for studying flashcards and changing to next card
   const ref = useRef();
   const { user } = useUserAuth();
   const [flashCards, setFlashCards] = useState([]);
@@ -66,7 +53,7 @@ function StudyEachCard({ deckName }) {
 
       <div className="mb-3">
         <Flippy
-          flipOnClick={true} // default false
+          flipOnClick={true}
           flipDirection="vertical"
           ref={ref}
           style={{
@@ -80,7 +67,6 @@ function StudyEachCard({ deckName }) {
         >
           <FrontSide
             style={{
-              // color: "white",
               backgroundColor: "#00203FFF",
             }}
           >
@@ -161,14 +147,6 @@ function StudyEachCard({ deckName }) {
                 </div>
               </div>
             )}
-            {/* {flashCards.length > 0 && (
-              <p>{flashCards[currentCard].definition}</p>
-            )}
-            {flashCards.length > 0 && <p>{flashCards[currentCard].example}</p>}
-            {flashCards.length > 0 && <p>{flashCards[currentCard].purpose}</p>}
-            {flashCards.length > 0 && (
-              <img className="photo" src={flashCards[currentCard].url}></img>
-            )} */}
           </BackSide>
         </Flippy>
       </div>

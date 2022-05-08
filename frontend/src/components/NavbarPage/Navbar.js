@@ -8,7 +8,6 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
@@ -17,7 +16,6 @@ import "./Navbar.css";
 import Logo from "./test_logo.png";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { useHistory } from "react-router-dom";
-import Flashcard from "../FlashcardsPage/Flashcard";
 
 const useStyles = makeStyles({
   header: {
@@ -28,12 +26,6 @@ const useStyles = makeStyles({
 });
 
 function Navbar() {
-  // style hook here
-  const classes = useStyles();
-
-  const pages = ["Flashcards", "To-do List", "Calendar"];
-  const settings = ["Account", "Logout"];
-
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -67,9 +59,6 @@ function Navbar() {
     <AppBar position="static" className="bg-dark">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/* <div>
-            <img src={Logo} width={80} />
-          </div> */}
           <Typography
             variant="h6"
             component="div"
@@ -77,8 +66,6 @@ function Navbar() {
           >
             <img src={Logo} width="100" height="80" />
           </Typography>
-          {/* comment */}
-          {/* When Browser is Smaller */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               color="inherit"
@@ -161,16 +148,6 @@ function Navbar() {
                 Calendar
               </Link>
             </Button>
-            {/* <Button
-              key="Get Started"
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-              path="/signup"
-            >
-              <Link to="/signup" className="nabBarOptions">
-                Get Started
-              </Link>
-            </Button> */}
           </Box>
           {/* User Account Options */}
           <Box sx={{ flexGrow: 0 }}>

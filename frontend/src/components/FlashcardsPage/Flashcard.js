@@ -1,9 +1,7 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
-import { Button } from "@mui/material";
 import "./Flashcard.css";
-import NoDeckPage from "./DeckConditionalRendering/NoDeckPage.js";
 import ShowDecksinPage from "./DeckConditionalRendering/ShowDecksinPage.js";
 import { Link } from "react-router-dom";
 import { useUserAuth } from "../Context/UserAuthContext";
@@ -20,20 +18,17 @@ function Flashcard() {
   const [hasDeck, sethasDeck] = useState(true);
   const { user } = useUserAuth();
   const [decks, setDecks] = useState([]);
-  const [flashcard, setFlashcard] = useState([]);
 
   const videoSrc = video;
   const poster = posterpic;
-  const ref = useRef();
   useEffect(() => {
-    // setLoading(true);
     const DecksCollectionRef = collection(
       db,
       "user",
       `${user.uid}`,
       "flashcard"
     );
-    // const todoQuery = query(DecksCollectionRef, orderBy("timeStamp", "desc"));
+
     const unsub1 = onSnapshot(DecksCollectionRef, (queryS) => {
       const decksArray = [];
       queryS.forEach((doc) => {
@@ -43,47 +38,13 @@ function Flashcard() {
       setDecks(decksArray);
     });
 
-    // for (let i = 0; i < decks.length; i++) {
-    //   // console.log(decks[i].id);
-    //   const flashCollectionRef = collection(
-    //     db,
-    //     "user",
-    //     user.uid,
-    //     "flashcard",
-    //     decks[i].id,
-    //     "deck"
-    //   );
-
-    //   // const todoQuery = query(DecksCollectionRef, orderBy("timeStamp", "desc"));
-    //   onSnapshot(flashCollectionRef, (queryS1) => {
-    //     const flashcardArray = [];
-    //     queryS1.forEach((doc) => {
-    //       flashcardArray.push({ ...doc.data(), id: doc.id });
-    //     });
-    //     console.log(flashcardArray);
-    //     setFlashcard(flashcardArray);
-    //   });
-    // }
     return () => unsub1();
-    // return () => unsub2();
   }, []);
   const deleting = async (id) => {
     const docRef = doc(db, "user", `${user.uid}`, "flashcard", id);
     await deleteDoc(docRef);
   };
-  // const editing = async (id) => {
-  //   const docRef = doc(db, "user", user.uid, "flashcard", id);
-  //   if(decks.length==2){
-  //     history.push("/addQACard")
-  //   }
-  //   else if(decks.length ==3){
-  //     history.push("/addDefinitionCard")
-  //   }
-  //   else{
-  //     history.push("/addImageCard")
-  //   }
-  // };
-  // console.log(decks.id);
+
   return (
     <div>
       <div className="flashcard__navbar">
@@ -118,26 +79,6 @@ function Flashcard() {
         </div>
       </section>
 
-      {/*       
-      <section>
-        <div
-          className="max-height-flashcard-section"
-          style={{
-            justifyContent: "center",
-          }}
-        > */}
-      {/* 1st Transparent Background that shows the list of decks and holds the Create New Deck Button */}
-      {/* <div className="transparentBgFlashcard"> */}
-      {/* <h3
-              className="gradient__text"
-              style={{
-                justifyContent: "center",
-                textAlign: "center",
-              }}
-            >
-              Decks
-            </h3> */}
-
       <section className="bg-light text-sm-start p-5 text-center">
         <div className="container text-center p-3 shadow-lg">
           <div>
@@ -148,18 +89,11 @@ function Flashcard() {
 
           <div className="each_deck">
             {decks.map((deck) => (
-              // <div className="card-body text-center">
               <ShowDecksinPage key={deck.id} deck={deck} deleting={deleting} />
             ))}
           </div>
           <div>
-            <Link
-              className="btn btn-dark btn-lg p-2 mb-3"
-              to="/addNewDeck"
-              // style={{
-              //   textDecoration: "none",
-              // }}
-            >
+            <Link className="btn btn-dark btn-lg p-2 mb-3" to="/addNewDeck">
               Create New Deck
             </Link>
           </div>
@@ -193,32 +127,8 @@ function Flashcard() {
           </p>
         </div>
       </footer>
-
-      {/* </div> */}
     </div>
   );
 }
 
 export default Flashcard;
-
-{
-  /* <ShowDecksinPage key={deck.id} deck={deck} deleting={deleting}/> */
-}
-{
-  /* {hasDeck ? <ShowDecksinPage /> : <NoDeckPage />} */
-}
-
-{
-  /* <div class="card">CS103</div>
-              <div class="card">CS104</div>
-              <div class="card">EE210</div>
-              <div class="card">EE457</div>
-              <div class="card">EE330</div>
-              <div class="card">EE312</div>
-              <div class="card">CS210</div>
-              <div class="card">CS332</div>
-              <div class="card">Senior Design</div> */
-}
-{
-  /* </div> */
-}
