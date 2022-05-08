@@ -3,18 +3,6 @@ import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import "./Flashcard.css";
-import {
-  collection,
-  setDoc,
-  addDoc,
-  doc,
-  serverTimestamp,
-  DocumentReference,
-  query,
-  where,
-} from "firebase/firestore";
-import { db, storage } from "../../firebase.js";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { InputBase } from "@mui/material";
 
 function EachFlashCardsImage({ flash, handleDelete, handleEdit3 }) {
@@ -22,7 +10,6 @@ function EachFlashCardsImage({ flash, handleDelete, handleEdit3 }) {
   const [newPurpose, setNewPurpose] = useState(flash.purpose);
   const [newDefinition, setNewDefinition] = useState(flash.definition);
   const [newUrl, setNewUrl] = useState(flash.url);
-  const [progress, setProgress] = useState("");
   const handleChangeWord = (e) => {
     e.preventDefault();
     if (flash.complete === true) {
@@ -53,54 +40,9 @@ function EachFlashCardsImage({ flash, handleDelete, handleEdit3 }) {
     }
   };
 
-  // const handleChangeUrl = (e) => {
-  //   e.preventDefault();
-  // const promises = [];
-  // // let file = e.target[6].files[0];
-  // let file = e.target.files[0];
-  // if (!file) return;
-  // const storageRef = ref(storage, `/files/${file.name}`);
-  // const uploadTask = uploadBytesResumable(storageRef, file);
-  // promises.push(uploadTask);
-
-  // uploadTask.on(
-  //   "state_changed",
-  //   (snapshot) => {
-  //     const prog = Math.round(
-  //       (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-  //     );
-  //     setProgress(prog);
-  //   },
-  //   (err) => console.log(err),
-  //   () => {
-  //     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-  //       console.log(downloadURL);
-  //       // const values1 = [...inputFields];
-  //       // setLoading(!loading);
-  //       // values1[index][e.target[6].name] = downloadURL;
-  //       // setInputField(values1);
-  //         setNewUrl(downloadURL);
-
-  //         // if (flash.complete === true) {
-  //         //   setNewUrl(downloadURL);
-  //         // } else {
-  //         //   flash.url = "";
-  //         //   setNewUrl(downloadURL);
-  //         // }
-  //         console.log(newUrl);
-  //     });
-  //   }
-  // );
-  // Promise.all(promises).then(() => {
-  //   console.log("this is after the promise");
-  // });
-  // };
-
   return (
     <div className="card" style={{ margin: 10 }}>
-      {/* SHOW THIS DIV IF User has no decks in their data */}
       <div className="flashcard-container">
-        {/* <form> */}
         <div className="flashcard-word">
           <InputBase
             fullWidth

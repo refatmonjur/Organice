@@ -9,7 +9,6 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
@@ -27,25 +26,18 @@ import {
   orderBy,
 } from "firebase/firestore";
 import { db } from "../../firebase";
-import { userData } from "../Context/UserData";
 import { ReactNotifications, Store } from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 import { where } from "firebase/firestore";
 const useStyles = makeStyles({
   header: {
     background: "black",
-    // color: "black",
     boxShadow: "0px 0px 0px 0px",
   },
 });
 
 function NewHomeNavbar() {
-  // style hook here
-  const classes = useStyles();
   const { user } = useUserAuth();
-  const pages = ["Flashcards", "To-do List", "Calendar"];
-  const settings = ["Account", "Logout"];
-  const useruiid = user.uid;
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [currentUser, setCurrentUser] = useState([]);
@@ -103,13 +95,6 @@ function NewHomeNavbar() {
   }
 
   const handleNotification = () => {
-    // first get the todos from the users collection (maybe write a function getUserReminder) and call it here
-    // -> querty them and take only the ones with the (dueDate != "")
-    // -> query where completed is false
-    // order by the earliest first
-    //put them into an array, and use that array like below
-    // getUsersReminder();
-    // setLoading(!loading);
     for (let i = 0; i < reminder.length; i++) {
       const date = new Date(reminder[i].dueDate.toDate());
       const options = {
@@ -139,7 +124,6 @@ function NewHomeNavbar() {
     }
   };
   const { logOut } = useUserAuth();
-
   const history = useHistory();
   const Logout = async () => {
     try {
@@ -151,20 +135,9 @@ function NewHomeNavbar() {
   };
 
   const handlenewUserTodo = async (e) => {
-    // const docRef = collection(db, "user", user.uid, "todos");
-    // const docSnap = await getDoc(docRef);
-    // if (docSnap.exists()) {
-    //  history.push("/todo")
-    // }
-    // else{
-    //   history.push("/newTodo")
-    // }
-
     const recordCol = collection(db, "user", user.uid, "todos");
     onSnapshot(recordCol, (querySnapshot) => {
-      // if record array length is 0 then this is a new user with no todo
       const record = [];
-      // map all todos from collection to record array
       querySnapshot.forEach((doc) => {
         record.push(doc.data());
       });
@@ -184,7 +157,6 @@ function NewHomeNavbar() {
     }
   }, []);
 
-  // sx={{ bgcolor: "#292b2c" }}
   return (
     <AppBar position="static" className="bg-dark">
       <ReactNotifications />
@@ -198,12 +170,7 @@ function NewHomeNavbar() {
             <Link to="/home">
               <img src={Logo} width="85" height="68" />
             </Link>
-            {/* <img src={Logo} width="100" height="80" /> */}
-
-            {/* <img src={Logo} width="100" height="80" /> */}
           </Typography>
-          {/* comment */}
-          {/* When Browser is Smaller */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               color="inherit"
@@ -247,7 +214,6 @@ function NewHomeNavbar() {
               </MenuItem>
             </Menu>
           </Box>
-          {/* When Browser is Maximized */}
           <Typography
             variant="h6"
             component="div"
@@ -286,16 +252,6 @@ function NewHomeNavbar() {
                 Calendar
               </Link>
             </Button>
-            {/* <Button
-              key="Get Started"
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-              path="/signup"
-            >
-              <Link to="/signup" className="nabBarOptions">
-                Get Started
-              </Link>
-            </Button> */}
           </Box>
           {/* User Account Options */}
           <Box sx={{ flexGrow: 0 }}>
@@ -339,12 +295,6 @@ function NewHomeNavbar() {
               <MenuItem onClick={handleNotification} className="menuOptions">
                 Notifications
               </MenuItem>
-
-              {/* <MenuItem key="logout" onClick={(Logout, handleCloseNavMenu)}>
-                <Link to="/" className="menuOptions" textAlign="center">
-                  Logout
-                </Link>
-              </MenuItem> */}
               <MenuItem onClick={Logout} className="menuOptions">
                 Log Out
               </MenuItem>

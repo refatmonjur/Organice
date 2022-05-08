@@ -1,16 +1,8 @@
 import React from "react";
-import CssBaseline from "@mui/material/CssBaseline";
-import Box from "@mui/material/Box";
 import { useEffect } from "react";
-import Container from "@mui/material/Container";
 import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import Avatar from "@mui/material/Avatar";
-import Stack from "@mui/material/Stack";
-import { deepOrange } from "@mui/material/colors";
 import TextField from "@mui/material/TextField";
 import "./Profile.css";
-import { Paper } from "@mui/material";
 import { Button } from "@mui/material";
 import { Dialog } from "@mui/material";
 import { DialogActions } from "@mui/material";
@@ -20,12 +12,7 @@ import { useState } from "react";
 import { db } from "../../firebase";
 import imageavatar from "./avatar.png";
 import { useUserAuth } from "../Context/UserAuthContext";
-import { useLocation } from "react-router-dom";
-import { doc, getDoc, collection, onSnapshot, updateDoc, } from "firebase/firestore";
-// function useQuery() {
-//   const location = useLocation();
-//   return new URLSearchParams(location.search);
-// }
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 function Profile() {
   const [open, setOpen] = useState(false);
@@ -38,7 +25,6 @@ function Profile() {
   const [currentUser, setCurrentUser] = useState([]);
 
   const handleClose = () => {
-    //add update name function here
     handleNameUpdate(firstName, lastName);
     setOpen(false);
   };
@@ -57,7 +43,7 @@ function Profile() {
   };
   async function getUsers(db) {
     try {
-      const userDocRef = doc(db, "user", user.uid);
+      const userDocRef = doc(db, "user", `${user?.uid}`);
       const data = await getDoc(userDocRef);
       const fields = [];
       fields.push(data.data());
@@ -65,27 +51,22 @@ function Profile() {
     } catch (e) {
       console.log(e.message);
     }
+  }
+  const handleNameUpdate = async (firstName, lastName) => {
+    const docRef = doc(db, "user", `${user?.uid}`);
+    await updateDoc(docRef, { firstName: firstName, lastName: lastName });
   };
-  const handleNameUpdate = async(firstName, lastName) => {
-    const docRef = doc(db, "user", user.uid);
-      await updateDoc(docRef, { firstName: firstName, lastName: lastName});
-    };
-    
+
   useEffect(() => {
     getUsers(db);
-    setFirstName("");  
+    setFirstName("");
     setLastName("");
-
   }, []);
   return (
     <div>
       <NewHomeNavbar />
-
       <div className="welcome">Welcome Back,</div>
-
-      {/* everything goes inside here */}
       <div className="container_1 bg-dark shadow-lg p-5 mb-5 rounded border-primary">
-        {/* image container */}
         <div className="avatar--container">
           <img
             src={imageavatar}
@@ -97,33 +78,19 @@ function Profile() {
             }}
           />
         </div>
-        {/* name field */}
         {currentUser.map((users) => {
           return (
-            <div className="namefield-container bg-light">
-              {/* <TextField
-                id="outlined-basic"
-                variant="standard"
-                size="small"
-                value={"Name: " + users.firstName + " " + users.lastName}
-                InputProps={{
-                  readOnly: true,
-                }}
-              /> */}
-              <TextField
-                id="outlined-read-only-input"
-                label="Name:"
-                value={ users.firstName + " " + users.lastName}
-                InputProps={{
-                  readOnly: true,
-                }}
-                variant="filled"
-              />
+            <div className="bg-dark">
+              <h3 className="text-light border-bottom border-secondary">
+                Name:{" "}
+                <span className="text-warning">
+                  {users?.firstName + " " + users?.lastName}
+                </span>
+              </h3>
             </div>
           );
         })}
 
-        {/* update user info */}
         <div className="userinfo-container">
           <button
             style={{ height: "50px", width: "280px" }}
@@ -144,13 +111,6 @@ function Profile() {
             Update Password
           </button>
         </div>
-
-        {/* <div>
-          <TextField id="outlined-basic" label="Change Passwordç" variant="outlined" />
-        </div>
-        <div>
-          <TextField id="outlined-basic" label="Change Passwordç" variant="outlined" />
-        </div> */}
       </div>
       <div>
         <Dialog open={open} onClose={handleClose}>
@@ -162,8 +122,8 @@ function Profile() {
                 label=" Enter New First Name"
                 variant="outlined"
                 size="small"
-                type= "text"
-                value= {firstName}
+                type="text"
+                value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
               <TextField
@@ -171,8 +131,8 @@ function Profile() {
                 label=" Enter New Last Name"
                 variant="outlined"
                 size="small"
-                type= "text"
-                value= {lastName}
+                type="text"
+                value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
             </div>
@@ -183,8 +143,6 @@ function Profile() {
           </DialogActions>
         </Dialog>
       </div>
-
-
 
       <div>
         <Dialog open={openPass} onClose={handleClosePass}>
@@ -207,24 +165,6 @@ function Profile() {
         </Dialog>
       </div>
     </div>
-    // {/*
-    //       <div className='button'>
-
-    //         <TextField id="outlined-basic" label="Change Passwordç" variant="outlined" />
-    //       </div>
-
-    //       <div className='picture'>
-    //         <Stack>
-    //           <Avatar
-    //             sx={{ bgcolor: deepOrange[500] }}
-    //             alt="Remy Sharp"
-    //             src="/broken-image.jpg"
-    //           >
-    //             R
-    //           </Avatar>
-
-    //         </Stack>
-    //       </div> */}
   );
 }
 

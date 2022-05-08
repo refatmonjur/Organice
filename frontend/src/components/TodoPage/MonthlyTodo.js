@@ -2,20 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import NewHomeNavbar from "../NavbarPage/NewHomeNavbar";
-import { Button } from "@mui/material";
-import TodayIcon from "@mui/icons-material/Today";
-import DateRangeRoundedIcon from "@mui/icons-material/DateRangeRounded";
-import CalendarViewMonthRoundedIcon from "@mui/icons-material/CalendarViewMonthRounded";
-import { Link } from "react-router-dom";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { db } from "../../firebase.js";
-
-//react icons
-import * as BsIcons from "react-icons/bs";
-import { IconContext } from "react-icons";
 import SidebarToDo from "./Sidebar/SidebarTodo";
-
-//css
 import "./WindowTodo.css";
 
 function MonthlyTodo() {
@@ -23,10 +12,7 @@ function MonthlyTodo() {
   const [todos, setTodos] = useState([]);
   const [todos1, setTodos1] = useState([]);
   useEffect(() => {
-    // setLoading(true);
-    // var today = new DateTime.now();
-    // today = new DateTime(today.year, today.month, today.day);
-    const TodoCollectionRef = collection(db, "user", user.uid, "todos");
+    const TodoCollectionRef = collection(db, "user", `${user.uid}`, "todos");
     var sevenday = Date.now() + 2592000000;
     var beginningDateObject = new Date(sevenday);
     const todoQuery = query(
@@ -39,15 +25,11 @@ function MonthlyTodo() {
       where("dueDate", "==", ""),
       where("completed", "==", false)
     );
-
-    // Timestamp.now().toDate()
     const unsub = onSnapshot(todoQuery, (queryS) => {
       const todosArray = [];
       queryS.forEach((doc) => {
         todosArray.push({ ...doc.data(), id: doc.id });
       });
-
-      // console.log(Timestamp.now().toDate());
       console.log(todosArray);
       setTodos(todosArray);
     });
@@ -57,7 +39,6 @@ function MonthlyTodo() {
       queryS.forEach((doc) => {
         todosArray1.push({ ...doc.data(), id: doc.id });
       });
-      // console.log(Timestamp.now().toDate());
       console.log(todosArray1);
       setTodos1(todosArray1);
     });

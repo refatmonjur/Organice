@@ -12,7 +12,7 @@ import {
   orderBy,
   query,
   where,
-  limitToLast
+  limitToLast,
 } from "firebase/firestore";
 
 import "./NewHome.css";
@@ -30,14 +30,6 @@ import NoteOutlinedIcon from "@mui/icons-material/NoteOutlined";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 
 function NewHome() {
-  // const { user } = useUserAuth();
-  // const useruiid = await signUp(registerEmail, registerPassword);
-  // const useruiid = user.uid;
-  // const userCollectionRef = doc(db, "user", "FxfgfcgsziWsOWCUxU2ZaA57lU02");
-  // const [currentUser, setCurrentUser] = useState([]);
-  // const [todos, setTodos] = useState([]);
-  // "FxfgfcgsziWsOWCUxU2ZaA57lU02"
-
   const [todos, setTodos] = useState([]);
   const [Loading, setLoading] = useState(false);
   const { user } = useUserAuth();
@@ -46,10 +38,10 @@ function NewHome() {
   const [currentUser, setCurrentUser] = useState([]);
   const [notification, setNotification] = useState([]);
   const [notification1, setNotification1] = useState([]);
-  const [ events, setEvents] = useState([]);
+  const [events, setEvents] = useState([]);
 
   async function getUsers(db) {
-    const userDocRef = doc(db, "user", user.uid);
+    const userDocRef = doc(db, "user", `${user.uid}`);
     const data = await getDoc(userDocRef);
     console.log(data);
     const fields = [];
@@ -61,8 +53,8 @@ function NewHome() {
   useEffect(() => {
     getUsers(db);
 
-    const TodoCollectionRef = collection(db, "user", user.uid, "todos");
-    const EventCollectionRef = collection(db, "user", user.uid, "events");
+    const TodoCollectionRef = collection(db, "user", `${user.uid}`, "todos");
+    const EventCollectionRef = collection(db, "user", `${user.uid}`, "events");
     const todoQuery = query(TodoCollectionRef, where("dueDate", "!=", ""));
     const unsub = onSnapshot(todoQuery, (queryS) => {
       const todosArray = [];
@@ -73,7 +65,12 @@ function NewHome() {
       setTodos(todosArray);
     });
 
-    const DecksCollectionRef = collection(db, "user", user.uid, "flashcard");
+    const DecksCollectionRef = collection(
+      db,
+      "user",
+      `${user.uid}`,
+      "flashcard"
+    );
     const unsub1 = onSnapshot(DecksCollectionRef, (queryS1) => {
       const decksArray = [];
       queryS1.forEach((doc) => {
@@ -109,8 +106,8 @@ function NewHome() {
       where("dueDate", ">", beginningDateObject),
       where("dueDate", "<", endDate),
       where("completed", "==", false),
-      orderBy("dueDate","asc"),
-      limitToLast(1),
+      orderBy("dueDate", "asc"),
+      limitToLast(1)
     );
 
     const unsubs = onSnapshot(notifquery, (queryS) => {
@@ -119,21 +116,19 @@ function NewHome() {
         noti.push({ ...doc.data(), id: doc.id });
       });
 
-      
-
       // console.log(Timestamp.now().toDate());
       console.log(noti);
       setNotification(noti);
     });
     console.log(notification);
 
-    // event notifcation 
+    // event notifcation
     const eventquery = query(
       EventCollectionRef,
       where("startDate", ">", beginningDateObject),
       where("startDate", "<", endDate),
-      orderBy("startDate","asc"),
-      limitToLast(1),
+      orderBy("startDate", "asc"),
+      limitToLast(1)
     );
 
     const unsubs1 = onSnapshot(eventquery, (queryS) => {
@@ -188,7 +183,6 @@ function NewHome() {
     return new_date;
   };
 
-
   return (
     <div className="bg-dark">
       <div>
@@ -234,8 +228,14 @@ function NewHome() {
             {notification1.map((events) => (
               <div className="card text-light bg-secondary mt-2 p-2">
                 {events.title}
-                <small class="italicize"> Start Date: {handleDate1(events)}</small>
-                <small class="italicize"> End Date: {handleDate2(events)} </small>
+                <small class="italicize">
+                  {" "}
+                  Start Date: {handleDate1(events)}
+                </small>
+                <small class="italicize">
+                  {" "}
+                  End Date: {handleDate2(events)}{" "}
+                </small>
               </div>
             ))}
           </div>
@@ -257,7 +257,8 @@ function NewHome() {
                   </div>
                   <h3 className="card-title">To do List</h3>
                   <p className="card-text">
-                  The To-do feature is an add-on tool that allowing users to plan out their activities for the next few days or weeks.
+                    The To-do feature is an add-on tool that allowing users to
+                    plan out their activities for the next few days or weeks.
                   </p>
                   <Link className="btn btn-primary" to="/todo">
                     To do
@@ -275,7 +276,9 @@ function NewHome() {
                   </div>
                   <h3 className="card-title">Flashcard</h3>
                   <p className="card-text">
-                  Flashcards may be used to create a flashcard deck, add/remove flashcards from the deck, and study the flashcard deck. 
+                    Flashcards may be used to create a flashcard deck,
+                    add/remove flashcards from the deck, and study the flashcard
+                    deck.
                   </p>
                   <Link className="btn btn-dark" to="/flashcard">
                     Flashcard
@@ -293,7 +296,8 @@ function NewHome() {
                   </div>
                   <h3 className="card-title">Calendar</h3>
                   <p className="card-text">
-                  The Calendar function will remind users of all impending tasks/assignments along with comments and descriptions.
+                    The Calendar function will remind users of all impending
+                    tasks/assignments along with comments and descriptions.
                   </p>
                   <Link className="btn btn-primary" to="/calendar">
                     Calendar
@@ -374,7 +378,7 @@ function NewHome() {
             Reminders and Events
           </h2>
           <p className="lead text-center text-dark mb-5">
-          Here are your upcoming To-do Events and Calendar Reminders:
+            Here are your upcoming To-do Events and Calendar Reminders:
           </p>
           <div className="row g-4">
             <div className="col-md-12 col-lg-6">
@@ -384,14 +388,13 @@ function NewHome() {
                     <h4 className="text-info">Events</h4>
                   </div>
                   <div>
-                  {events.map((events) => (
-                    <div className="card bg-light text-center p-2 mt-2">
-                      {" "}
-                      {events.title} {" "}
-                      {handleDate1(events)} {" "}
-                      - {handleDate2(events)}
-                    </div>
-                  ))}
+                    {events.map((events) => (
+                      <div className="card bg-light text-center p-2 mt-2">
+                        {" "}
+                        {events.title} {handleDate1(events)} -{" "}
+                        {handleDate2(events)}
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>

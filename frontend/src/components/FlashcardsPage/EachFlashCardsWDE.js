@@ -4,15 +4,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Input, InputBase } from "@mui/material";
 
-// Justin -> added prompt and answer for testing,
-//  feel free to get rid of it since it is not needed and is extra
-//    prompt was meant to imitate flash.question
-//    answer imitates the flash.answer
 function EachFlashCardsWDE({ flash, handleDelete, handleEdit }) {
-  // const handleDelete = async (flash) => {
-  //   const docRef3 = doc(db, "user", user.uid, "flashcard", deckName, "deck", flash);
-  //   await deleteDoc(docRef3);
-  // };
   const [newWord, setNewWord] = useState(flash.word);
   const [newDefinition, setNewDefinition] = useState(flash.definition);
   const [newExample, setNewExample] = useState(flash.example);
@@ -49,9 +41,7 @@ function EachFlashCardsWDE({ flash, handleDelete, handleEdit }) {
 
   return (
     <div className="card " style={{ margin: 10 }}>
-      {/* SHOW THIS DIV IF User has no decks in their data */}
       <div className="flashcard-container">
-        {/* <form> */}
         <div className="flashcard-prompt">
           <InputBase
             fullWidth

@@ -3,10 +3,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useState } from "react";
 import { InputBase, TextField } from "@mui/material";
-// Justin -> added prompt and answer for testing,
-//  feel free to get rid of it since it is not needed and is extra
-//    prompt was meant to imitate flash.question
-//    answer imitates the flash.answer
 function EachFlashCards({ flash, handleDelete, handleEdit2 }) {
   const [newQuestion, setNewQuestion] = useState(flash.question);
   const [newAnswer, setNewAnswer] = useState(flash.answer);
@@ -32,10 +28,8 @@ function EachFlashCards({ flash, handleDelete, handleEdit2 }) {
 
   return (
     <div className="card" style={{ margin: 10 }}>
-      {/* SHOW THIS DIV IF User has no decks in their data */}
       <div className="flashcard-container">
         <div className="flashcard-prompt">
-          {/* <p>Question: {flash.question}</p> */}
           <InputBase
             fullWidth
             multiline

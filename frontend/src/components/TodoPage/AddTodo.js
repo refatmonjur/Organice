@@ -1,11 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import {
-  collection,
-  addDoc,
-  serverTimestamp,
-  Timestamp,
-} from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase.js";
 import { useUserAuth } from "../Context/UserAuthContext";
 import "./Todo.css";
@@ -14,7 +9,6 @@ import MoreProperties from "./Dialog/MoreProperties.js";
 export default function AddTodo() {
   const [input, setInput] = useState("");
   const { user } = useUserAuth();
-  // const [open, setOpen] = useState(false);
   const [dateTime, setDateTime] = useState("");
   const [description, setDescription] = useState("");
 
@@ -23,7 +17,7 @@ export default function AddTodo() {
     console.log("i am here ");
 
     if (input !== "") {
-      const todosCollec = collection(db, "user", user.uid, "todos");
+      const todosCollec = collection(db, "user", `${user.uid}`, "todos");
       await addDoc(todosCollec, {
         title: input,
         completed: false,
@@ -37,17 +31,6 @@ export default function AddTodo() {
     }
   };
 
-  // const handleChange = (newValue) => {
-  //   setDateTime(newValue);
-  // };
-
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
-
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
   return (
     <form onSubmit={handleSubmit}>
       <input
@@ -62,7 +45,7 @@ export default function AddTodo() {
         <div className="btn_container">
           <button>SAVE</button>
         </div>
-        {/* MoreProperties.js LOCATED in Dialog Folder*/}
+
         <MoreProperties
           className="moreColor"
           dateTime={dateTime}

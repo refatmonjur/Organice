@@ -3,23 +3,10 @@ import Flippy, { FrontSide, BackSide } from "react-flippy";
 import { useState, useEffect, useRef } from "react";
 import { db } from "../../firebase";
 import { useUserAuth } from "../Context/UserAuthContext";
-import {
-  collection,
-  getDoc,
-  doc,
-  onSnapshot,
-  addDoc,
-  query,
-  updateDoc,
-  deleteDoc,
-  orderBy,
-} from "firebase/firestore";
-import { Button } from "@mui/material";
-import { handleBreakpoints } from "@mui/system";
+import { collection, onSnapshot } from "firebase/firestore";
 import "./Flashcard.css";
 
 function StudyEachCard({ deckName }) {
-  // this is the component for studying flashcards and changing to next card
   const ref = useRef();
   const { user } = useUserAuth();
   const [flashCards, setFlashCards] = useState([]);
@@ -28,7 +15,7 @@ function StudyEachCard({ deckName }) {
     const DeckCollectionRef = collection(
       db,
       "user",
-      user.uid,
+      `${user.uid}`,
       "flashcard",
       deckName,
       "deck"
@@ -66,7 +53,7 @@ function StudyEachCard({ deckName }) {
 
       <div className="mb-3">
         <Flippy
-          flipOnClick={true} // default false
+          flipOnClick={true}
           flipDirection="vertical"
           ref={ref}
           style={{
@@ -76,16 +63,11 @@ function StudyEachCard({ deckName }) {
             maxHeight: "50%",
             margin: "0 auto",
             width: "50%",
-          }} /// these are optional style, it is not necessary
+          }}
         >
           <FrontSide
             style={{
-              // color: "white",
               backgroundColor: "#00203FFF",
-              // fontSize: 20,
-              // display: "flex",
-              // justifyContent: "space-between",
-              // alignItems: "center",
             }}
           >
             <h4 className="text-muted"> Question: </h4>
@@ -101,47 +83,9 @@ function StudyEachCard({ deckName }) {
             style={{
               backgroundColor: "#9CC3D5FF",
               fontSize: 20,
-              // display: "flex",
-              // justifyContent: "space-evenly",
-              // alignItems: "center",
             }}
           >
             <h4 className="text-muted"> Answer: </h4>
-
-            {/* {flashCards.map((flashcard) => (
-              <div>
-                {Object.keys(flashcard).length == 3 && (
-                  <p>{flashCards[currentCard].answer}</p>
-                )}
-                {Object.keys(flashcard).length == 4 && (
-                  <div>
-                    <p>{flashCards[currentCard].definition}</p>
-                    <p>{flashCards[currentCard].example}</p>
-                  </div>
-                )}
-                {Object.keys(flashcard).length == 5 && (
-                  <div>
-                    <p>{flashCards[currentCard].definition}</p>
-                    <p>{flashCards[currentCard].purpose}</p>
-                    <img
-                      className="photo"
-                      src={flashCards[currentCard].url}
-                    ></img>
-                  </div>
-                )}
-              </div>
-            ))} */}
-            {/* {flashCards.length > 0 && (
-              <div className="d-flex justify-content-around align-items-center">
-                <p>{flashCards[currentCard].answer}</p>
-
-                <p>{flashCards[currentCard].definition}</p>
-
-                <p>{flashCards[currentCard].example}</p>
-                <p>{flashCards[currentCard].purpose}</p>
-                <img className="photo" src={flashCards[currentCard].url}></img>
-              </div>
-            )} */}
             {getLength(flashCards) == 3 && (
               <div className="text-center pt-5 mt-5">
                 <p>{flashCards[currentCard].answer}</p>
@@ -203,14 +147,6 @@ function StudyEachCard({ deckName }) {
                 </div>
               </div>
             )}
-            {/* {flashCards.length > 0 && (
-              <p>{flashCards[currentCard].definition}</p>
-            )}
-            {flashCards.length > 0 && <p>{flashCards[currentCard].example}</p>}
-            {flashCards.length > 0 && <p>{flashCards[currentCard].purpose}</p>}
-            {flashCards.length > 0 && (
-              <img className="photo" src={flashCards[currentCard].url}></img>
-            )} */}
           </BackSide>
         </Flippy>
       </div>
