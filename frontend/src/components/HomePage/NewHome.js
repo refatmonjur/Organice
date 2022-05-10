@@ -41,7 +41,7 @@ function NewHome() {
   const [events, setEvents] = useState([]);
 
   async function getUsers(db) {
-    const userDocRef = doc(db, "user", `${user.uid}`);
+    const userDocRef = doc(db, "user", user.uid);
     const data = await getDoc(userDocRef);
     console.log(data);
     const fields = [];
@@ -53,8 +53,8 @@ function NewHome() {
   useEffect(() => {
     getUsers(db);
 
-    const TodoCollectionRef = collection(db, "user", `${user.uid}`, "todos");
-    const EventCollectionRef = collection(db, "user", `${user.uid}`, "events");
+    const TodoCollectionRef = collection(db, "user", user.uid, "todos");
+    const EventCollectionRef = collection(db, "user", user.uid, "events");
     const todoQuery = query(TodoCollectionRef, where("dueDate", "!=", ""));
     const unsub = onSnapshot(todoQuery, (queryS) => {
       const todosArray = [];
@@ -65,12 +65,7 @@ function NewHome() {
       setTodos(todosArray);
     });
 
-    const DecksCollectionRef = collection(
-      db,
-      "user",
-      `${user.uid}`,
-      "flashcard"
-    );
+    const DecksCollectionRef = collection(db, "user", user.uid, "flashcard");
     const unsub1 = onSnapshot(DecksCollectionRef, (queryS1) => {
       const decksArray = [];
       queryS1.forEach((doc) => {

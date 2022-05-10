@@ -12,7 +12,7 @@ function WindowTodo() {
   const [todos, setTodos] = useState([]);
   const [todos1, setTodos1] = useState([]);
   useEffect(() => {
-    const TodoCollectionRef = collection(db, "user", `${user.uid}`, "todos");
+    const TodoCollectionRef = collection(db, "user", user.uid, "todos");
     var today = Date.now() + 86400000;
     console.log(today);
     var beginningDateObject = new Date(today);

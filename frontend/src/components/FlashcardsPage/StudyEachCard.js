@@ -15,7 +15,7 @@ function StudyEachCard({ deckName }) {
     const DeckCollectionRef = collection(
       db,
       "user",
-      `${user.uid}`,
+      user.uid,
       "flashcard",
       deckName,
       "deck"

@@ -17,7 +17,7 @@ export default function AddTodo() {
     console.log("i am here ");
 
     if (input !== "") {
-      const todosCollec = collection(db, "user", `${user.uid}`, "todos");
+      const todosCollec = collection(db, "user", user.uid, "todos");
       await addDoc(todosCollec, {
         title: input,
         completed: false,

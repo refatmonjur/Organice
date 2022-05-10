@@ -30,7 +30,7 @@ export default function Todo() {
 
   useEffect(() => {
     setLoading(true);
-    const TodoCollectionRef = collection(db, "user", `${user.uid}`, "todos");
+    const TodoCollectionRef = collection(db, "user", user.uid, "todos");
     const todoQuery = query(TodoCollectionRef, orderBy("timeStamp", "desc"));
     const unsub = onSnapshot(todoQuery, (queryS) => {
       const todosArray = [];
@@ -45,16 +45,16 @@ export default function Todo() {
   }, []);
 
   const handleEdit = async (todo, input) => {
-    const docRef = doc(db, "user", `${user.uid}`, "todos", todo.id);
+    const docRef = doc(db, "user", user.uid, "todos", todo.id);
     await updateDoc(docRef, { title: input });
   };
   const toggleComplete = async (todo) => {
-    const docRef2 = doc(db, "user", `${user.uid}`, "todos", todo.id);
+    const docRef2 = doc(db, "user", user.uid, "todos", todo.id);
     await updateDoc(docRef2, { completed: !todo.completed });
   };
 
   const handleDelete = async (id) => {
-    const docRef3 = doc(db, "user", `${user.uid}`, "todos", id);
+    const docRef3 = doc(db, "user", user.uid, "todos", id);
     await deleteDoc(docRef3);
   };
 

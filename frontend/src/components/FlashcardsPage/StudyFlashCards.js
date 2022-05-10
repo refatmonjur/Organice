@@ -26,7 +26,7 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
     const DecksCollectionRef = collection(
       db,
       "user",
-      `${user.uid}`,
+      user.uid,
       "flashcard",
       deckName,
       "deck"
@@ -43,13 +43,13 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
 
   const handleDelete = async (id) => {
     if (decks1.length == 1) {
-      const docRef5 = doc(db, "user", `${user.uid}`, "flashcard", deckName);
+      const docRef5 = doc(db, "user", user.uid, "flashcard", deckName);
       await deleteDoc(docRef5);
     } else {
       const docRef3 = doc(
         db,
         "user",
-        `${user.uid}`,
+        user.uid,
         "flashcard",
         deckName,
         "deck",
@@ -62,7 +62,7 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
     const docRef4 = doc(
       db,
       "user",
-      `${user.uid}`,
+      user.uid,
       "flashcard",
       deckName,
       "deck",
@@ -79,7 +79,7 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
     const docRef = doc(
       db,
       "user",
-      `${user.uid}`,
+      user.uid,
       "flashcard",
       deckName,
       "deck",
@@ -97,7 +97,7 @@ export default function StudyFlashCards({ deckName, isOpen, onClose }) {
     const docRef = doc(
       db,
       "user",
-      `${user.uid}`,
+      user.uid,
       "flashcard",
       deckName,
       "deck",

@@ -12,7 +12,7 @@ function WeeklyTodo() {
   const [todos, setTodos] = useState([]);
   const [todos1, setTodos1] = useState([]);
   useEffect(() => {
-    const TodoCollectionRef = collection(db, "user", `${user.uid}`, "todos");
+    const TodoCollectionRef = collection(db, "user", user.uid, "todos");
     var sevenday = Date.now() + 604800000;
     var beginningDateObject = new Date(sevenday);
     const todoQuery = query(

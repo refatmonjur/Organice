@@ -60,7 +60,7 @@ function NewHomeNavbar() {
   };
   async function getUsers(db) {
     try {
-      const userDocRef = doc(db, "user", `${user?.uid}`);
+      const userDocRef = doc(db, "user", user.uid);
       const data = await getDoc(userDocRef);
       const fields = [];
       fields.push(data.data());
@@ -72,7 +72,7 @@ function NewHomeNavbar() {
 
   async function getUsersReminder() {
     try {
-      const TodoCollectionRef = collection(db, "user", `${user?.uid}`, "todos");
+      const TodoCollectionRef = collection(db, "user", user.uid, "todos");
 
       const todoQuery1 = query(
         TodoCollectionRef,

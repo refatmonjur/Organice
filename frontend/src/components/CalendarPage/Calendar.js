@@ -48,7 +48,7 @@ export default function Calendar() {
   const handleClose = () => setShow(false);
 
   useEffect(() => {
-    const TodoCollectionRef = collection(db, "user", `${user.uid}`, "todos");
+    const TodoCollectionRef = collection(db, "user", user.uid, "todos");
     const todoQuery = query(TodoCollectionRef, where("dueDate", "!=", ""));
     const unsub = onSnapshot(todoQuery, (queryS) => {
       let todosArray = [];
@@ -58,7 +58,7 @@ export default function Calendar() {
       setTodos(todosArray);
     });
 
-    const eventsCollectionRef = collection(db, "user", `${user.uid}`, "events");
+    const eventsCollectionRef = collection(db, "user", user.uid, "events");
     const unsub1 = onSnapshot(eventsCollectionRef, (queryS1) => {
       let eventsArray = [];
       queryS1.forEach((doc) => {
@@ -106,7 +106,7 @@ export default function Calendar() {
   };
 
   const handleDelete = async (id) => {
-    const docRef = doc(db, "user", `${user.uid}`, "events", id);
+    const docRef = doc(db, "user", user.uid, "events", id);
     await deleteDoc(docRef);
     setShow(false);
   };

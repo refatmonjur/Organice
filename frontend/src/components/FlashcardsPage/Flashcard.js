@@ -22,12 +22,7 @@ function Flashcard() {
   const videoSrc = video;
   const poster = posterpic;
   useEffect(() => {
-    const DecksCollectionRef = collection(
-      db,
-      "user",
-      `${user.uid}`,
-      "flashcard"
-    );
+    const DecksCollectionRef = collection(db, "user", user.uid, "flashcard");
 
     const unsub1 = onSnapshot(DecksCollectionRef, (queryS) => {
       const decksArray = [];
@@ -41,7 +36,7 @@ function Flashcard() {
     return () => unsub1();
   }, []);
   const deleting = async (id) => {
-    const docRef = doc(db, "user", `${user.uid}`, "flashcard", id);
+    const docRef = doc(db, "user", user.uid, "flashcard", id);
     await deleteDoc(docRef);
   };
 

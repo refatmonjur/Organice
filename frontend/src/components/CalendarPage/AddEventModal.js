@@ -93,13 +93,7 @@ export default function AddEventModal({ isOpen, onClose, onEventAdded, arg }) {
       onClose();
       return Swal.fire({ icon: "error", title: "MUST give a end Date" });
     } else {
-      const eventsCollectionRef = doc(
-        db,
-        "user",
-        `${user.uid}`,
-        "events",
-        title
-      );
+      const eventsCollectionRef = doc(db, "user", user.uid, "events", title);
       await setDoc(eventsCollectionRef, {
         title: title,
         startDate: start,

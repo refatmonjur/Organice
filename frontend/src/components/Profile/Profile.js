@@ -43,7 +43,7 @@ function Profile() {
   };
   async function getUsers(db) {
     try {
-      const userDocRef = doc(db, "user", `${user?.uid}`);
+      const userDocRef = doc(db, "user", user.uid);
       const data = await getDoc(userDocRef);
       const fields = [];
       fields.push(data.data());
@@ -53,7 +53,7 @@ function Profile() {
     }
   }
   const handleNameUpdate = async (firstName, lastName) => {
-    const docRef = doc(db, "user", `${user?.uid}`);
+    const docRef = doc(db, "user", user.uid);
     await updateDoc(docRef, { firstName: firstName, lastName: lastName });
   };
 
