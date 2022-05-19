@@ -13,6 +13,7 @@ import { db } from "../../firebase";
 import imageavatar from "./avatar.png";
 import { useUserAuth } from "../Context/UserAuthContext";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+import Swal from "sweetalert2";
 
 function Profile() {
   const [open, setOpen] = useState(false);
@@ -25,8 +26,17 @@ function Profile() {
   const [currentUser, setCurrentUser] = useState([]);
 
   const handleClose = () => {
-    handleNameUpdate(firstName, lastName);
-    setOpen(false);
+    if(firstName === "" && lastName === "")
+    {
+      setOpen(false)
+      Swal.fire({ icon: "error", title: "Please Enter First and Last Name" }); 
+    }
+    else {
+      handleNameUpdate(firstName, lastName);
+      setOpen(false);
+      Swal.fire({ icon: "success", title: "Name has been changed!" }); 
+    }
+    
   };
 
   const handleClickOpen = () => {
@@ -49,12 +59,12 @@ function Profile() {
       fields.push(data.data());
       setCurrentUser(fields);
     } catch (e) {
-      console.log(e.message);
+      Swal.fire({ icon: "error", title: "Please Enter First and Last Name" });
     }
   }
   const handleNameUpdate = async (firstName, lastName) => {
-    const docRef = doc(db, "user", `${user?.uid}`);
-    await updateDoc(docRef, { firstName: firstName, lastName: lastName });
+      const docRef = doc(db, "user", `${user?.uid}`);
+      await updateDoc(docRef, { firstName: firstName, lastName: lastName });
   };
 
   useEffect(() => {

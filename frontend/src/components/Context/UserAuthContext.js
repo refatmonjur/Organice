@@ -11,7 +11,7 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth } from "../../firebase";
-
+import Swal from "sweetalert2";
 const userAuthContext = createContext();
 
 export function UserAuthContextProvider({ children }) {
@@ -69,15 +69,14 @@ export function UserAuthContextProvider({ children }) {
       return sendPasswordResetEmail(auth, email). then(() =>
       { 
           // signOut(auth);
-          console.log("Email Sent!");
+          Swal.fire({ icon: "success", title: "Email Sent!" });
       }).catch((error)=> {
         const errorCode = error.code;
       const errorMessage = error.message;
-        console.log(errorMessage);
       })
     }
     else{
-      console.log("Wrong Email!")
+      Swal.fire({ icon: "error", title: "Wrong Email" });
     }
   }
 
