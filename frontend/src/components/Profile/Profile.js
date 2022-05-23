@@ -26,17 +26,14 @@ function Profile() {
   const [currentUser, setCurrentUser] = useState([]);
 
   const handleClose = () => {
-    if(firstName === "" && lastName === "")
-    {
-      setOpen(false)
-      Swal.fire({ icon: "error", title: "Please Enter First and Last Name" }); 
-    }
-    else {
+    if (firstName === "" && lastName === "") {
+      setOpen(false);
+      Swal.fire({ icon: "error", title: "Please Enter First and Last Name" });
+    } else {
       handleNameUpdate(firstName, lastName);
       setOpen(false);
-      Swal.fire({ icon: "success", title: "Name has been changed!" }); 
+      Swal.fire({ icon: "success", title: "Name has been changed!" });
     }
-    
   };
 
   const handleClickOpen = () => {
@@ -63,8 +60,8 @@ function Profile() {
     }
   }
   const handleNameUpdate = async (firstName, lastName) => {
-      const docRef = doc(db, "user", `${user?.uid}`);
-      await updateDoc(docRef, { firstName: firstName, lastName: lastName });
+    const docRef = doc(db, "user", `${user?.uid}`);
+    await updateDoc(docRef, { firstName: firstName, lastName: lastName });
   };
 
   useEffect(() => {
@@ -123,7 +120,7 @@ function Profile() {
         </div>
       </div>
       <div>
-        <Dialog open={open} onClose={handleClose}>
+        <Dialog open={open} onClose={() => setOpen(false)}>
           <DialogTitle>Update User Info</DialogTitle>
           <DialogContent>
             <div className="userwindow">
@@ -148,7 +145,7 @@ function Profile() {
             </div>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={() => setOpen(false)}>Cancel</Button>
             <Button onClick={handleClose}>Update Info</Button>
           </DialogActions>
         </Dialog>
