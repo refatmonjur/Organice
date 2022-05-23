@@ -100,7 +100,7 @@ function Flashcard() {
         </div>
       </section>
 
-      <section className="bg-dark shadow-lg text-light p-4 text-sm-start text-center">
+      {/* <section className="bg-dark shadow-lg text-light p-4 text-sm-start text-center">
         <div className="container text-center">
           <div className="d-sm-flex align-items-center p-3">
             <div className="VideoJS">
@@ -116,7 +116,7 @@ function Flashcard() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* footer */}
       <footer className="p-2 bg-dark text-light text-center position-relative shadow-lg">
