@@ -14,7 +14,6 @@ import {
   where,
   limitToLast,
 } from "firebase/firestore";
-
 import "./NewHome.css";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
@@ -107,7 +106,7 @@ function NewHome() {
       where("dueDate", "<", endDate),
       where("completed", "==", false),
       orderBy("dueDate", "asc"),
-      limitToLast(1)
+      limitToLast(2)
     );
 
     const unsubs = onSnapshot(notifquery, (queryS) => {
@@ -125,10 +124,10 @@ function NewHome() {
     // event notifcation
     const eventquery = query(
       EventCollectionRef,
-      where("startDate", ">", beginningDateObject),
+      where("startDate", ">=", beginningDateObject),
       where("startDate", "<", endDate),
-      orderBy("startDate", "asc"),
-      limitToLast(1)
+      orderBy("startDate", "desc"),
+      limitToLast(2)
     );
 
     const unsubs1 = onSnapshot(eventquery, (queryS) => {
@@ -182,7 +181,6 @@ function NewHome() {
     const new_date = date.toLocaleDateString(undefined, options);
     return new_date;
   };
-
   return (
     <div className="bg-dark">
       <div>
@@ -213,7 +211,7 @@ function NewHome() {
               alt=""
             ></img>
           </div>
-          <p>Todays Notifications:</p>
+          <p className="text-primary">Todays Notifications:</p>
           <div>
             {notification.map((notif) => (
               <div className="card text-light bg-secondary mt-2 p-2">
@@ -223,7 +221,7 @@ function NewHome() {
             ))}
           </div>
 
-          <p>Todays Events:</p>
+          <p className="mt-3 text-primary">Todays Events:</p>
           <div>
             {notification1.map((events) => (
               <div className="card text-light bg-secondary mt-2 p-2">
