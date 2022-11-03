@@ -61,10 +61,11 @@ Deck Options |  Creating a Flashcard
   npm start
   ```
 ## Contributors
+- Refat Monjur
 - Tanvir Youhana
 - Md Islam
 - Justin Siu
-- Refat Monjour
+
 
 ## Documentation
 [Project Report](https://github.com/Tanvir-Youhana/Organice/blob/main/Organice_documentation.pdf)
